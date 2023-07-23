@@ -1,0 +1,23 @@
+@import '../../style/variables.scss';
+@import '../../style/mixins.scss';
+
+.game__field{
+    display: flex;
+    background-color: $color-white-1;
+    transition: background-color 1s;
+    min-height: 100vh;
+    
+    main{
+        padding: 3rem;
+        padding-right: 90px;
+        @media (max-width: 768px){
+            padding-right: 0px;
+        }
+        width: 100%;
+        
+    }
+}
+
+#dark .game__field{
+    background-color: $color-dark-mode-primary;
+}

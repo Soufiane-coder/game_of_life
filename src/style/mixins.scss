@@ -1,0 +1,73 @@
+@import './variables.scss';
+@import './fonts.scss';
+
+@mixin popup-properties{
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: $color-white-1;
+    top: 50%;
+    left: 50%;
+    margin-left: calc(0px - $width-of-popup / 2);
+    margin-top : calc(0px - $height-of-popup / 2);
+    border-radius: 30px;
+    padding: 2rem;
+    height: $height-of-popup;
+    width: $width-of-popup;
+    @media (max-width: 562px) {
+        height: $height-of-popup * 2;
+        margin-top : calc(0px - $height-of-popup);
+        margin-left: calc(0px - $width-of-popup * .7 / 2);
+        width: $width-of-popup * .7;
+    }
+}
+
+@mixin windows-properties{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.542);
+}
+
+@mixin description-title{
+    color: $color-quoter;
+    font-size: 3.1rem * 1.5;
+    font-weight: 600;
+    transition: color 1s;
+}
+
+@mixin description-title-light {
+    @include description-title;
+    color: $color-quoter;
+}
+
+@mixin description-title-dark {
+    @include description-title;
+    color: $color-white-1;
+}
+
+@mixin clear-input-styles{
+    background-color: transparent;
+                border: none;
+                &:focus{
+                    border: none;
+                    outline: none;
+                }
+}
+
+@mixin transition-for-dark-mode{
+    transition: color 1s;
+    transition: background-color 1s;
+}
+
+@mixin scale-routine{
+    :root{
+        --scale: 1;
+        @media (max-width: 562px) {
+          --scale: 1.4;
+      }
+      }
+}

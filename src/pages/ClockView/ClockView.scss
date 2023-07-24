@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-
+    transition: background-color 1s;
     .clock-b{
         display: flex;
         justify-content: center;
@@ -18,4 +18,8 @@
         height: $clock-size + 20px;
         margin-right: - $clock-size - 20px;
     }
+}
+
+#dark .clock-view-page{
+    background-color: $color-dark-mode-primary;
 }

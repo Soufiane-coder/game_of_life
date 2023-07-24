@@ -80,7 +80,7 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 			{
 				routine.combo !== '0' ? <div className="comboed"></div> : ""
 			}
-			<div className="emoji">{routine.emoji}</div>
+			<div className="emoji" style={{ backgroundColor: '#' + routine.bgEmojiColor }}>{routine.emoji}</div>
 			<div className="title">{routine.title}</div>
 			<div className="description">{routine.description}</div>
 			<div className="extra">

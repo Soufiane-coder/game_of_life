@@ -12,13 +12,7 @@ import Zoom from 'react-reveal/Zoom';
 
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react';
-
-function getRandomRGB() {
-    const r = Math.floor(Math.random() * 256); // Random value between 0 and 255 (inclusive)
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgb(${r}, ${g}, ${b})`;
-}
+import { randomColor } from 'randomcolor';
 
 const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
     const [emoji, setEmoji] = useState("");
@@ -51,7 +45,7 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
                     priority: addRoutineForm.important ? "important" : "low",
                     emoji: emoji,
                     notification: "00:00",
-                    backgroundEmoji: getRandomRGB(),
+                    backgroundEmoji: randomColor(),
                 }
             });
             setPopup(false);

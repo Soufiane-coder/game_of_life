@@ -1,7 +1,7 @@
 @import '../../../style/variables.scss';
 
 $shifting : -10rem;
-.title{
+.header-title{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,7 +160,7 @@ $shifting : -10rem;
 }
 
 
-#dark .title{
+#dark .header-title{
     color: $color-white-1;
     .introduction-text{   
        .quote{

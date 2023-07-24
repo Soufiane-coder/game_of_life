@@ -4,6 +4,7 @@ import { ReactComponent as GamePageIcon } from '../../assets/icons/gamepage.svg'
 import { ReactComponent as SignInPageIcon } from '../../assets/icons/sign-in-page.svg';
 import { ReactComponent as SignUpPageIcon } from '../../assets/icons/sign-up-page.svg';
 import { ReactComponent as SettingPageIcon } from '../../assets/icons/setting-page.svg';
+import { ReactComponent as ClockIcon } from '../../assets/icons/schedule.svg';
 import { ReactComponent as StatisticsIcon } from '../../assets/icons/statistics.svg';
 import './NavigationBar.scss';
 import { withRouter } from 'react-router-dom';
@@ -26,6 +27,11 @@ const NavigationBar = ({ history, user, setCurrentUser }) => {
         url: '/gameField',
         action: () => { }
     }, {
+        label: 'clock view',
+        icon: ClockIcon,
+        url: '/clockView',
+        action: () => { }
+    }, {
         label: 'statistics',
         icon: StatisticsIcon,
         url: '/statistics',
@@ -40,7 +46,8 @@ const NavigationBar = ({ history, user, setCurrentUser }) => {
         icon: SignInPageIcon,
         url: '/',
         action: () => setCurrentUser("")
-    }
+    },
+
     ]
 
     const menuNotSignedIn = [{

@@ -1,0 +1,21 @@
+
+@import "../../style/variables.scss";
+
+.clock-view-page{
+    background-color: $color-white-1;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .clock-b{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: #{($clock-size + 20px)* 0.5};
+        width: $clock-size + 20px;
+        height: $clock-size + 20px;
+        margin-right: - $clock-size - 20px;
+    }
+}

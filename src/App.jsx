@@ -11,6 +11,7 @@ import { createStructuredSelector } from "reselect";
 import DisplayModeSwitcher from './components/DisplayModeSwitcher/DisplayModeSwitcher';
 import NavigationBar from "./components/NavigationBar/NavigationBar";
 import { selectCurrentDisplayMode } from "./redux/display-mode/display-mode.selector";
+import ClockView from "./pages/ClockView/ClockView";
 
 const App = ({ user, displayMode }) => {
     return (
@@ -22,6 +23,10 @@ const App = ({ user, displayMode }) => {
                     <Route exact={true} path="/">
 
                         <LandingPage />
+                    </Route>
+                    <Route exact={true} path="/clockView">
+
+                        <ClockView />
                     </Route>
                     <Route exact={true} path="/signin">
                         {!user ? (

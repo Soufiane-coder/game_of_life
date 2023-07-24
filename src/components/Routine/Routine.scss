@@ -56,8 +56,12 @@ $width-routine-card: 40rem;
     }
 
     .title {
+        display: block;
+        align-items: start;
+        justify-self: flex-start;
         padding-top: calc($emoji-height * var(--scale));
         font-size: calc(4rem * var(--scale));
+        height: fit-content;
         font-weight: 700;
         max-width: 100%;
         white-space: nowrap;

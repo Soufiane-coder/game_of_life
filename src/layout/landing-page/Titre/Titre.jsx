@@ -7,7 +7,7 @@ import "./Titre.scss";
 import Fade from "react-reveal/Fade";
 
 const Titre = () => (
-    <div className="title">
+    <div className="header-title">
         <div className="introduction-text">
             <Fade left duration={1000}>
                 <h1 className="introduction-text__title">

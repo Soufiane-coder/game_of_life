@@ -4,20 +4,13 @@
 @mixin popup-properties{
     display:flex;
     flex-direction: column;
-    position: absolute;
     background-color: $color-white-1;
-    top: 50%;
-    left: 50%;
-    margin-left: calc(0px - $width-of-popup / 2);
-    margin-top : calc(0px - $height-of-popup / 2);
-    border-radius: 30px;
+    border-radius: 3rem;
     padding: 2rem;
     height: $height-of-popup;
     width: $width-of-popup;
     @media (max-width: 562px) {
         height: $height-of-popup * 2;
-        margin-top : calc(0px - $height-of-popup);
-        margin-left: calc(0px - $width-of-popup * .7 / 2);
         width: $width-of-popup * .7;
     }
 }
@@ -30,6 +23,9 @@
     height: 100vh;
     z-index: 10000;
     background-color: rgba(0, 0, 0, 0.542);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @mixin description-title{

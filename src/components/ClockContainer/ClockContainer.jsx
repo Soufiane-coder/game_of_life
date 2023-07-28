@@ -1,4 +1,3 @@
-import Clock from '../../components/Clock/Clock';
 import './ClockContainer.scss';
 import { beginningOfHourToDegrees, hoursToDegrees } from '../../utils/clock';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";

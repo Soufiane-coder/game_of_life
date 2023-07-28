@@ -42,7 +42,9 @@ $width-routine-card: 40rem;
     }
 
     .emoji {
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: absolute;
         width: calc(10rem * var(--scale));
         height: calc(10rem * var(--scale));
@@ -50,9 +52,10 @@ $width-routine-card: 40rem;
         background-color: rgba(255, 252, 220, 0.702);
         overflow: hidden;
         border-radius: calc(1.6rem * var(--scale));
-        top: -$emoji-height;
+        top: calc(0px - $emoji-height * var(--scale));
         background-color: #1c7430;
         left: calc($width-routine-card * var(--scale) / 2 - 10rem / 2);
+        text-shadow: 1px 2px 2px $color-black-1;
     }
 
     .title {

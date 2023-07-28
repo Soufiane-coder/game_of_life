@@ -13,7 +13,6 @@ const ListRoutine = ({ setShowMessagePopUp, setShowMessageContentPopUp, filterOp
 
 
     return (
-
         <div className="list-routine">
             {
                 filterOption(selectedFilterOption)?.map(routine => {

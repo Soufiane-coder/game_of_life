@@ -66,21 +66,15 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 	}
 
 	return (
-		<div className='routine' id={routine.taskId} style={
-			routine.submitted === "1" ? {
-				transform: "translateY(1.5rem)",
-				boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.262)",
-			}
-				: {}
-		}>
+		<div className='routine' id={routine.taskId}>
 			{
-				routine.priority === 'important' ? <div className="important"></div> : ""
+				routine.priority === 'important' && <div className="important"></div>
 			}
 
 			{
-				routine.combo !== '0' ? <div className="comboed"></div> : ""
+				routine.combo !== '0' && <div className="comboed"></div>
 			}
-			<div className="emoji" style={{ backgroundColor: '#' + routine.bgEmojiColor }}>{routine.emoji}</div>
+			<div className="emoji" style={{ backgroundColor: routine.bgEmojiColor }}>{routine.emoji}</div>
 			<div className="title">{routine.title}</div>
 			<div className="description">{routine.description}</div>
 			<div className="extra">

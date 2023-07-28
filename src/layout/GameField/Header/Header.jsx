@@ -26,6 +26,7 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption 
             switch (tagName) {
                 case 'all':
                     tagValue = Object.keys(routines || {}).length;
+                    break;
                 case 'important':
                     tagValue = routines?.reduce((accum, routine) => routine.priority === "important" ? ++accum : accum, 0);
                     break;
@@ -49,10 +50,9 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption 
 
     return (
         <div className="game__field--header">
-
-            <PopupWindowRoutine {...{ popup, setPopup }} />
-
-
+            {
+                popup && <PopupWindowRoutine {...{ setPopup }} />
+            }
             <div className="user-informations-bar">
                 <div className="tree-lines">
                     <div className="line-one" />

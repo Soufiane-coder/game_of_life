@@ -1,6 +1,7 @@
 @import '../../style/variables.scss';
 
 .filter-drop-menu{
+    width: 40px;
     &__icon{
         fill: $color-black-1;
         transition: fill 1s;

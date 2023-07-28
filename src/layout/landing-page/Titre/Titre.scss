@@ -12,7 +12,7 @@ $shifting : -10rem;
     .introduction-text{
         margin-top: $shifting;
         display: inline;
-        width: 45%;
+        width: 48%;
         margin-right: 5rem;
         @media (max-width: 1024px) {
             margin: 0 2.5rem;
@@ -20,7 +20,7 @@ $shifting : -10rem;
         }
         &__title{
             font-family: 'Quicksand', sans-serif;
-            font-size: 9rem;
+            font-size: 8.5rem;
             position: relative;
             &--color-yellow{
                 color: $color-secondary;
@@ -46,7 +46,7 @@ $shifting : -10rem;
                 width: 15rem;
                 height: 15rem;
                 top: -9rem;
-                left: 40.5rem;
+                left: 38rem;
                 .cls-1{
                     fill:#009145;
                 }

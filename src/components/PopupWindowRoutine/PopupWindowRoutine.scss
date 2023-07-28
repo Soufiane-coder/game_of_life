@@ -30,6 +30,7 @@ $gap : .5rem;
     &__popup {
         @include popup-properties;
         max-height: 90vh;
+        height: fit-content !important;
         overflow-y: scroll;
 
         &::-webkit-scrollbar {

@@ -9,7 +9,7 @@ import displayModeReducer from './display-mode/display-mode.reducer';
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "displayMode"],
+  whitelist: ["user", "displayMode", "routines"],
 };
 
 const rootReducer = combineReducers({

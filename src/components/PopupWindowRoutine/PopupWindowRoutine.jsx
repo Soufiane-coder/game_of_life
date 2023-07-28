@@ -16,8 +16,11 @@ import Picker from '@emoji-mart/react';
 import { randomColor } from 'randomcolor';
 
 import TimeKeeper from "react-timekeeper";
+import { isTimeInArray } from './utils';
+import { timeStringToFloat } from '../../utils/clock';
+import { selectCurrentRoutines } from "../../redux/routines/routines.selector";
 
-const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
+const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
     const [emoji, setEmoji] = useState("");
     const [showEmojiList, setShowEmojiList] = useState(false);
     const [showTimePiker, setShowTimePicker] = useState(false);
@@ -33,10 +36,6 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
             endRoutine: '12:00',
         });
 
-    useEffect(() => {
-        console.log(addRoutineForm.startRoutine, addRoutineForm.endRoutine)
-    }, [addRoutineForm]);
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         if (event.target.type === "checkbox") {
@@ -51,6 +50,14 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
             alert("insert all fields");
             return;
         }
+
+        if (timeStringToFloat(addRoutineForm.startRoutine) > timeStringToFloat(addRoutineForm.endRoutine)) {
+            alert("the hour of start is bigger than the hour of end");
+            return;
+        }
+        const bgEmojiColor = randomColor({
+            luminosity: 'bright',
+        });
         try {
             let res = await $.ajax({
                 url: `${myServer}/addRoutine.php`,
@@ -60,10 +67,13 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
                     title: addRoutineForm.title,
                     description: addRoutineForm.description,
                     level: addRoutineForm.level,
-                    priority: addRoutineForm.important ? "important" : "low",
+                    priority: addRoutineForm.priority,
                     emoji: emoji,
                     notification: "00:00",
-                    backgroundEmoji: randomColor(),
+                    bgEmojiColor,
+                    startRoutine: addRoutineForm.startRoutine,
+                    endRoutine: addRoutineForm.endRoutine,
+                    message: addRoutineForm.message,
                 }
             });
             setPopup(false);
@@ -72,7 +82,6 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
         } catch (err) {
             console.error(`Error detected login : ${err}`);
         }
-
     }
     const handleEmoji = (emoji) => {
         setEmoji(emoji.native);
@@ -86,7 +95,7 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
     }
 
     const handleChangeTime = (newTime) => {
-        // console.log(newTime);
+
         function formatTime(time) {
             const [hours, minutes] = time.split(':');
             const formattedTime = `${hours.padStart(2, '0')}:${minutes}`;
@@ -94,7 +103,11 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
         }
 
         const timeRoutine = formatTime(newTime.formatted24);
-        console.log({ showTimePiker })
+
+        if (isTimeInArray(routines, timeRoutine)) {
+            alert("It is already selected by other routine, choose another one");
+            return;
+        }
         if (showTimePiker === "start-routine") {
             setAddRoutineForm(old => ({ ...old, startRoutine: timeRoutine }))
         } else if (showTimePiker === "end-routine") {
@@ -104,7 +117,7 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
 
 
     return (
-        <div style={!popup ? { display: 'none' } : {}} className="add-routine-window" >
+        <div className="add-routine-window" >
             {
                 showEmojiList && <Picker className="emoji-list" data={data} onEmojiSelect={handleEmoji} />
             }
@@ -114,6 +127,8 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
                     <TimeKeeper
                         time={showTimePiker === "start-routine" ? addRoutineForm.startRoutine : addRoutineForm.endRoutine}
                         onChange={handleChangeTime}
+                        disabledTimeRange={showTimePiker === "start-routine" ? {} : { from: '23:59', to: addRoutineForm.startRoutine }}
+                        hour24Mode
                         doneButton={() => (
                             <div
                                 className="add-routine-window__close-clock"
@@ -152,12 +167,14 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
                             <h4 className="add-routine-window__start-label">Start</h4>
                             <input className="add-routine-window__start-time-input" type="time" name="start-routine"
                                 value={addRoutineForm.startRoutine}
+                                onChange={() => { }}
                                 onClick={handleTimeRoutine}></input>
                         </div>
                         <div className="add-routine-window__end">
                             <h4 className="add-routine-window__end-label">end</h4>
                             <input className="add-routine-window__end-time-input" type="time" name="end-routine"
                                 value={addRoutineForm.endRoutine}
+                                onChange={() => { }}
                                 onClick={handleTimeRoutine}
                             ></input>
                         </div>
@@ -165,20 +182,20 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
                     <div className="add-routine-window__footer-section">
                         <div className="add-routine-window__diff-imp-container">
                             <h4 className='add-routine-window__difficulty-input-label'>Difficulty</h4>
-                            <div class="add-routine-window__difficulty-input-div">
+                            <div className="add-routine-window__difficulty-input-div">
                                 <input className='add-routine-window__difficulty-input' type="range" name="level" id="range-difficulty" min="1" max="5"
                                     value={addRoutineForm.level}
                                     onChange={handleChange} />
-                                <p class="add-routine-window__difficulty-inputvalue">{addRoutineForm.level}🎚️</p>
+                                <p className="add-routine-window__difficulty-inputvalue">{addRoutineForm.level}🎚️</p>
                             </div>
                             <h4 className='add-routine-window__priority-input-label'>Priority</h4>
                             <select className="add-routine-window__priority-input"
                                 name="priority"
                                 value={addRoutineForm.priority}
                                 onChange={handleChange}>
-                                <option className="add-routine-window__priority-option" value="apple">low</option>
-                                <option className="add-routine-window__priority-option" value="banana">medium</option>
-                                <option className="add-routine-window__priority-option" value="orange">important</option>
+                                <option className="add-routine-window__priority-option" value="low">low</option>
+                                <option className="add-routine-window__priority-option" value="medium">medium</option>
+                                <option className="add-routine-window__priority-option" value="important">important</option>
                             </select>
                         </div>
                         <div className="add-routine-window__emoji-add-btn-container">
@@ -192,7 +209,7 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
                                 </button>
                                 <span className="add-routine-window__emoji-over-view">{emoji}</span>
                             </div>
-                            <button className="add-routine-window__add-btn">Add Routine</button>
+                            <button className="add-routine-window__add-btn" type='submit' >Add Routine</button>
                         </div>
                     </div>
                 </form>
@@ -202,7 +219,8 @@ const PopupWindowRoutine = ({ user, addRoutine, popup, setPopup }) => {
     )
 }
 const mapStateToProps = createStructuredSelector({
-    user: selectCurrentUser
+    user: selectCurrentUser,
+    routines: selectCurrentRoutines
 })
 
 const mapDispatchToProps = (dispatch) => ({

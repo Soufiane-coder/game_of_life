@@ -1,5 +1,5 @@
 
-const timeStringToFloat = (timeString, am = false, pm = false) => {
+export const timeStringToFloat = (timeString, am = false, pm = false) => {
     const [hours, minutes] = timeString.split(":").map(Number);
 
     // Calculate the fractional part of an hour
@@ -33,3 +33,5 @@ export const beginningOfHourToDegrees = (hours, am, pm) => {
     const degreesPerHour = 360 / 12;
     return timeStringToFloat(hours, am, pm) * degreesPerHour;
 };
+
+

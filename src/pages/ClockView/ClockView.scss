@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     transition: background-color 1s;
     .clock-b{
         display: flex;

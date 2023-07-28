@@ -25,4 +25,5 @@ export default defineConfig({
       },
     }),
   ],
+  base: '/game_of_life/',
 })

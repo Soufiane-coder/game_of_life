@@ -4,6 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { getAllTimes } from './utils';
 import ReactClock from '@uiw/react-clock';
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ClockContainer = ({ routines, am = false, pm = false }) => {

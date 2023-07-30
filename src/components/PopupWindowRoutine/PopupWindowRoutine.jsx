@@ -35,6 +35,7 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
             startRoutine: '12:00',
             endRoutine: '12:00',
         });
+    const [bgEmojiColorBtn, setbgEmojiColorBtn] = useState("#FAFAFA")
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -55,9 +56,6 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
             alert("the hour of start is bigger than the hour of end");
             return;
         }
-        const bgEmojiColor = randomColor({
-            luminosity: 'bright',
-        });
         try {
             let res = await $.ajax({
                 url: `${myServer}/addRoutine.php`,
@@ -70,7 +68,7 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
                     priority: addRoutineForm.priority,
                     emoji: emoji,
                     notification: "00:00",
-                    bgEmojiColor,
+                    bgEmojiColor: bgEmojiColorBtn,
                     startRoutine: addRoutineForm.startRoutine,
                     endRoutine: addRoutineForm.endRoutine,
                     message: addRoutineForm.message,
@@ -113,6 +111,10 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
         } else if (showTimePiker === "end-routine") {
             setAddRoutineForm(old => ({ ...old, endRoutine: timeRoutine }))
         }
+    }
+    const handleClickBgColor = (event) => {
+        event.preventDefault();
+        setbgEmojiColorBtn(randomColor())
     }
 
 
@@ -199,7 +201,9 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
                             </select>
                         </div>
                         <div className="add-routine-window__emoji-add-btn-container">
+                            <button className="add-routine-window__color-btn" onClick={handleClickBgColor} >Change color</button>
                             <div className="add-routine-window__emoji-section">
+
                                 <button className="add-routine-window__emoji-btn"
                                     onClick={(event) => {
                                         event.preventDefault();
@@ -207,9 +211,10 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
                                     }}>
                                     Choose Emoji
                                 </button>
-                                <span className="add-routine-window__emoji-over-view">{emoji}</span>
+                                <span style={{ backgroundColor: bgEmojiColorBtn }} className="add-routine-window__emoji-over-view">{emoji}</span>
                             </div>
                             <button className="add-routine-window__add-btn" type='submit' >Add Routine</button>
+
                         </div>
                     </div>
                 </form>

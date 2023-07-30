@@ -200,13 +200,13 @@ $gap : .5rem;
         width: calc($width-of-popup / 2 - 5rem);
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-
         @media (max-width: 561px) {
+            margin:10px 0;
             width: 100%;
-            height: 50px;
+            height: 60px;
         }
     }
 
@@ -243,16 +243,29 @@ $gap : .5rem;
         border-radius: 0 10px 10px 0;
     }
 
-    &__add-btn {
+    &__add-btn , &__color-btn{
         @include default-button;
         border-radius: 10px;
-        background-color: $color-primary;
         width: calc(4.1rem + 15rem);
         margin-left: 3px;
+    }
 
+    &__add-btn{
+        background-color: $color-primary;
         &:hover {
             cursor: pointer;
             background-color: $color-primary-1;
+        }
+        @media (max-width: 561px) {
+            margin-top: auto;
+        }
+    }
+
+    &__color-btn{
+        background-color: $color-tertiary;
+        &:hover {
+            cursor: pointer;
+            background-color: $color-tertiary-1;
         }
     }
 

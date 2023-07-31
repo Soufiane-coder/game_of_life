@@ -12,16 +12,10 @@ const LoadingRoutine = ({ routine = {} }) => {
                 <div className="extra">
                 </div>
                 <div className="buttons">
-                    {
-                        routine.submitted === '0' ?
-                            <button className="btn btn-success done"></button>
-                            :
-                            <button className="btn btn-secondary done" disabled></button>
-                    }
-
-
-                    <button className="btn btn-info skip"></button>
-                    <button className="btn remove  "></button>
+                    <button className="btn"></button>
+                    <button className="btn"></button>
+                    <button className="btn"></button>
+                    <button className="btn"></button>
                 </div>
             </div>
         </>

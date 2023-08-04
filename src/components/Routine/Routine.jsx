@@ -5,6 +5,7 @@ import { ReactComponent as Remove } from '../../assets/icons/remove.svg';
 import { ReactComponent as Skip } from '../../assets/icons/skip.svg';
 import { ReactComponent as Undone } from '../../assets/icons/undone.svg';
 import { ReactComponent as MessageIcon } from '../../assets/icons/message.svg';
+import { ReactComponent as MoreOptionsIcon } from '../../assets/icons/more.svg';
 import './Routine.scss';
 import { connect } from "react-redux";
 import { selectCurrentRoutines } from "../../redux/routines/routines.selector";
@@ -92,6 +93,7 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 				<button className="btn btn-info skip" disabled={user.coin < 10} onClick={handleSkip}><Skip /></button>
 				<button className="btn btn-message message "><MessageIcon onClick={handleMessage} /></button>
 				<button className="btn btn-danger remove  " onClick={handleRemove}><Remove /></button>
+				<button className="routine__other-options " onClick={() => alert("other options button")}>< MoreOptionsIcon /></button>
 			</div>
 		</div>
 	)

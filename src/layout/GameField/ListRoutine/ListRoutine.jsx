@@ -9,9 +9,6 @@ import { selectFilteredOption } from "../../../redux/routines/routines.selector"
 
 
 const ListRoutine = ({ setShowMessagePopUp, setShowMessageContentPopUp, filterOption, selectedFilterOption }) => {
-
-
-
     return (
         <div className="list-routine">
             {

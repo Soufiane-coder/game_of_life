@@ -89,12 +89,16 @@ $width-routine-card: 40rem;
         border-bottom: 1px solid $color-black-2;
     }
 
+
     .buttons {
         margin-top: calc(1rem * var(--scale));
         display: flex;
-        justify-content: space-around;
-
+        justify-content: space-between;
+        padding-left: 5px;
+        padding-right: 5px;
+        
         .btn {
+            
             display: inline-block;
             font-weight: 400;
             text-align: center;
@@ -115,7 +119,6 @@ $width-routine-card: 40rem;
             width: calc(5rem * var(--scale));
             height: calc(5rem * var(--scale));
             border-radius: calc(1rem * var(--scale));
-
             svg {
                 fill: $color-white-1;
                 width: 100%;
@@ -320,6 +323,19 @@ $width-routine-card: 40rem;
 
 
 
+    }
+
+    
+    &__other-options{
+        display: block;
+        background-color: transparent;
+        border: none;
+        fill: $color-white-1;
+        height: calc(5rem * var(--scale));
+        cursor: pointer;
+        svg{
+            height: 100%;
+        }
     }
 
 }

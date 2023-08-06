@@ -8,9 +8,12 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { checkRoutine } from '../../redux/routines/routines.actions';
 import { Zoom } from 'react-reveal';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const MessageWindow = ({ user, checkRoutine, showMessagePopUp, setShowMessagePopUp }) => {
     const [messageInput, setMessageInput] = useState('');
+
+    const [doneLoading, setDoneLoading] = useState(false);
 
     const handleChange = (event) => {
         const { value } = event.target;
@@ -19,6 +22,7 @@ const MessageWindow = ({ user, checkRoutine, showMessagePopUp, setShowMessagePop
 
     const fetchData = async () => {
         const id = showMessagePopUp;
+        setDoneLoading(true);
         try {
             await $.ajax({
                 url: `${myServer}/addOne.php`,
@@ -33,7 +37,8 @@ const MessageWindow = ({ user, checkRoutine, showMessagePopUp, setShowMessagePop
             setShowMessagePopUp(false)
         } catch (err) {
             console.error(`Error cannot checked this routine`, err.message);
-            return;
+        } finally {
+            setDoneLoading(false);
         }
     }
 
@@ -50,7 +55,11 @@ const MessageWindow = ({ user, checkRoutine, showMessagePopUp, setShowMessagePop
                     </p>
                     <textarea type="text" className='message-window__input-text' value={messageInput.message} onChange={handleChange} />
                     <div className="message-window__buttons">
-                        <button className="message-window__button message-window__button--filled" onClick={fetchData}>Check this routine</button>
+                        <button className="message-window__button message-window__button--filled" onClick={fetchData}>
+                            {
+                                doneLoading ? <LoadingSpinner /> : "Check this routine"
+                            }
+                        </button>
                         <button className="message-window__button message-window__button--outlined" onClick={() => setShowMessagePopUp(false)}>Cancel</button>
                     </div>
                 </div>

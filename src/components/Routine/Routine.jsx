@@ -14,16 +14,23 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 import { removeRoutine, skipRoutine } from "../../redux/routines/routines.actions";
 import { buySkip } from '../../redux/user/user.actions';
 import myServer from "../server/server";
+import { useState } from "react";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 
 
 const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMessagePopUp, setShowMessageContentPopUp }) => {
+	const [showOtherOptions, setShowOtherOptions] = useState(false);
+	const [deleteLoading, setDeleteLoading] = useState(false);
+	const [skipLoading, setSkipLoading] = useState(false);
+
 	const handleDone = async (event) => {
 		const id = event.target.closest('.routine').id;
 		setShowMessagePopUp(id);
 	}
 
 	const handleSkip = async (event) => {
+		setSkipLoading(true);
 		const id = event.target.closest('.routine').id;
 		try {
 			await $.ajax({
@@ -39,6 +46,8 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 		} catch (err) {
 			console.error(`Error cannot send skip sign to the data base`, err.message);
 			return;
+		} finally {
+			setSkipLoading(false);
 		}
 
 	}
@@ -46,6 +55,7 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 	const handleRemove = async (event) => {
 		if (!window.confirm("Do realy want to remove this item")) return;
 		const id = event.target.closest('.routine').id;
+		setDeleteLoading(true);
 		try {
 			await $.ajax({
 				url: `${myServer}/deleteRoutine.php`,
@@ -58,6 +68,8 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 		} catch (err) {
 			console.error(`Error cannot checked this routine`, err.message);
 			return;
+		} finally {
+			setDeleteLoading(false)
 		}
 	}
 
@@ -65,6 +77,8 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 		const id = event.target.closest('.routine').id;
 		setShowMessageContentPopUp(id);
 	}
+
+
 
 	return (
 		<div className='routine' id={routine.taskId}>
@@ -75,6 +89,7 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 			{
 				routine.combo !== '0' && <div className="comboed"></div>
 			}
+
 			<div className="emoji" style={{ backgroundColor: routine.bgEmojiColor }}>{routine.emoji}</div>
 			<div className="title">{routine.title}</div>
 			<div className="description">{routine.description}</div>
@@ -90,10 +105,29 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 						:
 						<button className="btn btn-secondary done" disabled><Undone /></button>
 				}
-				<button className="btn btn-info skip" disabled={user.coin < 10} onClick={handleSkip}><Skip /></button>
-				<button className="btn btn-message message "><MessageIcon onClick={handleMessage} /></button>
-				<button className="btn btn-danger remove  " onClick={handleRemove}><Remove /></button>
-				<button className="routine__other-options " onClick={() => alert("other options button")}>< MoreOptionsIcon /></button>
+				<button className="btn btn-info skip" disabled={user.coin < 10} onClick={handleSkip}>
+					{
+						skipLoading ? <LoadingSpinner /> : <Skip />
+					}
+				</button>
+				<button className="btn btn-message message" onClick={handleMessage} >
+					<MessageIcon />
+				</button>
+				<button className="btn btn-danger remove  " onClick={handleRemove}>
+					{
+						deleteLoading ? <LoadingSpinner /> : <Remove />
+					}
+
+				</button>
+				<button className="routine__other-options " onClick={() => setShowOtherOptions(!showOtherOptions)}>
+					{
+						showOtherOptions && <ul className="routine__other-options-list">
+							<li className="routine__other-options-item">Edit</li>
+							<li className="routine__other-options-item">Other</li>
+						</ul>
+					}
+					< MoreOptionsIcon />
+				</button>
 			</div>
 		</div>
 	)

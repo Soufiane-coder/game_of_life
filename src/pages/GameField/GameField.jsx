@@ -36,8 +36,6 @@ const GameField = ({ setCurrentRoutines, user }) => {
                 console.error(
                     `Error cannot connect with the data base to list all routines`, err.message
                 );
-                console.error(res);
-                return;
             }
         }
         getFetchRoutines();

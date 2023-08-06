@@ -19,6 +19,7 @@ import TimeKeeper from "react-timekeeper";
 import { isTimeInArray } from './utils';
 import { timeStringToFloat } from '../../utils/clock';
 import { selectCurrentRoutines } from "../../redux/routines/routines.selector";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
     const [emoji, setEmoji] = useState("");
@@ -35,7 +36,9 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
             startRoutine: '12:00',
             endRoutine: '12:00',
         });
-    const [bgEmojiColorBtn, setbgEmojiColorBtn] = useState("#FAFAFA")
+    const [bgEmojiColorBtn, setbgEmojiColorBtn] = useState("#FAFAFA");
+
+    const [loadingAdding, setLoadingAdding] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -56,6 +59,12 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
             alert("the hour of start is bigger than the hour of end");
             return;
         }
+
+        if (isTimeInArray(routines, addRoutineForm.startRoutine) || isTimeInArray(routines, addRoutineForm.endRoutine)) {
+            alert("There is over writing an existing routine")
+            return;
+        }
+        setLoadingAdding(true);
         try {
             let res = await $.ajax({
                 url: `${myServer}/addRoutine.php`,
@@ -79,6 +88,8 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
             addRoutine(res);
         } catch (err) {
             console.error(`Error detected login : ${err}`);
+        } finally {
+            setLoadingAdding(false)
         }
     }
     const handleEmoji = (emoji) => {
@@ -94,7 +105,7 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
 
     const handleChangeTime = (newTime) => {
 
-        function formatTime(time) {
+        const formatTime = (time) => {
             const [hours, minutes] = time.split(':');
             const formattedTime = `${hours.padStart(2, '0')}:${minutes}`;
             return formattedTime;
@@ -213,7 +224,11 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
                                 </button>
                                 <span style={{ backgroundColor: bgEmojiColorBtn }} className="add-routine-window__emoji-over-view">{emoji}</span>
                             </div>
-                            <button className="add-routine-window__add-btn" type='submit' >Add Routine</button>
+                            <button className="add-routine-window__add-btn" type='submit' >
+                                {
+                                    loadingAdding ? <LoadingSpinner /> : "Add Routine"
+                                }
+                            </button>
 
                         </div>
                     </div>

@@ -98,7 +98,6 @@ $width-routine-card: 40rem;
         padding-right: 5px;
         
         .btn {
-            
             display: inline-block;
             font-weight: 400;
             text-align: center;
@@ -327,6 +326,7 @@ $width-routine-card: 40rem;
 
     
     &__other-options{
+        position: relative;
         display: block;
         background-color: transparent;
         border: none;
@@ -335,6 +335,31 @@ $width-routine-card: 40rem;
         cursor: pointer;
         svg{
             height: 100%;
+        }
+    }
+
+    &__other-options-list{
+        $width-list: 27rem;
+        position: absolute;
+        background-color: $color-white-1;
+        width: $width-list;
+        left: - $width-list - 1rem;
+        bottom: 0;
+        text-align: start;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    &__other-options-item{
+        font-weight: 500;
+        font-size: calc(2.5rem * var(--scale));
+        color: $color-black-1;
+        border-bottom: .5px solid rgba($color-black-1, .1);
+        align-items: start;
+        list-style-type: none;
+        padding: 1rem .5rem;
+        &:hover{
+            background-color: $color-white-12;
         }
     }
 

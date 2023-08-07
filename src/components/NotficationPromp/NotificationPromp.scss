@@ -1,0 +1,96 @@
+@import '../../style/variables.scss';
+
+.notification-promp{
+    $promp-width: 80rem;
+    position: fixed;
+    width: $promp-width;
+    height: 140px;
+    background-color: $color-white-1;
+    top: 0;
+    left: 50%;
+    margin-left: calc(0px - $promp-width / 2);
+    border-radius: 0 0 15px 15px;
+    z-index: 100;
+    box-shadow: $shadow-style-1;
+    padding: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: space-around;
+    font-size: 3rem;
+    font-weight: 500;
+    color: $color-black-1;
+    $height-of-each-item: 50px;
+    &__icon{
+        // background-color: orangered;
+        height: $height-of-each-item;
+        width: 50px;
+
+        min-height: $height-of-each-item;
+        min-width: 50px;
+
+        max-height: $height-of-each-item;
+        max-width: 50px;
+    }
+    &__text{
+        width: $promp-width - 4rem - 5rem;
+        // background-color: aqua;
+        height: $height-of-each-item;
+        display: flex;
+        align-items: center;
+    }
+    &__description{
+        height: $height-of-each-item;
+        // background-color: saddlebrown;
+        width: calc($promp-width / 2);
+        display: flex;
+        align-items: center;
+    }
+    &__cancel, &__validation{
+        height: $height-of-each-item;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+        height: fit-content;
+        font-size: inherit;
+        color: inherit;
+        border: none;
+        background-color: transparent;
+        padding: 1rem 2.5rem;
+    }
+
+    &__validation{
+        color: $color-white-1;
+        background-color: $color-quaternary;
+        border-radius: 10px;
+    }
+
+    &__cancel{
+        &:hover{
+            color: $color-quaternary;
+            text-decoration: underline;
+        }
+    }
+
+}
+
+#dark .notification-promp{
+    background-color: $color-dark-mode-secondary;
+    color: $color-white-1;
+    // &__icon{
+    //     // icon style
+    // }
+    &__validation{
+        color: $color-white-1;
+        background-color: $color-quaternary;
+        border-radius: 10px;
+    }
+
+    &__cancel{
+        &:hover{
+            color: $color-quaternary;
+            text-decoration: underline;
+        }
+    }
+
+}

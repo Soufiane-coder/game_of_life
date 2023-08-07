@@ -12,10 +12,11 @@ import DisplayModeSwitcher from './components/DisplayModeSwitcher/DisplayModeSwi
 import NavigationBar from "./components/NavigationBar/NavigationBar";
 import { selectCurrentDisplayMode } from "./redux/display-mode/display-mode.selector";
 import ClockView from "./pages/ClockView/ClockView";
-
+import NotificationPromp from "./components/NotficationPromp/NotificationPromp";
 const App = ({ user, displayMode }) => {
     return (
         <div id={displayMode}>
+            <NotificationPromp />
             <DisplayModeSwitcher />
             <HashRouter>
                 <NavigationBar />
@@ -46,7 +47,6 @@ const App = ({ user, displayMode }) => {
                     <Route exact={true} path="*">
                         <div style={{ fontSize: "200px" }}>not found</div>
                     </Route>
-
                 </Switch>
             </HashRouter>
         </div>

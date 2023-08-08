@@ -1,15 +1,16 @@
+
 .switch{
-      margin-top: 3rem;
+      margin-left: 2rem;
       font-size: 17px;
-      position: fixed;
-      left: 10rem;
+      position: relative;
       display: inline-block;
       width: 64px;
       height: 34px;
-      z-index: 1000000;
-      &:hover{
-        cursor: pointer;
-      }
+
+      max-width: 64px;
+      max-height: 34px;
+      cursor: pointer;
+
       
       input {
         opacity: 0;

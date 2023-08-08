@@ -1,5 +1,5 @@
 import "./App.scss";
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, Redirect, HashRouter } from "react-router-dom";
 import LandingPage from "./pages/landing-page/LandingPage";
 import SignInAndSignUp from "./pages/SignInAndSignUp/SignInAndSignUp";
@@ -8,26 +8,33 @@ import Setting from "./pages/Setting/Setting";
 import { connect } from "react-redux";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
-import DisplayModeSwitcher from './components/DisplayModeSwitcher/DisplayModeSwitcher';
 import NavigationBar from "./components/NavigationBar/NavigationBar";
 import { selectCurrentDisplayMode } from "./redux/display-mode/display-mode.selector";
 import ClockView from "./pages/ClockView/ClockView";
 import NotificationPromp from "./components/NotficationPromp/NotificationPromp";
+import UserBar from "./components/UserBar/UserBar";
+
 const App = ({ user, displayMode }) => {
+    const [userBar, setUserBar] = useState(false);
     return (
         <div id={displayMode}>
-            <NotificationPromp />
-            <DisplayModeSwitcher />
+            {false && <NotificationPromp />}
             <HashRouter>
                 <NavigationBar />
-                <Switch>
-                    <Route exact={true} path="/">
 
+                <Switch>
+
+                    <Route exact={true} path="/">
                         <LandingPage />
                     </Route>
                     <Route exact={true} path="/clockView">
-
-                        <ClockView />
+                        {user ?
+                            <>
+                                <UserBar username={user.username} />
+                                <ClockView />
+                            </>
+                            :
+                            <Redirect to="/signin" />}
                     </Route>
                     <Route exact={true} path="/signin">
                         {!user ? (
@@ -37,11 +44,23 @@ const App = ({ user, displayMode }) => {
                         )}
                     </Route>
 
-                    <Route exact={false} path='/gameField'>
-                        {user ? <GameField /> : <Redirect to="/signin" />}
+                    <Route exact={true} path='/gameField'>
+                        {user ?
+                            <>
+                                <UserBar username={user.username} />
+                                <GameField />
+                            </>
+                            :
+                            <Redirect to="/signin" />}
                     </Route>
                     <Route exact={true} path="/statistics">
-                        {user ? <div>statistic</div> : <Redirect to="/signin" />}
+                        {user ?
+                            <>
+                                <UserBar username={user.username} />
+                                <div>Statistic</div>
+                            </>
+                            :
+                            <Redirect to="/signin" />}
                     </Route>
                     <Route exact={true} path="/settings" component={Setting} />
                     <Route exact={true} path="*">

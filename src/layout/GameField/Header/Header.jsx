@@ -8,6 +8,7 @@ import { selectCurrentRoutines } from '../../../redux/routines/routines.selector
 import { useState } from "react";
 import PopupWindowRoutine from "../../../components/PopupWindowRoutine/PopupWindowRoutine";
 import Filter from '../../../components/Filter/Filter';
+import UserBar from "../../../components/UserBar/UserBar";
 
 
 const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption }) => {
@@ -48,28 +49,13 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption 
         setSelectedFilterOption(event.target.value); // Update the state with the selected option
     };
 
+
     return (
         <div className="game__field--header">
             {
                 popup && <PopupWindowRoutine {...{ setPopup }} />
             }
-            <div className="user-informations-bar">
-                <div className="tree-lines">
-                    <div className="line-one" />
-                    <div className="line-two" />
-                    <div className="line-three" />
-                </div>
-                <div className="username-and-rate">
-                    <div className="rate">
-                        <div className="et checked">★</div>
-                        <div className="et">★</div>
-                        <div className="et">★</div>
-                        <div className="et">★</div>
-                        <div className="et">★</div>
-                    </div>
-                    <div className="username">{user?.username}</div>
-                </div>
-            </div>
+
             <div className="updating-informations">
                 <p className="notification-routine">Routines</p>
                 <div className="prices-and-xps">

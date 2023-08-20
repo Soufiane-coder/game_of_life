@@ -18,7 +18,7 @@ $width-routine-card: 40rem;
 	
 	&__skeleton {
 		background-color: var(--gray) !important;
-		animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) alternate-reverse infinite;
+		animation: pulse .5s cubic-bezier(0.4, 0, 0.6, 1) alternate-reverse infinite;
 	}
 
 	.emoji, .emoji-bg {

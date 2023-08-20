@@ -1,6 +1,6 @@
 @import '../../style/variables.scss';
 
-$width-navigation: 7rem;
+
 $demension-icon: 7rem;
 
 .navigation-bar{
@@ -16,6 +16,7 @@ $demension-icon: 7rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
     .icon{
         display: inline-block;
 

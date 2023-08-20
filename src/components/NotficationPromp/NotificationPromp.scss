@@ -21,6 +21,8 @@
     font-weight: 500;
     color: $color-black-1;
     $height-of-each-item: 50px;
+    transition: margin-top .8s;
+    
     &__icon{
         // background-color: orangered;
         height: $height-of-each-item;

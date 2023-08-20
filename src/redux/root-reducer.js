@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import userReducer from "./user/user.reducer";
 import routinesReducer from "./routines/routines.reducer";
 import displayModeReducer from './display-mode/display-mode.reducer';
+import notificationPrompReducer from "./notification-promp/notification-promp.reducer";
 
 const persistConfig = {
   key: "root",
@@ -15,7 +16,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   routines: routinesReducer,
-  displayMode: displayModeReducer
+  displayMode: displayModeReducer,
+  notificationPromp: notificationPrompReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

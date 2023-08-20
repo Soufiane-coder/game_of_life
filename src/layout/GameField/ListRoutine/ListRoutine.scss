@@ -1,7 +1,5 @@
 .list-routine{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
     padding-top: 3rem;
-    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
 }

@@ -16,10 +16,14 @@ import { buySkip } from '../../redux/user/user.actions';
 import myServer from "../server/server";
 import { useState } from "react";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { setNotificationPrompState } from "../../redux/notification-promp/notification-promp.action";
+import { ReactComponent as GoalIcon } from '../../assets/icons/goal.svg';
+import { useHistory } from "react-router-dom";
 
 
+const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMessagePopUp, setShowMessageContentPopUp, setNotificationPrompState }) => {
+	const history = useHistory();
 
-const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMessagePopUp, setShowMessageContentPopUp }) => {
 	const [showOtherOptions, setShowOtherOptions] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
 	const [skipLoading, setSkipLoading] = useState(false);
@@ -53,8 +57,10 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 	}
 
 	const handleRemove = async (event) => {
-		if (!window.confirm("Do realy want to remove this item")) return;
-		const id = event.target.closest('.routine').id;
+		// if (!window.confirm("Do realy want to remove this item")) return;
+		console.log({ event })
+		const { id } = event.target.closest('.routine');
+
 		setDeleteLoading(true);
 		try {
 			await $.ajax({
@@ -78,6 +84,11 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 		setShowMessageContentPopUp(id);
 	}
 
+	const handleRoadMapClick = (event) => {
+		const { id } = event.target.closest('.routine');
+		history.push(`/roadMap/${id}`)
+	}
+
 
 
 	return (
@@ -90,7 +101,7 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 				routine.combo !== '0' && <div className="comboed"></div>
 			}
 
-			<div className="emoji" style={{ backgroundColor: routine.bgEmojiColor }}>{routine.emoji}</div>
+			<div className="emoji" style={{ backgroundColor: routine.bgEmojiColor }}>{deleteLoading ? <LoadingSpinner /> : routine.emoji}</div>
 			<div className="title">{routine.title}</div>
 			<div className="description">{routine.description}</div>
 			<div className="extra">
@@ -113,19 +124,18 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 				<button className="btn btn-message message" onClick={handleMessage} >
 					<MessageIcon />
 				</button>
-				<button className="btn btn-danger remove  " onClick={handleRemove}>
-					{
-						deleteLoading ? <LoadingSpinner /> : <Remove />
-					}
-
+				<button className="btn btn-danger remove  " onClick={handleRoadMapClick} >
+					<GoalIcon />
 				</button>
 				<button className="routine__other-options " onClick={() => setShowOtherOptions(!showOtherOptions)}>
-					{
-						showOtherOptions && <ul className="routine__other-options-list">
-							<li className="routine__other-options-item">Edit</li>
-							<li className="routine__other-options-item">Other</li>
-						</ul>
-					}
+
+					<ul className="routine__other-options-list" style={!showOtherOptions ? { display: 'none' } : {}}>
+						<li className="routine__other-options-item">Edit</li>
+						<li className="routine__other-options-item" onClick={(event) => {
+							setNotificationPrompState({ display: true, callback: () => handleRemove(event) })
+						}}>Delete</li>
+					</ul>
+
 					< MoreOptionsIcon />
 				</button>
 			</div>
@@ -143,6 +153,7 @@ const mapDispatchToProps = (dispatch) => ({
 	removeRoutine: (taskId) => dispatch(removeRoutine(taskId)),
 	skipRoutine: (taskId) => dispatch(skipRoutine(taskId)),
 	buySkip: () => dispatch(buySkip()),
+	setNotificationPrompState: (stateShow) => dispatch(setNotificationPrompState(stateShow)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routine);

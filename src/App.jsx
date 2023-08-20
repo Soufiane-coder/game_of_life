@@ -1,5 +1,4 @@
 import "./App.scss";
-import React, { useState } from "react";
 import { Switch, Route, Redirect, HashRouter } from "react-router-dom";
 import LandingPage from "./pages/landing-page/LandingPage";
 import SignInAndSignUp from "./pages/SignInAndSignUp/SignInAndSignUp";
@@ -13,12 +12,12 @@ import { selectCurrentDisplayMode } from "./redux/display-mode/display-mode.sele
 import ClockView from "./pages/ClockView/ClockView";
 import NotificationPromp from "./components/NotficationPromp/NotificationPromp";
 import UserBar from "./components/UserBar/UserBar";
+import RoadMap from "./pages/roadMap/road-map";
 
 const App = ({ user, displayMode }) => {
-    const [userBar, setUserBar] = useState(false);
     return (
         <div id={displayMode}>
-            {false && <NotificationPromp />}
+            <NotificationPromp />
             <HashRouter>
                 <NavigationBar />
 
@@ -63,9 +62,21 @@ const App = ({ user, displayMode }) => {
                             <Redirect to="/signin" />}
                     </Route>
                     <Route exact={true} path="/settings" component={Setting} />
+
+                    <Route path='/roadMap/:routineId'>
+                        {user ?
+                            <>
+                                <UserBar username={user.username} />
+                                <RoadMap />
+                            </>
+                            :
+                            <Redirect to="/signin" />}
+                    </Route>
+
                     <Route exact={true} path="*">
                         <div style={{ fontSize: "200px" }}>not found</div>
                     </Route>
+
                 </Switch>
             </HashRouter>
         </div>
@@ -79,4 +90,3 @@ const mapStateToProps = createStructuredSelector({
 
 export default connect(mapStateToProps)(App);
 
-// export default App;

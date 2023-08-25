@@ -19,7 +19,7 @@ const UserBar = ({ username }) => {
                 <div className="et">★</div>
             </div>
             <img src="" alt="user" className="user-bar__user-img" />
-            <img className="user-bar__character" src={Goku} alt="" />
+            {/* <img className="user-bar__character" src={Goku} alt="" /> */}
             <div className="user-bar__username">{username}</div>
         </div>
     )

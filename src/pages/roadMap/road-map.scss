@@ -38,23 +38,40 @@
     
     &__station{
         position: absolute;
+
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 3rem;
+
+        font-size: 1rem;
         font-weight: 800;
         color: $color-white-1;
-        background-color: crimson;
+
         width: 6rem;
         height: 6rem;
-        bottom: 5rem;
-        transform: translateX(-50%);
         border-radius: 10000px;
         cursor: pointer;
+
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 2rem;
+        height: 2rem;
         &--big-goal{
             background-color: rgb(243, 209, 17);
             width: 7rem;
             height: 7rem;
+            
+        }
+
+        &--small-goal{
+            background-color: crimson;
+            width: 4rem;
+            height: 4rem;
+        }
+
+        &--sub-goal{
+            background-color: sienna;
         }
     }
     
@@ -78,8 +95,10 @@
     
     &__adding-goal{
         text-align: center;
-        height: 10rem;
     }
+    
+    // &__adding-button{
+    // }
 
     &__adding-description{
         width: 100%;

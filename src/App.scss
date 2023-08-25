@@ -14,12 +14,83 @@
   }
 
 @import './style/variables.scss';
+@import './style/mixins.scss';
 
-*{
+*, *::before, *::after{
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+
+  color: inherit;
+
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
 }
+
+input[type='text'], textarea{
+  border: 1px solid $color-black-1 ;
+  margin-bottom: 1rem;
+  color: $color-black-1;
+  flex-grow: 1;
+  resize: none;
+  &:active, &:focus, &:focus-visible{
+      border-color: $color-primary ;
+      outline-color: $color-primary ;
+  }
+}
+
+input[type='time'], button{
+	border: 1px solid $color-black-2 ;
+}
+
+input, textarea, select, button{
+	padding: 5px;
+	background-color: white;
+	border-radius: 6px;
+}
+
+
+select{
+  cursor: pointer;
+  border: 1px solid $color-black-2 ;
+  &:active,
+        &:focus {
+            border-color: $color-primary;
+            outline-color: $color-primary;
+        }
+}
+
+button{
+	cursor: pointer;
+  // @include button-style(#17a2b8, #17a2b8, #0f8293, #17a2b8, #17a2b8,#7a9397)
+}
+
+h1{
+  font-size: 4rem;
+  font-weight:  700;
+}
+
+h2{
+  font-size: 3.5rem;
+  font-weight:  600;
+}
+
+h3{
+  font-size: 3rem;
+  font-weight:  500;
+}
+
+h4{
+  font-size: 2.5rem;
+  font-weight:  500;
+}
+
+h5{
+  font-size: 2.5rem;
+  font-weight:  400;
+}
+
 
 html{
   font-size: 62.5%;
@@ -34,9 +105,18 @@ html{
   }
 }
 
+#light {
+  color : $color-black-1;
+}
+
+#dark{
+  color : $color-white-1;
+}
+
 body{
   font-family: Quicksand, sans-serif;
   overflow-x: hidden;
+  font-size: 2.5rem;
   a:link, a:visited{
       text-decoration: none;
   }
@@ -73,15 +153,18 @@ body{
       height: 0;
       display: none;
   }
-
-  
 }
+
+
 ::selection{
   border-radius: 5px;
   background-color: $color-primary;
   color: white;
 }
 
+
+
 #dark, #light{
   position: relative;
 }
+

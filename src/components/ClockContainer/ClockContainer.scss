@@ -11,8 +11,10 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    justify-self: center;
     padding: 10px;
     border-radius: 10px;
+
     &.am{
         background-image: url('../../assets/icons/am.svg');
     }
@@ -36,6 +38,10 @@
         }
         .u-clock-minute{
             stroke: $color-secondary;
+        }
+
+        .u-clock-second{
+            color: $color-quaternary-1;
         }
 
         .u-clock-marks{

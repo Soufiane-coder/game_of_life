@@ -45,14 +45,14 @@ export const getAllTimes = (array, am, pm) => {
                 if (hours === 0.0) {
                     continue;
                 }
-                data.push({ label: 'empty', hours, bgEmojiColor: 'rgba(0,0,0,0.2)' });
+                data.push({ label: 'empty', hours, bgEmojiColor: 'rgba(0,0,0,0.2)', id: '-1' });
                 --i;
             } else if (pm && routines[i].startRoutine !== '12:00' && data.length === 0) {
                 const hours = timeStringToFloat(routines[i].startRoutine, am, pm) - timeStringToFloat('12:00', am, pm);
                 if (hours === 0.0) {
                     continue;
                 }
-                data.push({ label: 'empty', hours, bgEmojiColor: 'rgba(0,0,0,0.2)' });
+                data.push({ label: 'empty', hours, bgEmojiColor: 'rgba(0,0,0,0.2)', id: '-1' });
                 --i;
             }
             else {
@@ -60,7 +60,7 @@ export const getAllTimes = (array, am, pm) => {
                 if (hours === 0.0) {
                     continue;
                 }
-                data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor });
+                data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor, id: routines[i].taskId });
                 previewsWasEmpty = false;
             }
         } else if (routines[i - 1].endRoutine === routines[i].startRoutine) {
@@ -68,7 +68,7 @@ export const getAllTimes = (array, am, pm) => {
             if (hours === 0.0) {
                 continue;
             }
-            data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor });
+            data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor, id: routines[i].taskId });
             previewsWasEmpty = false;
         }
         else if (routines[i - 1].endRoutine !== routines[i].startRoutine && previewsWasEmpty) {
@@ -76,7 +76,7 @@ export const getAllTimes = (array, am, pm) => {
             if (hours === 0.0) {
                 continue;
             }
-            data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor });
+            data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor, id: routines[i].taskId });
             previewsWasEmpty = false;
         }
         else if (routines[i - 1].endRoutine !== routines[i].startRoutine) {
@@ -84,7 +84,7 @@ export const getAllTimes = (array, am, pm) => {
             if (hours === 0.0) {
                 continue;
             }
-            data.push({ label: 'empty', hours, bgEmojiColor: 'rgba(0,0,0,0.2)' });
+            data.push({ label: 'empty', hours, bgEmojiColor: 'rgba(0,0,0,0.2)', id: '-1' });
             --i;
             previewsWasEmpty = true;
         }
@@ -92,7 +92,7 @@ export const getAllTimes = (array, am, pm) => {
         dataIndex++;
     }
     if (acc != 12) {
-        data.push({ label: 'empty', hours: 12 - acc, bgEmojiColor: 'rgba(0,0,0,0.2)' });
+        data.push({ label: 'empty', hours: 12 - acc, bgEmojiColor: 'rgba(0,0,0,0.2)', id: '-1' });
     }
 
     return data;

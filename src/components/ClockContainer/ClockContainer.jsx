@@ -8,6 +8,7 @@ import ReactClock from '@uiw/react-clock';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ClockContainer = ({ routines, am = false, pm = false }) => {
+    const ids = getAllTimes(routines, am, pm).map(item => item.id);
     const data = {
         labels: getAllTimes(routines, am, pm).map(hour => hour.label),
         datasets: [
@@ -25,7 +26,10 @@ const ClockContainer = ({ routines, am = false, pm = false }) => {
         <div className={`clock-container ${am ? 'am' : 'pm'}`}>
             <Doughnut className='clock-container__doughnut-timer' data={data} options={
                 {
-                    onClick: console.log,
+                    onClick: (_, element) => {
+                        if (element.length === 0) return;
+                        console.log(ids[element[0].index]);
+                    },
                     plugins: {
                         legend: {
                             display: false,

@@ -20,6 +20,14 @@ $width-routine-card: 40rem;
     transition: all 1s;
     background-color: $color-white-2;
     color: $color-black-1;
+    
+    background: rgba( 74, 144, 226, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
     .important {
         top: calc(-2.2rem * var(--scale));
         right: calc(1.8rem * var(--scale));
@@ -330,9 +338,11 @@ $width-routine-card: 40rem;
         display: block;
         background-color: transparent;
         border: none;
-        fill: $color-white-1;
+        padding: .1rem;
         height: calc(5rem * var(--scale));
+        fill: $color-black-1;
         cursor: pointer;
+        transition: fill 1s;
         svg{
             height: 100%;
         }
@@ -366,6 +376,10 @@ $width-routine-card: 40rem;
 }
 
 #dark .routine {
-    background-color: $color-dark-mode-secondary;
-    color: $color-white-1
+    // background-color: $color-dark-mode-secondary;
+    color: $color-white-1;
+
+    &__other-options{
+        fill: $color-white-1;
+    }
 }

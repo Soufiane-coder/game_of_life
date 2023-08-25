@@ -1,6 +1,12 @@
 @import './variables.scss';
 @import './fonts.scss';
 
+@mixin page-padding{
+    padding: 3rem;
+    padding-top: 5rem;
+    padding-right: 90px;
+}
+
 @mixin popup-properties{
     display:flex;
     flex-direction: column;
@@ -66,4 +72,24 @@
           --scale: 1.4;
       }
       }
+}
+
+@mixin button-style($color-1, $background-color-1, $shadow-focus, $color-2, $color-3, $background-disabled){
+	&:focus{
+		box-shadow: 0 0 0 0.2rem rgba($color-1, 0.5);
+	}
+	&:disabled {
+		color: #fff;
+		background-color: $background-disabled;
+		border-color: $background-disabled;
+        cursor:not-allowed;
+	}
+	&:not(:disabled):active{
+		color: #fff;
+		background-color: $color-2;
+		border-color: $color-3;
+	}
+	&:not(:disabled):active:focus{
+		box-shadow: 0 0 0 calc(0.2rem * var(--scale)) rgba($color-3, 0.5);
+	}
 }

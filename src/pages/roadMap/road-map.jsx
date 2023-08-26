@@ -41,14 +41,14 @@ const goalsArray = [
         lastGoalAchieved: '',
         nextGoalToAchieve: '',
         currentPosition: 0,
-        type: 'sub-goal',
+        type: 'small-goal',
     },
     {
         goalId: '0',
         lastGoalAchieved: '',
         nextGoalToAchieve: '',
         currentPosition: 0,
-        type: 'small-goal',
+        type: 'sub-goal',
         description: 'description 1'
     },
     {
@@ -64,7 +64,7 @@ const goalsArray = [
         lastGoalAchieved: '',
         nextGoalToAchieve: '',
         currentPosition: 0,
-        type: 'big-goal',
+        type: 'sub-goal',
     },
     {
         goalId: '3',
@@ -131,9 +131,11 @@ const RoadMap = ({ routines }) => {
                             transform: 'translateX(-50%)',
                         }
                     } />
+                <div className='road-map__progress-container' />
+                <div className='road-map__progress' />
                 {
                     goals.map((goal, index) => (
-                        <div key={index} id={goal.goalId}
+                        <div key={++index} id={goal.goalId}
                             className={`road-map__station road-map__station--${goal.type}`}
                             style={
                                 { left: ++index * 8 + 'rem' }

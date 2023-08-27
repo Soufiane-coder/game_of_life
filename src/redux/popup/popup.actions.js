@@ -1,5 +1,10 @@
 import { popupActionTypes } from "./popup.types";
 
+export const hidePopup = () => ({
+  type: popupActionTypes.HIDE_POPUP,
+  payload: false,
+})
+
 export const displayCheckPopupState = (state) => ({
   type: popupActionTypes.CHECK_POPUP,
   payload: state,

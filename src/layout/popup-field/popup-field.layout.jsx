@@ -10,10 +10,10 @@ import MessageContent from '../../components/MessageContent/MessageContent';
 
 const PopupField = ({ popup }) => {
 
-    switch (popup) {
+    switch (popup.type) {
         case popupActionTypes.MESSAGE_POPUP:
             return (
-                <MessageContent /> // todo have to be adopted
+                <MessageContent routineId={popup.payload} />
             )
         case popupActionTypes.ADD_ROUTINE_POPUP:
             return (
@@ -21,8 +21,10 @@ const PopupField = ({ popup }) => {
             )
         case popupActionTypes.CHECK_POPUP:
             return (
-                <MessageWindow />
+                <MessageWindow routineId={popup.payload} />
             )
+        case popupActionTypes.HIDE_POPUP:
+            return null;
         default: return null;
     }
 }

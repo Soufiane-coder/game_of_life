@@ -20,8 +20,10 @@ import { setNotificationPrompState } from "../../redux/notification-promp/notifi
 import { ReactComponent as GoalIcon } from '../../assets/icons/goal.svg';
 import { useHistory } from "react-router-dom";
 
+import { displayCheckPopupState, displayMessagePopupState } from "../../redux/popup/popup.actions";
 
-const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMessagePopUp, setShowMessageContentPopUp, setNotificationPrompState }) => {
+
+const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotificationPrompState, displayCheckPopupState, displayMessagePopupState }) => {
 	const history = useHistory();
 
 	const [showOtherOptions, setShowOtherOptions] = useState(false);
@@ -30,7 +32,7 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 
 	const handleDone = async (event) => {
 		const id = event.target.closest('.routine').id;
-		setShowMessagePopUp(id);
+		displayCheckPopupState(id);
 	}
 
 	const handleSkip = async (event) => {
@@ -58,7 +60,6 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 
 	const handleRemove = async (event) => {
 		// if (!window.confirm("Do realy want to remove this item")) return;
-		console.log({ event })
 		const { id } = event.target.closest('.routine');
 
 		setDeleteLoading(true);
@@ -81,7 +82,7 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setShowMe
 
 	const handleMessage = (event) => {
 		const id = event.target.closest('.routine').id;
-		setShowMessageContentPopUp(id);
+		displayMessagePopupState(id);
 	}
 
 	const handleRoadMapClick = (event) => {
@@ -154,6 +155,8 @@ const mapDispatchToProps = (dispatch) => ({
 	skipRoutine: (taskId) => dispatch(skipRoutine(taskId)),
 	buySkip: () => dispatch(buySkip()),
 	setNotificationPrompState: (stateShow) => dispatch(setNotificationPrompState(stateShow)),
+	displayCheckPopupState: (state) => dispatch(displayCheckPopupState(state)),
+	displayMessagePopupState: (state) => dispatch(displayMessagePopupState(state)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routine);

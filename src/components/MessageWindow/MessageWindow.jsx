@@ -9,36 +9,38 @@ import { selectCurrentUser } from '../../redux/user/user.selector';
 import { checkRoutine } from '../../redux/routines/routines.actions';
 import { Zoom } from 'react-reveal';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { hidePopup } from '../../redux/popup/popup.actions';
 
-const MessageWindow = ({ user, checkRoutine, showMessagePopUp, setShowMessagePopUp }) => {
+const MessageWindow = ({ user, checkRoutine, routineId, hidePopup }) => {
     const [messageInput, setMessageInput] = useState('');
 
-    const [doneLoading, setDoneLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+
 
     const handleChange = (event) => {
         const { value } = event.target;
         setMessageInput(value);
     }
 
-    const fetchData = async () => {
-        const id = showMessagePopUp;
-        setDoneLoading(true);
+    const handleCheckRoutine = async () => {
+        setIsLoading(true);
         try {
             await $.ajax({
                 url: `${myServer}/addOne.php`,
                 method: 'get',
                 data: {
-                    id: id,
+                    id: routineId,
                     userID: user.userId,
                     message: messageInput,
                 }
             });
-            checkRoutine(id);
-            setShowMessagePopUp(false)
+            checkRoutine(routineId);
+            hidePopup()
         } catch (err) {
             console.error(`Error cannot checked this routine`, err.message);
         } finally {
-            setDoneLoading(false);
+            setIsLoading(false);
         }
     }
 
@@ -55,12 +57,12 @@ const MessageWindow = ({ user, checkRoutine, showMessagePopUp, setShowMessagePop
                     </p>
                     <textarea type="text" className='message-window__input-text' value={messageInput.message} onChange={handleChange} />
                     <div className="message-window__buttons">
-                        <button className="message-window__button message-window__button--filled" onClick={fetchData}>
+                        <button className="message-window__button message-window__button--filled" onClick={handleCheckRoutine}>
                             {
-                                doneLoading ? <LoadingSpinner /> : "Check this routine"
+                                isLoading ? <LoadingSpinner /> : "Check this routine"
                             }
                         </button>
-                        <button className="message-window__button message-window__button--outlined" onClick={() => setShowMessagePopUp(false)}>Cancel</button>
+                        <button className="message-window__button message-window__button--outlined" onClick={() => hidePopup()}>Cancel</button>
                     </div>
                 </div>
             </Zoom>
@@ -73,7 +75,8 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-    checkRoutine: routineId => dispatch(checkRoutine(routineId))
+    checkRoutine: routineId => dispatch(checkRoutine(routineId)),
+    hidePopup: () => dispatch(hidePopup())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageWindow);

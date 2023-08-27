@@ -1,13 +1,19 @@
 
 
 const INITIAL_STATE = {
-  popup: ''
+  popup: {
+    payload: '',
+    type: '',
+  }
 };
 
 const popupReducer = (state = INITIAL_STATE, action) => {
   return {
     ...state,
-    popup: action.payload === 'persist/REHYDRATE' ? action.type : ''
+    popup: action.type === 'persist/REHYDRATE' ?
+      {}
+      :
+      { payload: action.payload, type: action.type }
   };
 };
 

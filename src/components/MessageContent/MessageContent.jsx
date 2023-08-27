@@ -6,8 +6,9 @@ import { Zoom } from 'react-reveal';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { selectMessage } from '../../redux/routines/routines.selector';
+import { hidePopup } from '../../redux/popup/popup.actions';
 
-const MessageContent = ({ setShowMessageContentPopUp, showMessageContentPopUp, message }) => {
+const MessageContent = ({ routineId, message, hidePopup }) => {
     return (
         <div className='message-content__window'>
             <Zoom duration={500}>
@@ -15,11 +16,11 @@ const MessageContent = ({ setShowMessageContentPopUp, showMessageContentPopUp, m
                     <div className="message-content__head">
                         <MessageIcon className="message-content__message-icon" />
                         <h2 className="message-content__title">Your Message</h2>
-                        <CloseIcon className="message-content__close-icon" onClick={() => setShowMessageContentPopUp(false)} />
+                        <CloseIcon className="message-content__close-icon" onClick={() => hidePopup()} />
                     </div>
                     <p className="message-content__message">
                         {
-                            message(String(showMessageContentPopUp))
+                            message(String(routineId))
                         }
                     </p>
                 </div>
@@ -33,4 +34,8 @@ const mapStateToProps = createStructuredSelector({
     message: selectMessage
 })
 
-export default connect(mapStateToProps)(MessageContent);
+const mapDispatchToProps = (dispatch) => ({
+    hidePopup: () => dispatch(hidePopup())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageContent);

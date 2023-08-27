@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Routine from "../../../components/Routine/Routine";
 import { Fade } from 'react-reveal';
 import './ListRoutine.scss';
@@ -8,14 +8,14 @@ import { createStructuredSelector } from "reselect";
 import { selectFilteredOption } from "../../../redux/routines/routines.selector";
 
 
-const ListRoutine = ({ setShowMessagePopUp, setShowMessageContentPopUp, filterOption, selectedFilterOption }) => {
+const ListRoutine = ({ filterOption, selectedFilterOption }) => {
     return (
         <div className="list-routine">
             {
                 filterOption(selectedFilterOption)?.map(routine => {
                     return (
                         <Fade key={routine.taskId} bottom>
-                            <Routine className='routine' key={routine.taskId} {...{ routine, setShowMessagePopUp, setShowMessageContentPopUp }} />
+                            <Routine className='routine' key={routine.taskId} routine={routine} />
                         </Fade>
                     )
                 })

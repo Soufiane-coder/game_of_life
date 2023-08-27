@@ -8,14 +8,10 @@ import { selectCurrentUser } from '../../redux/user/user.selector';
 import { setCurrentRoutines } from '../../redux/routines/routines.actions';
 import myServer from "../../components/server/server";
 import $ from 'jquery';
-import MessageWindow from '../../components/MessageWindow/MessageWindow';
-import MessageContent from '../../components/MessageContent/MessageContent';
-
 
 
 const GameField = ({ setCurrentRoutines, user }) => {
-    const [showMessagePopUp, setShowMessagePopUp] = useState(false);
-    const [showMessageContentPopUp, setShowMessageContentPopUp] = useState(false);
+
     const [selectedFilterOption, setSelectedFilterOption] = useState("all");
 
 
@@ -47,15 +43,7 @@ const GameField = ({ setCurrentRoutines, user }) => {
         <div className='game__field'>
             <main>
                 <Header {...{ selectedFilterOption, setSelectedFilterOption }} />
-                <ListRoutine {...{ setShowMessagePopUp, setShowMessageContentPopUp, selectedFilterOption }} />
-
-                {
-                    showMessagePopUp && <MessageWindow {...{ showMessagePopUp, setShowMessagePopUp }} />
-                }
-                {
-                    showMessageContentPopUp && <MessageContent {...{ setShowMessageContentPopUp, showMessageContentPopUp }} />
-                }
-
+                <ListRoutine {...{ selectedFilterOption }} />
             </main>
         </div >
     )

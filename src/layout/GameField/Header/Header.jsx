@@ -6,13 +6,14 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../../redux/user/user.selector";
 import { selectCurrentRoutines } from '../../../redux/routines/routines.selector';
 import { useState } from "react";
-import PopupWindowRoutine from "../../../components/PopupWindowRoutine/PopupWindowRoutine";
+
 import Filter from '../../../components/Filter/Filter';
-import UserBar from "../../../components/UserBar/UserBar";
+
+import { displayAddRoutinePopupState } from "../../../redux/popup/popup.actions";
 
 
-const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption }) => {
-    const [popup, setPopup] = useState(false);
+const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption, displayAddRoutinePopupState }) => {
+
 
     const [optionsTags, setOptionsTags] = useState({
         all: '0',
@@ -52,9 +53,6 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption 
 
     return (
         <div className="game__field--header">
-            {
-                popup && <PopupWindowRoutine {...{ setPopup }} />
-            }
 
             <div className="updating-informations">
                 <p className="notification-routine">Routines</p>
@@ -87,7 +85,7 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption 
                     <span className="selector"></span>
                 </div>
                 <Filter />
-                <button onClick={() => setPopup(true)}>+ Add Routine</button>
+                <button onClick={() => displayAddRoutinePopupState(true)}>+ Add Routine</button>
 
                 {/* <button type="button" class="button" onClick={() => setPopup(true)}>
                     <span class="button__text">Add Item</span>
@@ -103,5 +101,10 @@ const mapStateToProps = createStructuredSelector({
     routines: selectCurrentRoutines,
 })
 
+const mapDispatchToProps = dispatch => ({
+    displayAddRoutinePopupState: (state) => dispatch(displayAddRoutinePopupState(state)),
 
-export default connect(mapStateToProps)(Header);
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

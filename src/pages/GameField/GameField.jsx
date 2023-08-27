@@ -28,7 +28,6 @@ const GameField = ({ setCurrentRoutines, user }) => {
                 });
                 const allRoutines = JSON.parse(res).reverse();
                 setCurrentRoutines(allRoutines);
-                console.log({ allRoutines })
             } catch (err) {
                 console.error(
                     `Error cannot connect with the data base to list all routines`, err.message

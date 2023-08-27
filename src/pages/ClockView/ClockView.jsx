@@ -9,23 +9,29 @@ import { selectCurrentRoutines } from '../../redux/routines/routines.selector';
 import PageHeader from '../../components/PageHeader/page-header';
 import { isAmPm, getCurrentRoutine, hourMinFormat } from './utils';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 const ClockView = ({ routineCollection }) => {
     const [amPm, setAmPm] = useState({ ...isAmPm() });
-    // const [currentRoutine, setCurrentRoutine] = useState(getCurrentRoutine(routineCollection, hourMinFormat()));
 
 
+    const [selectedRoutine, setSelectedRoutine] = useState('-2');
+
+    useEffect(() => {
+        console.log(selectedRoutine)
+    }, [selectedRoutine])
 
     const handleChangeCheckBox = () => {
         setAmPm(old => ({ am: !old.am, pm: !old.pm }))
     }
+
     return (
         <>
             <PageHeader title={'Clock View'} />
             <div className='clock-view-page'>
 
-                <ClockContainer routines={routineCollection} {...amPm} />
+                <ClockContainer routines={routineCollection} setSelectedRoutine={setSelectedRoutine} {...amPm} />
 
                 <div className="toggleWrapper">
                     <input type="checkbox" className="dn" id='dn' checked={amPm.pm} onChange={handleChangeCheckBox} />
@@ -43,7 +49,10 @@ const ClockView = ({ routineCollection }) => {
                         <span className="star star--6"></span>
                     </label>
                 </div>
-                <SlideRoutine {...{ routineCollection }} />
+
+                <SlideRoutine {...{ routineCollection, selectedRoutine }} />
+
+
             </div>
         </>
     )

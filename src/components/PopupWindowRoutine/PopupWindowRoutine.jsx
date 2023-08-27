@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { ReactComponent as Close } from '../../assets/icons/close.svg';
 import { ReactComponent as AddBoxIcon } from '../../assets/icons/add_box.svg';
@@ -20,8 +20,9 @@ import { isTimeInArray } from './utils';
 import { timeStringToFloat } from '../../utils/clock';
 import { selectCurrentRoutines } from "../../redux/routines/routines.selector";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { hidePopup } from "../../redux/popup/popup.actions";
 
-const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
+const PopupWindowRoutine = ({ user, addRoutine, routines, hidePopup }) => {
     const [emoji, setEmoji] = useState("");
     const [showEmojiList, setShowEmojiList] = useState(false);
     const [showTimePiker, setShowTimePicker] = useState(false);
@@ -83,7 +84,7 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
                     message: addRoutineForm.message,
                 }
             });
-            setPopup(false);
+            hidePopup(false);
             res = JSON.parse(res);
             addRoutine(res);
         } catch (err) {
@@ -159,8 +160,8 @@ const PopupWindowRoutine = ({ user, addRoutine, setPopup, routines }) => {
                         <h3 className="add-routine-window__title">
                             Add routine
                         </h3>
-                        <Close className="add-routine-window__close-icon" onClick={(event) => {
-                            setPopup(false);
+                        <Close className="add-routine-window__close-icon" onClick={() => {
+                            hidePopup(false);
                         }} />
                     </div>
                     <h4 className='add-routine-window__title-input-label'>Title</h4>
@@ -245,6 +246,9 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
     addRoutine: (routine) => dispatch(addRoutine(routine)),
+    hidePopup: () => dispatch(hidePopup()),
+
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopupWindowRoutine);

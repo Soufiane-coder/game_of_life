@@ -7,8 +7,9 @@ import ReactClock from '@uiw/react-clock';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ClockContainer = ({ routines, am = false, pm = false }) => {
+const ClockContainer = ({ routines, am = false, pm = false, setSelectedRoutine }) => {
     const ids = getAllTimes(routines, am, pm).map(item => item.id);
+
     const data = {
         labels: getAllTimes(routines, am, pm).map(hour => hour.label),
         datasets: [
@@ -28,7 +29,7 @@ const ClockContainer = ({ routines, am = false, pm = false }) => {
                 {
                     onClick: (_, element) => {
                         if (element.length === 0) return;
-                        console.log(ids[element[0].index]);
+                        setSelectedRoutine(ids[element[0].index]);
                     },
                     plugins: {
                         legend: {

@@ -1,0 +1,5 @@
+export const popupActionTypes = {
+  CHECK_POPUP: 'CHECK_POPUP',
+  MESSAGE_POPUP: 'MESSAGE_POPUP',
+  ADD_ROUTINE_POPUP: 'ADD_ROUTINE_POPUP'
+};

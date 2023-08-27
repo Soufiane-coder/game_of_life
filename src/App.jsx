@@ -9,6 +9,8 @@ import ClockView from "./pages/ClockView/ClockView";
 import RoadMap from "./pages/roadMap/road-map";
 import StatisticsPage from "./pages/Statistics/statistics.page";
 
+import PopupField from "./layout/popup-field/popup-field.layout";
+
 import NavigationBar from "./components/NavigationBar/NavigationBar";
 import NotificationPromp from "./components/NotficationPromp/NotificationPromp";
 import UserBar from "./components/UserBar/UserBar";
@@ -22,6 +24,9 @@ import { selectCurrentDisplayMode } from "./redux/display-mode/display-mode.sele
 const App = ({ user, displayMode }) => {
     return (
         <div id={displayMode}>
+            {
+                user ? <PopupField /> : ''
+            }
             <NotificationPromp />
             <HashRouter>
                 <NavigationBar />

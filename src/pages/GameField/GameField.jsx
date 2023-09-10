@@ -6,38 +6,21 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { setCurrentRoutines } from '../../redux/routines/routines.actions';
-import myServer from "../../components/server/server";
-import $ from 'jquery';
+import { selectCurrentRoutines } from '../../redux/routines/routines.selector';
 
-
-const GameField = ({ setCurrentRoutines, user }) => {
-
+const GameField = ({ setCurrentRoutines, user, routines }) => {
     const [selectedFilterOption, setSelectedFilterOption] = useState("all");
-
+    const [loadingRoutine, setLoadingRoutine] = useState(true);
 
     useEffect(() => {
-        const getFetchRoutines = async () => {
-            let res;
-            try {
-                res = await $.ajax({
-                    url: `${myServer}/listRoutine.php`,
-                    method: "post",
-                    data: {
-                        userId: user.userId
-                    }
-                });
-                const allRoutines = JSON.parse(res).reverse();
-                setCurrentRoutines(allRoutines);
-            } catch (err) {
-                console.error(
-                    `Error cannot connect with the data base to list all routines`, err.message
-                );
-            }
-        }
-        getFetchRoutines();
-    }, [user]);
+        setLoadingRoutine(!routines)
+    }, [routines])
 
-
+    if (loadingRoutine) {
+        return (
+            <h1>Loading routines ...</h1>
+        )
+    }
     return (
         <div className='game__field'>
             <main>
@@ -50,6 +33,7 @@ const GameField = ({ setCurrentRoutines, user }) => {
 
 const mapStateToProps = createStructuredSelector({
     user: selectCurrentUser,
+    routines: selectCurrentRoutines
 })
 
 const mapDispatchToProps = (dispatch) => ({

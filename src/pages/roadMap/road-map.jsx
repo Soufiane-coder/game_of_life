@@ -6,6 +6,8 @@ import { selectCurrentRoutines } from '../../redux/routines/routines.selector';
 import { useHistory, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import PageHeader from '../../components/PageHeader/page-header';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const goalsArray = [
     {
@@ -86,12 +88,7 @@ const goalsArray = [
 const RoadMap = ({ routines }) => {
     const params = useParams();
     const history = useHistory();
-    if (!params) history.push('/')
-
-    const selectedRoutine = routines.find(routine => routine.taskId === params.routineId);
-
-    if (!selectedRoutine) history.push('/')
-
+    const [loadingRoutine, setLoadingRoutine] = useState(true);
     const [goal, setGoal] = useState({});
     const [newGoal, setNewGoal] = useState({
         goalId: '30',
@@ -99,6 +96,28 @@ const RoadMap = ({ routines }) => {
         type: 'sub-goal',
     });
     const [goals, setGoals] = useState(goalsArray);
+
+    useEffect(() => {
+        setLoadingRoutine(!routines);
+    }, [routines])
+
+    if (loadingRoutine) {
+        return (
+            <h1>loading routine ...</h1>
+        )
+    }
+
+    const selectedRoutine = routines.find(routine => routine.routineId === params.routineId);
+
+    if (!selectedRoutine) {
+        return (
+            <>
+                <h1>There is no routine with Id : {params.routineId}</h1>
+                <Link to='/gameField'>Return to the game field</Link>
+            </>
+        )
+    }
+
 
     const handleClick = (event) => {
         const { id } = event.target.closest('.road-map__station');

@@ -1,8 +1,7 @@
 import { DisplayModeActionTypes } from "./display-mode.types";
-import {displayModes} from '../../enums/displayModes';
 
 const INITIAL_STATE = {
-  displayMode: displayModes.dark,
+  displayMode: 'dark',
 };
 
 const displayModeReducer = (state = INITIAL_STATE, action) => {

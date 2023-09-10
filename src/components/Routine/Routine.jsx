@@ -19,7 +19,7 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { setNotificationPrompState } from "../../redux/notification-promp/notification-promp.action";
 import { ReactComponent as GoalIcon } from '../../assets/icons/goal.svg';
 import { useHistory } from "react-router-dom";
-
+import { Fade } from 'react-reveal'
 import { displayCheckPopupState, displayMessagePopupState } from "../../redux/popup/popup.actions";
 import { ReactComponent as Cracks } from '../../assets/cracks.svg';
 
@@ -90,61 +90,59 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotifi
 		const { id } = event.target.closest('.routine');
 		history.push(`/roadMap/${id}`)
 	}
-
-
-
 	return (
-		<div className='routine' id={routine.taskId}>
-			{
-				routine.priority === 'important' && <div className="important"></div>
-			}
-
-			{
-				routine.combo !== '0' && <div className="comboed"></div>
-			}
-			{/* {
-				routine.priority === 'important' && <Cracks style={{ width: '100%', position: 'absolute', zIndex: '0', height: '100%', top: '0', left: '0' }} />
-			} */}
-
-			<div className="emoji" style={{ backgroundColor: routine.bgEmojiColor }}>{deleteLoading ? <LoadingSpinner /> : routine.emoji}</div>
-			<div className="title">{routine.title}</div>
-			<div className="description">{routine.description}</div>
-			<div className="extra">
-				<div className="combo">{routine.combo === '0' ? "" : `⚡${routine.combo}`}</div>
-				<div className="skip-num">{routine.skip === '0' ? "" : `↪️${routine.skip}`}</div>
-				<div className="level">🎚️{routine.level}</div>
-			</div>
-			<div className="buttons">
+		<Fade bottom>
+			<div className='routine' id={routine.routineId}>
 				{
-					routine.submitted === '0' ?
-						<button className="btn btn-success done" onClick={handleDone}><Done /></button>
-						:
-						<button className="btn btn-secondary done" disabled><Undone /></button>
+					routine.priority === 'important' && <div className="important"></div>
 				}
-				<button className="btn btn-info skip" disabled={user.coin < 10} onClick={handleSkip}>
+				{
+					routine.priority === 'medium' && <div className="medium"></div>
+				}
+				{/* {
+					<Cracks style={{ width: '100%', position: 'absolute', zIndex: '0', height: '100%', top: '0', left: '0' }} />
+				} */}
+
+				<div className="emoji" style={{ backgroundColor: routine.bgEmojiColor }}>{deleteLoading ? <LoadingSpinner /> : routine.emoji}</div>
+				<div className="title">{routine.title}</div>
+				<div className="description">{routine.description}</div>
+				<div className="extra">
+					<div className="combo">{routine.combo === 0 ? "" : `⚡${routine.combo}`}</div>
+					<div className="skip-num">{routine.skip === 0 ? "" : `↪️${routine.skip}`}</div>
+					<div className="level">🎚️{routine.level}</div>
+				</div>
+				<div className="buttons">
 					{
-						skipLoading ? <LoadingSpinner /> : <Skip />
+						routine.isSubmitted === false ?
+							<button className="btn btn-success done" onClick={handleDone}><Done /></button>
+							:
+							<button className="btn btn-secondary done" disabled><Undone /></button>
 					}
-				</button>
-				<button className="btn btn-message message" onClick={handleMessage} >
-					<MessageIcon />
-				</button>
-				<button className="btn btn-danger remove  " onClick={handleRoadMapClick} >
-					<GoalIcon />
-				</button>
-				<button className="routine__other-options " onClick={() => setShowOtherOptions(!showOtherOptions)}>
+					<button className="btn btn-info skip" disabled={user.coins < 10} onClick={handleSkip}>
+						{
+							skipLoading ? <LoadingSpinner /> : <Skip />
+						}
+					</button>
+					<button className="btn btn-message message" onClick={handleMessage} >
+						<MessageIcon />
+					</button>
+					<button className="btn btn-danger remove  " onClick={handleRoadMapClick} >
+						<GoalIcon />
+					</button>
+					<button className="routine__other-options " onClick={() => setShowOtherOptions(!showOtherOptions)}>
 
-					<ul className="routine__other-options-list" style={!showOtherOptions ? { display: 'none' } : {}}>
-						<li className="routine__other-options-item">Edit</li>
-						<li className="routine__other-options-item" onClick={(event) => {
-							setNotificationPrompState({ display: true, callback: () => handleRemove(event) })
-						}}>Delete</li>
-					</ul>
+						<ul className="routine__other-options-list" style={!showOtherOptions ? { display: 'none' } : {}}>
+							<li className="routine__other-options-item">Edit</li>
+							<li className="routine__other-options-item" onClick={(event) => {
+								setNotificationPrompState({ display: true, callback: () => handleRemove(event) })
+							}}>Delete</li>
+						</ul>
 
-					< MoreOptionsIcon />
-				</button>
+						< MoreOptionsIcon />
+					</button>
+				</div>
 			</div>
-		</div>
+		</Fade>
 	)
 
 }

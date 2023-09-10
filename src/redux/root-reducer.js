@@ -11,7 +11,7 @@ import popupReducer from "./popup/popup.reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "displayMode", "routines"],
+  whitelist: ["user", "displayMode"],
 };
 
 const rootReducer = combineReducers({

@@ -1,5 +1,5 @@
 import "./App.scss";
-import { Switch, Route, Redirect, HashRouter } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import LandingPage from "./pages/landing-page/LandingPage";
 import SignInAndSignUp from "./pages/SignInAndSignUp/SignInAndSignUp";
@@ -19,76 +19,80 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { selectCurrentDisplayMode } from "./redux/display-mode/display-mode.selector";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from "../lib/firebase";
+import UserLoader from "./layout/user-loader/user-loader.layout";
+import { selectCurrentRoutines } from "./redux/routines/routines.selector";
+import { useEffect } from "react";
+import { getRoutines } from "../lib/firebase";
+import { setCurrentRoutines } from "./redux/routines/routines.actions";
 
+const App = ({ user, displayMode, routines, setCurrentRoutines }) => {
+    const [userImp, userLoading, userError] = useAuthState(auth);
+    useEffect(() => {
+        getRoutines(user.uid).then(setCurrentRoutines);
+    }, []);
 
-const App = ({ user, displayMode }) => {
     return (
         <div id={displayMode}>
             {
                 user ? <PopupField /> : ''
             }
             <NotificationPromp />
-            <HashRouter>
-                <NavigationBar />
+            <NavigationBar />
 
-                <Switch>
+            <Switch>
+                <Route exact={true} path="/signin">
+                    {!user ? (
+                        <SignInAndSignUp />
+                    ) : (
+                        <Redirect to="/gameField" />
+                    )}
+                </Route>
+                <Route exact={true} path="/">
+                    <LandingPage />
+                </Route>
+                {
+                    userLoading ?
+                        <UserLoader /> :
+                        <>
+                            <UserBar user={user} />
+                            <Route exact={true} path="/clockView">
+                                {user ?
+                                    <ClockView />
+                                    :
+                                    <Redirect to="/signin" />}
+                            </Route>
+                            <Route exact={true} path='/gameField'>
+                                {user ?
+                                    <>
+                                        <GameField />
+                                    </>
+                                    :
+                                    <Redirect to="/signin" />}
+                            </Route>
+                            <Route exact={true} path="/statistics">
+                                {user ?
+                                    <>
+                                        <StatisticsPage />
+                                    </>
+                                    :
+                                    <Redirect to="/signin" />}
+                            </Route>
+                            <Route exact={true} path="/settings" component={Setting} />
+                            <Route path='/roadMap/:routineId'>
+                                {user ?
+                                    <RoadMap />
+                                    :
+                                    <Redirect to="/signin" />}
+                            </Route>
+                        </>
+                }
 
-                    <Route exact={true} path="/">
-                        <LandingPage />
-                    </Route>
-                    <Route exact={true} path="/clockView">
-                        {user ?
-                            <>
-                                <UserBar user={user} />
-                                <ClockView />
-                            </>
-                            :
-                            <Redirect to="/signin" />}
-                    </Route>
-                    <Route exact={true} path="/signin">
-                        {!user ? (
-                            <SignInAndSignUp />
-                        ) : (
-                            <Redirect to="/gameField" />
-                        )}
-                    </Route>
-
-                    <Route exact={true} path='/gameField'>
-                        {user ?
-                            <>
-                                <UserBar user={user} />
-                                <GameField />
-                            </>
-                            :
-                            <Redirect to="/signin" />}
-                    </Route>
-                    <Route exact={true} path="/statistics">
-                        {user ?
-                            <>
-                                <UserBar user={user} />
-                                <StatisticsPage />
-                            </>
-                            :
-                            <Redirect to="/signin" />}
-                    </Route>
-                    <Route exact={true} path="/settings" component={Setting} />
-
-                    <Route path='/roadMap/:routineId'>
-                        {user ?
-                            <>
-                                <UserBar user={user} />
-                                <RoadMap />
-                            </>
-                            :
-                            <Redirect to="/signin" />}
-                    </Route>
-
-                    <Route exact={true} path="*">
-                        <div style={{ fontSize: "200px" }}>not found</div>
-                    </Route>
-
-                </Switch>
-            </HashRouter>
+                <Route exact={true} path="*">
+                    <div style={{ fontSize: "200px" }}>not found</div>
+                </Route>
+            </Switch>
         </div>
     );
 }
@@ -96,7 +100,10 @@ const App = ({ user, displayMode }) => {
 const mapStateToProps = createStructuredSelector({
     user: selectCurrentUser,
     displayMode: selectCurrentDisplayMode,
+    routines: selectCurrentRoutines
 });
-
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+    setCurrentRoutines: routines => dispatch(setCurrentRoutines(routines))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

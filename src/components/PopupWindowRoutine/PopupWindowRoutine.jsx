@@ -2,13 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { ReactComponent as Close } from '../../assets/icons/close.svg';
 import { ReactComponent as AddBoxIcon } from '../../assets/icons/add_box.svg';
-import $ from 'jquery';
+
 import { addRoutine } from "../../redux/routines/routines.actions";
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import './PopupWindowRoutine.scss';
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import myServer from "../server/server";
 import Zoom from 'react-reveal/Zoom';
 
 import data from '@emoji-mart/data'
@@ -21,6 +20,8 @@ import { timeStringToFloat } from '../../utils/clock';
 import { selectCurrentRoutines } from "../../redux/routines/routines.selector";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { hidePopup } from "../../redux/popup/popup.actions";
+import { addRoutineToFirebase } from "../../../lib/firebase";
+import { Timestamp } from "firebase/firestore";
 
 const PopupWindowRoutine = ({ user, addRoutine, routines, hidePopup }) => {
     const [emoji, setEmoji] = useState("");
@@ -67,28 +68,21 @@ const PopupWindowRoutine = ({ user, addRoutine, routines, hidePopup }) => {
         }
         setLoadingAdding(true);
         try {
-            let res = await $.ajax({
-                url: `${myServer}/addRoutine.php`,
-                method: 'get',
-                data: {
-                    userId: user.userId,
-                    title: addRoutineForm.title,
-                    description: addRoutineForm.description,
-                    level: addRoutineForm.level,
-                    priority: addRoutineForm.priority,
-                    emoji: emoji,
-                    notification: "00:00",
-                    bgEmojiColor: bgEmojiColorBtn,
-                    startRoutine: addRoutineForm.startRoutine,
-                    endRoutine: addRoutineForm.endRoutine,
-                    message: addRoutineForm.message,
-                }
-            });
-            hidePopup(false);
-            res = JSON.parse(res);
-            addRoutine(res);
+            const newRoutineObject = {
+                ...addRoutineForm,
+                level: Number(addRoutineForm.level),
+                emoji: emoji,
+                bgEmojiColor: bgEmojiColorBtn,
+                skip: 0,
+                combo: 0,
+                isSubmitted: false,
+                lastVisit: new Timestamp(0, 0),
+            }
+            const routineId = addRoutineToFirebase(user.uid, newRoutineObject);
+
+            addRoutine({ ...newRoutineObject, routineId, });
         } catch (err) {
-            console.error(`Error detected login : ${err}`);
+            console.error(`Error detected login : ${err.message}`);
         } finally {
             setLoadingAdding(false)
         }

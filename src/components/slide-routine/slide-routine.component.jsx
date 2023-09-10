@@ -13,8 +13,8 @@ const SlideItem = ({ currentRoutine }) => {
     )
 }
 
-const SlideRoutine = ({ routineCollection, selectedRoutine }) => {
-    const sortedRoutines = sortArrayByStartTime(routineCollection);
+const SlideRoutine = ({ routines, selectedRoutine }) => {
+    const sortedRoutines = sortArrayByStartTime(routines);
     const index = getRoutineIndexInTime(sortedRoutines, hourMinFormat());
     const slideRef = useRef(null)
 

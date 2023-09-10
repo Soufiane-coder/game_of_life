@@ -11,28 +11,31 @@ import { isAmPm, getCurrentRoutine, hourMinFormat } from './utils';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-
-const ClockView = ({ routineCollection }) => {
-    const [amPm, setAmPm] = useState({ ...isAmPm() });
-
-
-    const [selectedRoutine, setSelectedRoutine] = useState('-2');
+const ClockView = ({ routines }) => {
+    const [loadingRoutines, setLoadingRoutines] = useState(true);
 
     useEffect(() => {
-        console.log(selectedRoutine)
-    }, [selectedRoutine])
+        setLoadingRoutines(!routines);
+    }, [routines])
+
+
+    const [amPm, setAmPm] = useState({ ...isAmPm() });
+    const [selectedRoutine, setSelectedRoutine] = useState('-2');
 
     const handleChangeCheckBox = () => {
         setAmPm(old => ({ am: !old.am, pm: !old.pm }))
     }
 
+    if (loadingRoutines) {
+        return (
+            <h1>loading Routines ...</h1>
+        )
+    }
     return (
         <>
             <PageHeader title={'Clock View'} />
             <div className='clock-view-page'>
-
-                <ClockContainer routines={routineCollection} setSelectedRoutine={setSelectedRoutine} {...amPm} />
-
+                <ClockContainer routines={routines} setSelectedRoutine={setSelectedRoutine} {...amPm} />
                 <div className="toggleWrapper">
                     <input type="checkbox" className="dn" id='dn' checked={amPm.pm} onChange={handleChangeCheckBox} />
                     <label htmlFor="dn" className="toggle">
@@ -49,17 +52,14 @@ const ClockView = ({ routineCollection }) => {
                         <span className="star star--6"></span>
                     </label>
                 </div>
-
-                <SlideRoutine {...{ routineCollection, selectedRoutine }} />
-
-
+                <SlideRoutine {...{ routines, selectedRoutine }} />
             </div>
         </>
     )
 }
 
 const mapPropsToMap = createStructuredSelector({
-    routineCollection: selectCurrentRoutines
+    routines: selectCurrentRoutines
 })
 
 export default connect(mapPropsToMap)(ClockView);

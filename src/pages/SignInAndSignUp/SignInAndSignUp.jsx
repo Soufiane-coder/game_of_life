@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import SignIn from "../../layout/sign-in-and-sign-out/SignIn/SignIn";
 import SignUp from "../../layout/sign-in-and-sign-out/SignUp/SignUp";
@@ -6,40 +6,32 @@ import { ReactComponent as UndrawMobileImage } from "../../assets/undraw/undraw_
 import ToggleSignInSignUp from "../../components/ToggleSignInSignUp/ToggleSignInSignUp";
 import Flip from 'react-reveal/Flip';
 import './SignInAndSignUp.scss';
-import { withRouter } from 'react-router-dom';
 
-class SignInAndSignUp extends React.Component {
-    constructor({ history }) {
-        super();
-        if (localStorage.getItem('user')) {
-            history.push('/');
-        }
-        this.history = history;
-        this.state = {
-            hidden: true
-        }
-    }
-    render() {
-        return (
-            <>
-                <div className="log-in-log-out">
-                    <div className="side-bar" />
-                    <div className="side-bar-dark" />
-                    <Flip bottom>
-                        <UndrawMobileImage />
-                    </Flip>
-                    <section className="form-section">
-                        <ToggleSignInSignUp parent={this} />
 
-                        <SignIn hidden={!this.state.hidden} history={this.history} />
+const SignInAndSignUp = () => {
+    const [hidden, setHidden] = useState(true);
 
-                        <SignUp hidden={this.state.hidden} history={this.history} />
-                    </section>
-                </div>
-            </>
-        )
-    }
+    return (
+        <>
+            <div className="log-in-log-out">
+                <div className="side-bar" />
+                <div className="side-bar-dark" />
+                {/* <Flip bottom>
+                    <UndrawMobileImage />
+                </Flip> */}
+                <section className="form-section">
+                    <ToggleSignInSignUp {...{ hidden, setHidden }} />
+
+                    <SignIn hidden={!hidden} />
+
+                    <SignUp hidden={hidden} />
+
+                </section>
+            </div>
+        </>
+    )
 }
 
 
-export default withRouter(SignInAndSignUp);
+
+export default SignInAndSignUp;

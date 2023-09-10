@@ -1,95 +1,79 @@
-import React from 'react';
-import $ from 'jquery';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../../../redux/user/user.actions';
-import myServer from '../../../components/server/server';
-class SignUp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            displayName: '',
-            email: '',
-            password: '',
-            confirmPassword: ''
-        }
-    }
 
-    _handleChange = (event) => {
+import { addNewUser, signUserUpWithEmail, signUserInWithGoogle } from '../../../../lib/firebase';
+
+
+const SignUp = ({ setCurrentUser, hidden }) => {
+
+    const [formule, setFormule] = useState({
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        message: '',
+    })
+    const handleChange = (event) => {
         const { name, value } = event.target;
-        this.setState({
+        setFormule(old => ({
+            ...old,
             [name]: value
-        })
+        }))
     }
-
-    _handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const { displayName, email, password, confirmPassword } = this.state;
+        const { displayName, email, password, confirmPassword } = formule;
 
         if (password !== confirmPassword) {
-            alert("password are not the same");
+            setFormule(old => ({ ...old, message: 'The confirmation is not valied,\nbe sure the password and the confirmation are the same' }))
             return;
         }
-
-        try {
-            let res = await $.ajax({
-                url: `${myServer}/logup.php`,
-                method: 'post',
-                data: {
-                    username: displayName,
-                    email: email,
-                    password: password,
-                }
-            });
-            try {
-                res = JSON.parse(res);
-                if (res.status === 'success') {
-                    this.props.setCurrentUser(res.user);
-                }
-            } catch (_) {
-                console.log("cannot sign up", _);
-            }
-        } catch (err) {
-            console.error(`Error detected logup : ${err}`);
-        }
-
-        this.setState({
-            displayName: '',
-            email: '',
-            password: '',
-            confirmPassword: ''
-        })
+        const user = await signUserUpWithEmail(email, password, displayName)
+        await addNewUser(user);
+    }
+    const handleSignInWithGoogle = async () => {
+        await signUserInWithGoogle();
     }
 
-    render() {
-        return (
-            <div className={`sign-up__container  ${this.props.hidden ? "hidden" : ""}`}>
-                <form className="card" onSubmit={this._handleSubmit}>
-                    <h1 className="sign-up">Sign Up</h1>
-                    <div className="inputBox">
-                        <input type="text" name="displayName" value={this.state.displayName} onChange={this._handleChange} required />
-                        <span className="user">Username</span>
-                    </div>
 
-                    <div className="inputBox">
-                        <input type="email" name="email" value={this.state.email} onChange={this._handleChange} required />
-                        <span className="user">Email</span>
-                    </div>
 
-                    <div className="inputBox">
-                        <input type="password" name="password" value={this.state.password} onChange={this._handleChange} required />
-                        <span>Password</span>
-                    </div>
+    return (
+        <div className={`sign-up-container  ${hidden ? "hidden" : ""}`}>
+            <form className="sign-up-container__card" onSubmit={handleSubmit}>
+                <h1 className="sign-up-container__title">Sign Up</h1>
+                <div className="sign-up-container__inputBox">
+                    <input type="text" name="displayName" value={formule.displayName} onChange={handleChange} required />
+                    <span className="sign-up-container__username">Username</span>
+                </div>
 
-                    <div className="inputBox">
-                        <input type="password" name="confirmPassword" value={this.state.confirmPassword} onChange={this._handleChange} required />
-                        <span>Confirm password</span>
-                    </div>
-                    <button className="enter">Enter</button>
+                <div className="sign-up-container__inputBox">
+                    <input type="email" name="email" value={formule.email} onChange={handleChange} required />
+                    <span className="sign-up-container__email">Email</span>
+                </div>
 
-                </form>
-            </div>
-        )
-    }
+                <div className="sign-up-container__inputBox">
+                    <input type="password" name="password" value={formule.password} onChange={handleChange} required />
+                    <span className="sign-up-container__password">Password</span>
+                </div>
+                <div className="sign-up-container__inputBox">
+                    <input type="password" name="confirmPassword" value={formule.confirmPassword} onChange={handleChange} required />
+                    <span className="sign-up-container__confirm-password">Confirm password</span>
+                </div>
+                <p>{formule.message}</p>
+                <button className="sign-up-container__sign-up-button">Sign up</button>
+                <button className="sign-in-container__with-google" onClick={handleSignInWithGoogle}>
+                    <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262">
+                        <path fill="#4285F4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"></path>
+                        <path fill="#34A853" d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"></path>
+                        <path fill="#FBBC05" d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"></path>
+                        <path fill="#EB4335" d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"></path>
+                    </svg>
+                    Continue with Google
+                </button>
+            </form>
+        </div>
+    )
 }
 
 const mapDispatchToProps = (dispatch) => ({

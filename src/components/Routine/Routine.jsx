@@ -21,6 +21,7 @@ import { ReactComponent as GoalIcon } from '../../assets/icons/goal.svg';
 import { useHistory } from "react-router-dom";
 
 import { displayCheckPopupState, displayMessagePopupState } from "../../redux/popup/popup.actions";
+import { ReactComponent as Cracks } from '../../assets/cracks.svg';
 
 
 const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotificationPrompState, displayCheckPopupState, displayMessagePopupState }) => {
@@ -101,6 +102,9 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotifi
 			{
 				routine.combo !== '0' && <div className="comboed"></div>
 			}
+			{/* {
+				routine.priority === 'important' && <Cracks style={{ width: '100%', position: 'absolute', zIndex: '0', height: '100%', top: '0', left: '0' }} />
+			} */}
 
 			<div className="emoji" style={{ backgroundColor: routine.bgEmojiColor }}>{deleteLoading ? <LoadingSpinner /> : routine.emoji}</div>
 			<div className="title">{routine.title}</div>

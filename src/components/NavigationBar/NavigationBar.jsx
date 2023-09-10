@@ -12,6 +12,7 @@ import { selectCurrentUser } from '../../redux/user/user.selector';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { setCurrentUser } from '../../redux/user/user.actions';
+import { signUserOut } from '../../../lib/firebase';
 
 const NavigationBar = ({ history, user, setCurrentUser }) => {
     const [isNavOn, setIsNavOn] = useState(false);
@@ -45,7 +46,7 @@ const NavigationBar = ({ history, user, setCurrentUser }) => {
         label: 'log out',
         icon: SignInPageIcon,
         url: '/',
-        action: () => setCurrentUser("")
+        action: () => { signUserOut(); setCurrentUser("") }
     },
 
     ]

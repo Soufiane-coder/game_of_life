@@ -1,7 +1,7 @@
 import './UserBar.scss';
 import DisplayModeSwitcher from '../../components/DisplayModeSwitcher/DisplayModeSwitcher';
 import Goku from '../../assets/badjets/goku_1-stand.gif';
-const UserBar = ({ username }) => {
+const UserBar = ({ user }) => {
 
     return (
         <div className="user-bar">
@@ -18,9 +18,9 @@ const UserBar = ({ username }) => {
                 <div className="et">★</div>
                 <div className="et">★</div>
             </div>
-            <img src="" alt="user" className="user-bar__user-img" />
+            <img src={user.photoURL} alt="user" className="user-bar__user-img" />
             {/* <img className="user-bar__character" src={Goku} alt="" /> */}
-            <div className="user-bar__username">{username}</div>
+            <div className="user-bar__username">{user.displayName}</div>
         </div>
     )
 

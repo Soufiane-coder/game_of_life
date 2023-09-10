@@ -39,7 +39,7 @@ const App = ({ user, displayMode }) => {
                     <Route exact={true} path="/clockView">
                         {user ?
                             <>
-                                <UserBar username={user.username} />
+                                <UserBar user={user} />
                                 <ClockView />
                             </>
                             :
@@ -56,7 +56,7 @@ const App = ({ user, displayMode }) => {
                     <Route exact={true} path='/gameField'>
                         {user ?
                             <>
-                                <UserBar username={user.username} />
+                                <UserBar user={user} />
                                 <GameField />
                             </>
                             :
@@ -65,7 +65,7 @@ const App = ({ user, displayMode }) => {
                     <Route exact={true} path="/statistics">
                         {user ?
                             <>
-                                <UserBar username={user.username} />
+                                <UserBar user={user} />
                                 <StatisticsPage />
                             </>
                             :
@@ -76,7 +76,7 @@ const App = ({ user, displayMode }) => {
                     <Route path='/roadMap/:routineId'>
                         {user ?
                             <>
-                                <UserBar username={user.username} />
+                                <UserBar user={user} />
                                 <RoadMap />
                             </>
                             :

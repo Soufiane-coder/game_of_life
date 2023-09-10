@@ -18,6 +18,7 @@ const SignUp = ({ setCurrentUser, hidden }) => {
         const { name, value } = event.target;
         setFormule(old => ({
             ...old,
+            message: '',
             [name]: value
         }))
     }
@@ -26,7 +27,7 @@ const SignUp = ({ setCurrentUser, hidden }) => {
         const { displayName, email, password, confirmPassword } = formule;
 
         if (password !== confirmPassword) {
-            setFormule(old => ({ ...old, message: 'The confirmation is not valied,\nbe sure the password and the confirmation are the same' }))
+            setFormule(old => ({ ...old, message: 'The confirmation is not valied, make sure the password and the confirmation are the same' }))
             return;
         }
         const user = await signUserUpWithEmail(email, password, displayName)
@@ -60,7 +61,7 @@ const SignUp = ({ setCurrentUser, hidden }) => {
                     <input type="password" name="confirmPassword" value={formule.confirmPassword} onChange={handleChange} required />
                     <span className="sign-up-container__confirm-password">Confirm password</span>
                 </div>
-                <p>{formule.message}</p>
+                <p className='sign-up-container__message'>{formule.message}</p>
                 <button className="sign-up-container__sign-up-button">Sign up</button>
                 <button className="sign-in-container__with-google" onClick={handleSignInWithGoogle}>
                     <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262">

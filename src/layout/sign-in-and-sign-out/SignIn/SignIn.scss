@@ -11,7 +11,7 @@ $font-size: 3rem;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        gap: 35px;
+        gap: 20px;
         border-radius: 15px;
         background: $color-white-1;
         box-shadow: 16px 16px 32px #c8c8c8;
@@ -78,6 +78,11 @@ $font-size: 3rem;
         display: block;
         font-weight: bold;
         margin-top: 1.5em;
+    }
+
+    &__message{
+        color: red;
+        font-size: 1.5rem;
     }
     &__sign-in-button, &__sign-up-button {
         color: $color-primary;

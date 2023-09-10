@@ -4,29 +4,38 @@ import './SignIn.scss';
 import { setCurrentUser } from '../../../redux/user/user.actions';
 import { connect } from 'react-redux';
 import myServer from '../../../components/server/server';
-import { signUserInWithGoogle, auth, signUserInWithEmail, signUserOut } from '../../../../lib/firebase';
+import { signUserInWithGoogle, auth, signUserInWithEmail, signUserOut, getUserData, addNewUser } from '../../../../lib/firebase';
 
 
 
 const SignIn = ({ hidden, setCurrentUser }) => {
-
-
-    const [formule, setFormule] = useState({ email: '', password: '' });
+    const [formule, setFormule] = useState({ email: '', password: '', message: '' });
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormule(old => ({ ...old, [name]: value }));
+        setFormule(old => ({ ...old, message: '', [name]: value }));
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { email, password } = formule;
-
-        await signUserInWithEmail(email, password);
+        signUserOut();
+        try {
+            const userImpl = await signUserInWithEmail(email, password);
+            const userData = await getUserData(userImpl);
+            console.log(userData)
+        } catch (error) {
+            console.dir(error);
+            setFormule(old => ({ ...old, message: error.message }))
+        }
     }
 
-    const handleSignInWithGoogle = async () => {
-        await signUserInWithGoogle();
+    const handleSignInWithGoogle = async (event) => {
+        event.preventDefault();
+        signUserOut();
+        const userImp = await signUserInWithGoogle();
+        const user = await getUserData(userImp);
+        setCurrentUser(user);
     }
 
 
@@ -44,7 +53,7 @@ const SignIn = ({ hidden, setCurrentUser }) => {
                     <input type="password" name="password" value={formule.password} required onChange={handleChange} />
                     <span className="sign-in-container__password">Password</span>
                 </div>
-
+                <p className='sign-in-container__message'>{formule.message}</p>
                 <button className="sign-in-container__sign-in-button">Sign in</button>
 
                 <button className="sign-in-container__with-google" onClick={handleSignInWithGoogle}>

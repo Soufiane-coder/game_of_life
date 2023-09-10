@@ -30,8 +30,10 @@ import { setCurrentRoutines } from "./redux/routines/routines.actions";
 const App = ({ user, displayMode, routines, setCurrentRoutines }) => {
     const [userImp, userLoading, userError] = useAuthState(auth);
     useEffect(() => {
-        getRoutines(user.uid).then(setCurrentRoutines);
-    }, []);
+        if (user) {
+            getRoutines(user.uid).then(setCurrentRoutines);
+        }
+    }, [user]);
 
     return (
         <div id={displayMode}>

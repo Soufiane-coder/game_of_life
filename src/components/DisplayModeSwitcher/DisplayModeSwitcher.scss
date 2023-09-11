@@ -1,14 +1,14 @@
 
 .switch{
       margin-left: 2rem;
-      font-size: 17px;
+      font-size: 1.7rem;
       position: relative;
       display: inline-block;
-      width: 64px;
-      height: 34px;
+      width: 6.4rem;
+      height: 3.4rem;
 
-      max-width: 64px;
-      max-height: 34px;
+      max-width: 6.4rem;
+      max-height: 3.4rem;
       cursor: pointer;
 
       
@@ -27,18 +27,18 @@
         bottom: 0;
         background-color: #73C0FC;
         transition: .4s;
-        border-radius: 30px;
+        border-radius: 3.0rem;
         z-index:2;
       }
       
       .slider-toggle {
         position: absolute;
         content: "";
-        height: 30px;
-        width: 30px;
-        border-radius: 20px;
-        left: 2px;
-        bottom: 2px;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 2rem;
+        left: .2rem;
+        bottom: .2rem;
         z-index: 4;
         background-color: #e8e8e8;
         transition: .4s;
@@ -46,21 +46,21 @@
       
       .sun svg {
         position: absolute;
-        top: 6px;
-        left: 36px;
+        top: .6rem;
+        left: 3.6rem;
         z-index: 3;
-        width: 24px;
-        height: 24px;
+        width: 2.4rem;
+        height: 2.4rem;
       }
       
       .moon svg {
         fill: #73C0FC;
         position: absolute;
-        top: 5px;
-        left: 5px;
+        top: .5rem;
+        left: .5rem;
         z-index: 3;
-        width: 24px;
-        height: 24px;
+        width: 2.4rem;
+        height: 2.4rem;
       }
       
       .input:checked + .slider {
@@ -72,6 +72,6 @@
       }
       
       .input:checked ~ .slider-toggle {
-        transform: translateX(30px);
+        transform: translateX(3rem);
       }
 }

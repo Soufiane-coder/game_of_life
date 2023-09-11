@@ -1,19 +1,23 @@
 @import '../../style/variables.scss';
 
 .road-map{
-    background-color: $color-white-1;;
+    // background-color: $color-white-1;
     margin-right: $width-navigation;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    background-color: transparent;
+    @media (max-width: $table-view) {
+        margin-right: 0;
+    }
     &__container{
         height: 15rem;
         width: 95%;
         overflow-x: scroll;
         position: relative;
         margin-bottom: 10rem;
-
+        background-color: transparent;
+    
         &::-webkit-scrollbar {
             height: 0rem;
         }
@@ -34,13 +38,11 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        height: 10px;
-        width: 140px;
+        height: 8px;
         background-color: $color-white-1;
         border: 1px solid $color-tertiary;
         border-right: none;
         border-left: none;
-
         z-index: 1;
     }
 
@@ -49,14 +51,10 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        height: 10px;
-        width: 70px;
-
+        height: 8px;
         background-color: $color-tertiary;
-        border: 1px solid $color-white-1;
         border-right: none;
         border-left: none;
-
         z-index: 2;
     }
 
@@ -109,12 +107,9 @@
             height: 4rem;
         }
 
-        // &--sub-goal{
-        // }
-
-        &:nth-of-type(3){
+        &--achieved{
             background-color: $color-tertiary;
-            color: $color-white-1
+            color: $color-white-1;
         }
         
     }
@@ -133,19 +128,55 @@
         grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
     }
 
+    &__goal-descriptions{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 300px;
+        margin: 1rem;
+        padding: 2rem;
+        border: 2px solid $color-black-1;
+        border-radius: 1rem;
+    }
+
     &__goal-description{
-        text-align: center;
+        justify-self: stretch;
+        height: 100%;
+        width: 100%;
+        
     }
     
     &__adding-goal{
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 300px;
+        margin: 1rem;
+        padding: 2rem;
+        border: 2px solid $color-black-1;
+        border-radius: 1rem;
     }
     
     // &__adding-button{
     // }
+    &__button-wrapper{
 
+    }
     &__adding-description{
         width: 100%;
         resize: none;
+
+    }
+}
+
+#dark .road-map{
+    &__path{
+        background-color: $color-white-1;
+    }
+    &__goal-descriptions, &__adding-goal{
+        h1{
+            color: white;
+        }
+        border: 2px solid $color-white-1;
     }
 }

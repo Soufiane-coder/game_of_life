@@ -3,14 +3,18 @@
 .user-bar{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     height:$user-bar-height;
-    padding: 3rem;
+    padding: 1.5rem;
     padding-bottom: 0;
     background-color: $color-white-1;
     color: $color-black-1;
     transition: all 1s;
-    padding-right: 90px;
+    padding-right: $width-navigation + 2rem;
+    @media (max-width: $table-view) {
+        padding-right: 1rem;
+    }
     
     &__tree-lines{
         width: 5rem;
@@ -71,6 +75,10 @@
         margin-bottom: auto;
         padding-left: 2rem;
         font-size: 2.5rem;
+        max-width: 150px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 }
 

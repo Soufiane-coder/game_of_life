@@ -4,7 +4,7 @@ import './SignIn.scss';
 import { setCurrentUser } from '../../../redux/user/user.actions';
 import { connect } from 'react-redux';
 import myServer from '../../../components/server/server';
-import { signUserInWithGoogle, auth, signUserInWithEmail, signUserOut, getUserData, addNewUser } from '../../../../lib/firebase';
+import { signUserInWithGoogle, auth, signUserInWithEmail, signUserOut, getUserData } from '../../../../lib/firebase';
 
 
 

@@ -29,6 +29,7 @@ import { setCurrentRoutines } from "./redux/routines/routines.actions";
 
 const App = ({ user, displayMode, routines, setCurrentRoutines }) => {
     const [userImp, userLoading, userError] = useAuthState(auth);
+
     useEffect(() => {
         if (user) {
             getRoutines(user.uid).then(setCurrentRoutines);
@@ -67,9 +68,7 @@ const App = ({ user, displayMode, routines, setCurrentRoutines }) => {
                             </Route>
                             <Route exact={true} path='/gameField'>
                                 {user ?
-                                    <>
-                                        <GameField />
-                                    </>
+                                    <GameField />
                                     :
                                     <Redirect to="/signin" />}
                             </Route>
@@ -90,7 +89,6 @@ const App = ({ user, displayMode, routines, setCurrentRoutines }) => {
                             </Route>
                         </>
                 }
-
                 <Route exact={true} path="*">
                     <div style={{ fontSize: "200px" }}>not found</div>
                 </Route>

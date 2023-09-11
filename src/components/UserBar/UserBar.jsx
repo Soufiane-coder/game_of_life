@@ -2,7 +2,6 @@ import './UserBar.scss';
 import DisplayModeSwitcher from '../../components/DisplayModeSwitcher/DisplayModeSwitcher';
 import Goku from '../../assets/badjets/goku_1-stand.gif';
 const UserBar = ({ user }) => {
-
     return (
         <div className="user-bar">
             {/* <div className="user-bar__tree-lines">

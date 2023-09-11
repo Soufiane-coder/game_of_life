@@ -24,7 +24,7 @@
   color: inherit;
 
   font-family: inherit;
-  font-weight: inherit;
+  font-weight:  inherit;
   font-size: inherit;
 }
 
@@ -91,8 +91,8 @@ h5{
 }
 
 p{
-  font-size: 2rem;
-  font-weight:  300;
+  font-size: 2.2rem;
+  font-weight:  400;
 }
 
 html{
@@ -100,7 +100,7 @@ html{
   @media (max-width: 1280px) {
       font-size: 57%;
   }
-  @media (max-width: px) {
+  @media (max-width: $table-view) {
       font-size: 50%;
   }
   @media (max-width: 562px) {
@@ -108,18 +108,14 @@ html{
   }
 }
 
-#light {
-  color : $color-black-1;
-}
-
 #dark{
-  color : $color-white-1;
+  background-color: $color-dark-mode-primary;
 }
-
 body{
   font-family: Quicksand, sans-serif;
   overflow-x: hidden;
   font-size: 2.5rem;
+  font-weight: 400;
   a:link, a:visited{
       text-decoration: none;
   }

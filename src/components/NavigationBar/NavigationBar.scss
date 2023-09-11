@@ -39,7 +39,7 @@ $demension-icon: 7rem;
     display: none;
 }
 
-@media  (max-width: 768px) {
+@media  (max-width: $table-view) {
     .navigation-bar{
         display: none;
         

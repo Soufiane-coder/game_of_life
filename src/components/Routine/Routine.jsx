@@ -88,8 +88,9 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotifi
 
 	const handleRoadMapClick = (event) => {
 		const { id } = event.target.closest('.routine');
-		history.push(`/roadMap/${id}`)
+		history.push(`/road-map/${id}`)
 	}
+
 	return (
 		<Fade bottom>
 			<div className='routine' id={routine.routineId}>
@@ -153,8 +154,8 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	removeRoutine: (taskId) => dispatch(removeRoutine(taskId)),
-	skipRoutine: (taskId) => dispatch(skipRoutine(taskId)),
+	removeRoutine: (routineId) => dispatch(removeRoutine(routineId)),
+	skipRoutine: (routineId) => dispatch(skipRoutine(routineId)),
 	buySkip: () => dispatch(buySkip()),
 	setNotificationPrompState: (stateShow) => dispatch(setNotificationPrompState(stateShow)),
 	displayCheckPopupState: (state) => dispatch(displayCheckPopupState(state)),

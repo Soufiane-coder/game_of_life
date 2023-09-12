@@ -20,14 +20,15 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { selectCurrentDisplayMode } from "./redux/display-mode/display-mode.selector";
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from "../lib/firebase";
+import { auth, getUserData } from "../lib/firebase";
 import UserLoader from "./layout/user-loader/user-loader.layout";
 import { selectCurrentRoutines } from "./redux/routines/routines.selector";
 import { useEffect } from "react";
 import { getRoutines } from "../lib/firebase";
 import { setCurrentRoutines } from "./redux/routines/routines.actions";
+import { setCurrentUser } from "./redux/user/user.actions";
 
-const App = ({ user, displayMode, routines, setCurrentRoutines }) => {
+const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }) => {
     const [userImp, userLoading, userError] = useAuthState(auth);
 
     useEffect(() => {
@@ -35,6 +36,12 @@ const App = ({ user, displayMode, routines, setCurrentRoutines }) => {
             getRoutines(user.uid).then(setCurrentRoutines);
         }
     }, [user]);
+
+    useEffect(() => {
+        if (userImp) {
+            getUserData(userImp).then(setCurrentUser)
+        }
+    }, [userImp])
 
     return (
         <div id={displayMode}>
@@ -81,7 +88,7 @@ const App = ({ user, displayMode, routines, setCurrentRoutines }) => {
                                     <Redirect to="/signin" />}
                             </Route>
                             <Route exact={true} path="/settings" component={Setting} />
-                            <Route path='/roadMap/:routineId'>
+                            <Route path='/road-map/:routineId'>
                                 {user ?
                                     <RoadMap />
                                     :
@@ -103,7 +110,8 @@ const mapStateToProps = createStructuredSelector({
     routines: selectCurrentRoutines
 });
 const mapDispatchToProps = dispatch => ({
-    setCurrentRoutines: routines => dispatch(setCurrentRoutines(routines))
+    setCurrentRoutines: routines => dispatch(setCurrentRoutines(routines)),
+    setCurrentUser: user => dispatch(setCurrentUser(user)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 

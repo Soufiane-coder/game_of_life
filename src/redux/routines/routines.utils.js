@@ -1,16 +1,16 @@
-export const checkRoutine = (routines, taskId) => {
+export const checkRoutine = (routines, routineId) => {
   return routines.map((routine) => {
-    if (routine.taskId === taskId) {
-      routine.submitted = "1";
+    if (routine.routineId === routineId) {
+      routine.isSubmitted = true;
       routine.combo = +routine.combo + 1;
     }
     return routine;
   });
 };
 
-export const removeRoutine = (routines, taskId) => {
+export const removeRoutine = (routines, routineId) => {
   const index = routines.indexOf(
-    routines.find((routine) => routine.taskId === taskId)
+    routines.find((routine) => routine.routineId === routineId)
   );
   if (index > -1) {
     // only splice array when item is found
@@ -19,9 +19,9 @@ export const removeRoutine = (routines, taskId) => {
   return routines;
 };
 
-export const skipRoutine = (routines, taskId) => {
+export const skipRoutine = (routines, routineId) => {
   return routines.map((routine) => {
-    if (routine.taskId === taskId) {
+    if (routine.routineId === routineId) {
       routine.skip = +routine.skip + 1;
     }
     return routine;

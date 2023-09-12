@@ -8,7 +8,10 @@ $shifting : -10rem;
     color: $color-black-1;
     height:100%;
     width: 100%;
-    
+    .game-of-life-clipart{
+        width: 40%;
+        height: 100%;
+    }
     .introduction-text{
         margin-top: $shifting;
         display: inline;

@@ -23,7 +23,7 @@ const SignIn = ({ hidden, setCurrentUser }) => {
         try {
             const userImpl = await signUserInWithEmail(email, password);
             const userData = await getUserData(userImpl);
-            console.log(userData)
+            setCurrentUser(userData);
         } catch (error) {
             console.dir(error);
             setFormule(old => ({ ...old, message: error.message }))

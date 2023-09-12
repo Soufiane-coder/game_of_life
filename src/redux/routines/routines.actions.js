@@ -5,14 +5,14 @@ export const setCurrentRoutines = (routines) => ({
   payload: routines,
 });
 
-export const checkRoutine = (taskId) => ({
+export const checkRoutine = (routineId) => ({
   type: RoutinesActionTypes.CHECK_ROUTINE,
-  payload: taskId,
+  payload: routineId,
 });
 
-export const removeRoutine = (taskId) => ({
+export const removeRoutine = (routineId) => ({
   type: RoutinesActionTypes.REMOVE_ROUTINE,
-  payload: taskId,
+  payload: routineId,
 });
 
 export const addRoutine = (routine) => ({
@@ -20,7 +20,7 @@ export const addRoutine = (routine) => ({
   payload: routine,
 });
 
-export const skipRoutine = (taskId) => ({
+export const skipRoutine = (routineId) => ({
   type: RoutinesActionTypes.SKIP_ROUTINE,
-  payload: taskId,
+  payload: routineId,
 });

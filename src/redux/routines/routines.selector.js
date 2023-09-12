@@ -9,7 +9,7 @@ export const selectCurrentRoutines = createSelector(
 
 export const selectMessage = createSelector(
   [selectRoutines],
-  (routines) => (routineId) => routines.routines.find(routine => routine.taskId === routineId).message
+  (routines) => (routineId) => routines.routines.find(routine => routine.routineId === routineId).message
 )
 
 export const selectFilteredOption = createSelector(

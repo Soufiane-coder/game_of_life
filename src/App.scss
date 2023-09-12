@@ -103,8 +103,8 @@ html{
   @media (max-width: $table-view) {
       font-size: 50%;
   }
-  @media (max-width: 562px) {
-      font-size: 40%;
+  @media (max-width: $mini-table-view) {
+      font-size: 45%;
   }
 }
 

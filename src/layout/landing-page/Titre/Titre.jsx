@@ -5,10 +5,11 @@ import { ReactComponent as SheetClipArt } from "../../../assets/clipart/sheet.sv
 import GameFieldButton from "../../../components/GameFieldButton/GameFieldButton";
 import "./Titre.scss";
 import Fade from "react-reveal/Fade";
+import { ReactComponent as GameOfLifeClipart } from '../../../assets/clipart/game_of_life_clipart.svg';
 
 const Titre = () => (
     <div className="header-title">
-        <div className="introduction-text">
+        {/* <div className="introduction-text">
             <Fade left duration={1000}>
                 <h1 className="introduction-text__title">
                     <span className="introduction-text__title--color-yellow">Game of </span>
@@ -27,7 +28,8 @@ const Titre = () => (
                 </p>
             </Fade>
             <GameFieldButton />
-        </div>
+        </div> */}
+        <GameOfLifeClipart className="game-of-life-clipart" />
         <GamingDraw className="game-draw" />
     </div >
 );

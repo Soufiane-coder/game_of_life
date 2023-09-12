@@ -9,7 +9,6 @@ import PopupWindowRoutine from '../../components/PopupWindowRoutine/PopupWindowR
 import MessageContent from '../../components/MessageContent/MessageContent';
 
 const PopupField = ({ popup }) => {
-
     switch (popup.type) {
         case popupActionTypes.MESSAGE_POPUP:
             return (

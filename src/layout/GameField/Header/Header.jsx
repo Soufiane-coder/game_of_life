@@ -55,10 +55,9 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption,
         <div className="game__field--header">
 
             <div className="updating-informations">
-                <p className="notification-routine">Routines</p>
+                <h1 className="notification-routine">Routines</h1>
                 <div className="prices-and-xps">
                     <div className="xp">{user?.xp}XP</div>
-                    <div className="coins">{user?.coin}<CoinIcon /></div>
                 </div>
             </div>
             <div className="filter-and-adding-button">

@@ -60,7 +60,7 @@ export const getAllTimes = (array, am, pm) => {
                 if (hours === 0.0) {
                     continue;
                 }
-                data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor, id: routines[i].taskId });
+                data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor, id: routines[i].routineId });
                 previewsWasEmpty = false;
             }
         } else if (routines[i - 1].endRoutine === routines[i].startRoutine) {
@@ -68,7 +68,7 @@ export const getAllTimes = (array, am, pm) => {
             if (hours === 0.0) {
                 continue;
             }
-            data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor, id: routines[i].taskId });
+            data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor, id: routines[i].routineId });
             previewsWasEmpty = false;
         }
         else if (routines[i - 1].endRoutine !== routines[i].startRoutine && previewsWasEmpty) {
@@ -76,7 +76,7 @@ export const getAllTimes = (array, am, pm) => {
             if (hours === 0.0) {
                 continue;
             }
-            data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor, id: routines[i].taskId });
+            data.push({ label: routines[i].emoji + routines[i].title, hours, bgEmojiColor: routines[i].bgEmojiColor, id: routines[i].routineId });
             previewsWasEmpty = false;
         }
         else if (routines[i - 1].endRoutine !== routines[i].startRoutine) {

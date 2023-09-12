@@ -18,7 +18,7 @@ const SlideRoutine = ({ routines, selectedRoutine }) => {
     const index = getRoutineIndexInTime(sortedRoutines, hourMinFormat());
     const slideRef = useRef(null)
 
-    if (selectedRoutine !== '-2') slideRef.current.goTo(sortedRoutines.findIndex(routine => routine.taskId === selectedRoutine))
+    if (selectedRoutine !== '-2') slideRef.current.goTo(sortedRoutines.findIndex(routine => routine.routineId === selectedRoutine))
 
     const slideProperites = {
         indicators: true,

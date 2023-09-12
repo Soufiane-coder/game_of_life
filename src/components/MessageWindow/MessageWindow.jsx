@@ -10,13 +10,12 @@ import { checkRoutine } from '../../redux/routines/routines.actions';
 import { Zoom } from 'react-reveal';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { hidePopup } from '../../redux/popup/popup.actions';
+import { checkRoutineInFirebase } from '../../../lib/firebase';
 
 const MessageWindow = ({ user, checkRoutine, routineId, hidePopup }) => {
     const [messageInput, setMessageInput] = useState('');
 
     const [isLoading, setIsLoading] = useState(false);
-
-
 
     const handleChange = (event) => {
         const { value } = event.target;
@@ -26,15 +25,7 @@ const MessageWindow = ({ user, checkRoutine, routineId, hidePopup }) => {
     const handleCheckRoutine = async () => {
         setIsLoading(true);
         try {
-            await $.ajax({
-                url: `${myServer}/addOne.php`,
-                method: 'get',
-                data: {
-                    id: routineId,
-                    userID: user.userId,
-                    message: messageInput,
-                }
-            });
+            await checkRoutineInFirebase(user.uid, routineId)
             checkRoutine(routineId);
             hidePopup()
         } catch (err) {

@@ -1,20 +1,16 @@
 import React from 'react';
 import './LandingPage.scss'
-import Header from '../../layout/landing-page/Header/Header'
+import LPHeader from '../../layout/landing-page/lp-header/lp-header.layout'
 import Quote from '../../layout/landing-page/Quote/Quote';
-import ComplateRoutineDescription from '../../layout/landing-page/ComplateRoutineDescription/ComplateRoutineDescription';
-import RoutineDescription2 from '../../layout/landing-page/RoutineDescription2/RoutineDescription2';
-import Remember from '../../layout/landing-page/Remember/Remember';
+import LPGlobalDescription from '../../layout/landing-page/lp-global-description/lp-global-description.layout';
 import Footer from '../../layout/landing-page/Footer/Footer';
 
 const LandingPage = () => {
     return (
         <div className="container">
-            <Header />
+            <LPHeader />
             <Quote />
-            <ComplateRoutineDescription />
-            <RoutineDescription2 />
-            <Remember />
+            <LPGlobalDescription />
             <Footer />
         </div>
     )

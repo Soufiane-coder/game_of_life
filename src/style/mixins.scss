@@ -34,22 +34,7 @@
     align-items: center;
 }
 
-@mixin description-title{
-    color: $color-quoter;
-    font-size: 3.1rem * 1.5;
-    font-weight: 600;
-    transition: color 1s;
-}
 
-@mixin description-title-light {
-    @include description-title;
-    color: $color-quoter;
-}
-
-@mixin description-title-dark {
-    @include description-title;
-    color: $color-white-1;
-}
 
 @mixin clear-input-styles{
     background-color: transparent;

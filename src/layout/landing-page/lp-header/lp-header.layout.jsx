@@ -1,19 +1,19 @@
 import React from 'react';
-import Titre from '../Titre/Titre';
-import './Header.scss';
+import LPTitle from '../lp-title/lp-title.layout'
+import './lp-header.style.scss';
 
 
-const Header = () => {
+const LPHeader = () => {
     return (
         <div className='header' >
             <div className='header__background-white' />
             <div className='header__triangle-white header__triangle-up-right' />
             <div className='header__triangle-white header__triangle-buttom-left' />
-            <Titre />
+            <LPTitle />
         </div>
     )
 }
 
 
 
-export default Header;
+export default LPHeader;

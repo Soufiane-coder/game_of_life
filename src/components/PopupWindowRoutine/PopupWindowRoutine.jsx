@@ -78,7 +78,7 @@ const PopupWindowRoutine = ({ user, addRoutine, routines, hidePopup }) => {
                 isSubmitted: false,
                 lastVisit: new Timestamp(0, 0),
             }
-            const routineId = addRoutineToFirebase(user.uid, newRoutineObject);
+            const routineId = await addRoutineToFirebase(user.uid, newRoutineObject);
 
             addRoutine({ ...newRoutineObject, routineId, });
         } catch (err) {

@@ -39,7 +39,7 @@ const RoadMap = ({ routines, user, }) => {
 
 
     const getIndexOfReverseArray = [...goals].reverse().findIndex(goal => goal.isAchieved)
-    const getIndexOfLastAchievedGoal = goals.length - 1 - (getIndexOfReverseArray !== -1 ? getIndexOfReverseArray : 0)
+    const getIndexOfLastAchievedGoal = getIndexOfReverseArray === -1 ? -1 : (goals.length - 1 - getIndexOfReverseArray)
 
     useEffect(() => {
         if (goals) {

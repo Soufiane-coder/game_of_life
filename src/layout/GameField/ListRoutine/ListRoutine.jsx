@@ -31,7 +31,7 @@ const ListRoutine = ({ filterOption, selectedFilterOption }) => {
             </div>
             <div className="archived-routines">
                 {
-                    archivedRoutines ?
+                    archivedRoutines?.length !== 0 ?
                         <>
                             <h2 className="archived-routines__title"
                                 onClick={() => setShowArchivedList(old=>!old)}>Archived</h2>

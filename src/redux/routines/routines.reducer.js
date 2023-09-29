@@ -1,5 +1,5 @@
 import { RoutinesActionTypes } from "./routines.types";
-import { checkRoutine, removeRoutine, skipRoutine } from "./routines.utils";
+import { checkRoutine, removeRoutine, skipRoutine , changeArchivedOption} from "./routines.utils";
 
 
 const INITIAL_STATE = {
@@ -17,6 +17,11 @@ const routinesReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         routines: checkRoutine(state.routines, action.payload),
+      };
+    case RoutinesActionTypes.CHANGE_ARCHIVE_OPTION:
+      return {
+        ...state,
+        routines: changeArchivedOption(state.routines, action.payload.routineId, action.payload.archivedOption),
       };
     case RoutinesActionTypes.ADD_ROUTINE: {
       state.routines.unshift(action.payload);

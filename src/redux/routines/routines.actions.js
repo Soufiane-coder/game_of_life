@@ -5,6 +5,11 @@ export const setCurrentRoutines = (routines) => ({
   payload: routines,
 });
 
+export const setArchivedOption = (routineId, archivedOption) => ({
+  type: RoutinesActionTypes.CHANGE_ARCHIVE_OPTION,
+  payload: {routineId, archivedOption}
+})
+
 export const checkRoutine = (routineId) => ({
   type: RoutinesActionTypes.CHECK_ROUTINE,
   payload: routineId,

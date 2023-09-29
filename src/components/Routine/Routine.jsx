@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import { selectCurrentRoutines } from "../../redux/routines/routines.selector";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
-import { removeRoutine, skipRoutine } from "../../redux/routines/routines.actions";
+import { removeRoutine, skipRoutine, setArchivedOption } from "../../redux/routines/routines.actions";
 import { buySkip } from '../../redux/user/user.actions';
 import myServer from "../server/server";
 import { useState } from "react";
@@ -21,9 +21,16 @@ import { ReactComponent as GoalIcon } from '../../assets/icons/goal.svg';
 import { useHistory } from "react-router-dom";
 import { displayCheckPopupState, displayMessagePopupState } from "../../redux/popup/popup.actions";
 import { ReactComponent as Cracks } from '../../assets/cracks.svg';
+import { setArchivedOptionInFirebase } from "../../../lib/firebase";
 
 
-const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotificationPrompState, displayCheckPopupState, displayMessagePopupState }) => {
+
+const Routine = (
+	{ 
+		user, routine, removeRoutine, setArchivedOption,
+		skipRoutine, buySkip, setNotificationPrompState,
+		displayCheckPopupState, displayMessagePopupState
+	}) => {
 	const history = useHistory();
 
 	const [showOtherOptions, setShowOtherOptions] = useState(false);
@@ -132,12 +139,13 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotifi
 
 						<ul className="routine__other-options-list" style={!showOtherOptions ? { display: 'none' } : {}}>
 							<li className="routine__other-options-item"
-								onClick={() => {
-
+								onClick={async () => {
+									await setArchivedOptionInFirebase(user.uid, routine.routineId, !routine.isArchived)
+									setArchivedOption(routine.routineId, !routine.isArchived)
 								}}>{routine.isArchived ? "Desarchive" : "Archive"}</li>
 							<li className="routine__other-options-item">Edit</li>
 							<li className="routine__other-options-item"
-							onClick={(event) => {
+							onClick={(event) => { 	
 								setNotificationPrompState({ display: true, callback: () => handleRemove(event) })
 							}}>Delete</li>
 						</ul>
@@ -146,7 +154,6 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotifi
 				</div>
 			</div>
 	)
-
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -161,6 +168,7 @@ const mapDispatchToProps = (dispatch) => ({
 	setNotificationPrompState: (stateShow) => dispatch(setNotificationPrompState(stateShow)),
 	displayCheckPopupState: (state) => dispatch(displayCheckPopupState(state)),
 	displayMessagePopupState: (state) => dispatch(displayMessagePopupState(state)),
+	setArchivedOption: (routineId, archivedId) => dispatch(setArchivedOption(routineId, archivedId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routine);

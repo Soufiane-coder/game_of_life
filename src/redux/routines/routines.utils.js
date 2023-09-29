@@ -7,6 +7,14 @@ export const checkRoutine = (routines, routineId) => {
     return routine;
   });
 };
+export const changeArchivedOption = (routines, routineId, archivedOption) => {
+  return routines.map((routine) => {
+    if (routine.routineId === routineId) {
+      routine.isArchived = archivedOption;
+    }
+    return routine;
+  });
+}
 
 export const removeRoutine = (routines, routineId) => {
   const index = routines.indexOf(

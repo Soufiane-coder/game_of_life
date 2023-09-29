@@ -41,9 +41,9 @@ $width-routine-card: 40rem;
     }
     .medium{
         top: calc(-2.2rem * var(--scale));
-        left: calc(1.8rem * var(--scale));
-        transform: rotate(45deg);
-        clip-path: polygon(0 20%, 100% 0%, 100% 100%, 0 80%);
+        right: calc(1.8rem * var(--scale));
+        transform: rotate(-45deg);
+        clip-path: polygon(0 0, 100% 20%, 100% 80%, 0 100%);
         position: absolute;
         width: calc(2rem * var(--scale));
         height: calc(10rem * var(--scale));

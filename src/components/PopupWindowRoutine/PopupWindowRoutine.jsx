@@ -37,6 +37,10 @@ const PopupWindowRoutine = ({ user, addRoutine, routines, hidePopup }) => {
             emoji: "",
             startRoutine: '12:00',
             endRoutine: '12:00',
+            isArchived: false,
+            skip: 0,
+            combo: 0,
+            isSubmitted: false,
         });
     const [bgEmojiColorBtn, setbgEmojiColorBtn] = useState("#FAFAFA");
 
@@ -73,9 +77,6 @@ const PopupWindowRoutine = ({ user, addRoutine, routines, hidePopup }) => {
                 level: Number(addRoutineForm.level),
                 emoji: emoji,
                 bgEmojiColor: bgEmojiColorBtn,
-                skip: 0,
-                combo: 0,
-                isSubmitted: false,
                 lastVisit: new Timestamp(0, 0),
             }
             const routineId = await addRoutineToFirebase(user.uid, newRoutineObject);

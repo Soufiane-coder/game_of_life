@@ -19,7 +19,6 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { setNotificationPrompState } from "../../redux/notification-promp/notification-promp.action";
 import { ReactComponent as GoalIcon } from '../../assets/icons/goal.svg';
 import { useHistory } from "react-router-dom";
-import { Fade } from 'react-reveal'
 import { displayCheckPopupState, displayMessagePopupState } from "../../redux/popup/popup.actions";
 import { ReactComponent as Cracks } from '../../assets/cracks.svg';
 
@@ -90,9 +89,8 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotifi
 		const { id } = event.target.closest('.routine');
 		history.push(`/road-map/${id}`)
 	}
-
 	return (
-		<Fade bottom>
+		
 			<div className='routine' id={routine.routineId}>
 				{
 					routine.priority === 'important' && <div className="important"></div>
@@ -133,17 +131,20 @@ const Routine = ({ user, routine, removeRoutine, skipRoutine, buySkip, setNotifi
 					<button className="routine__other-options " onClick={() => setShowOtherOptions(!showOtherOptions)}>
 
 						<ul className="routine__other-options-list" style={!showOtherOptions ? { display: 'none' } : {}}>
+							<li className="routine__other-options-item"
+								onClick={() => {
+
+								}}>{routine.isArchived ? "Desarchive" : "Archive"}</li>
 							<li className="routine__other-options-item">Edit</li>
-							<li className="routine__other-options-item" onClick={(event) => {
+							<li className="routine__other-options-item"
+							onClick={(event) => {
 								setNotificationPrompState({ display: true, callback: () => handleRemove(event) })
 							}}>Delete</li>
 						</ul>
-
 						< MoreOptionsIcon />
 					</button>
 				</div>
 			</div>
-		</Fade>
 	)
 
 }

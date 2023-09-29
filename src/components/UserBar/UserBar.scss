@@ -32,10 +32,8 @@
     &__rate{
         display: flex;
         height: 100%;
-        padding-right: 1rem;
-        border-right: 1px solid $color-white-2;
         align-items: center;
-        margin-left: auto;
+        margin-right: auto;
         .et {
             line-height: 4rem;
             font-size: 4rem;
@@ -52,7 +50,9 @@
         font-weight: 600;
         font-size: 3rem;
         color: $color-black-1;
-        margin-left: 1rem
+        margin-left: 1rem;
+        border-right: 1px solid $color-white-2;
+        padding-right: 1rem;
     }
     &__coins-clipart{
         fill: $color-black-1;

@@ -1,5 +1,4 @@
 import './UserBar.scss';
-import DisplayModeSwitcher from '../../components/DisplayModeSwitcher/DisplayModeSwitcher';
 import Goku from '../../assets/badjets/goku_1-stand.gif';
 import { ReactComponent as CoinIcon } from '../../assets/icons/coin-icon.svg';
 const UserBar = ({ user }) => {
@@ -10,7 +9,7 @@ const UserBar = ({ user }) => {
                 <div className="user-bar__line-two" />
                 <div className="user-bar__line-three" />
             </div> */}
-            <DisplayModeSwitcher />
+            
 
             <div className="user-bar__rate">
                 <div className="et checked">★</div>

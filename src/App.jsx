@@ -87,7 +87,7 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
                                     :
                                     <Redirect to="/signin" />}
                             </Route>
-                            <Route exact={true} path="/settings" component={Setting} />
+                            <Route path="/settings" component={Setting} />
                             <Route path='/road-map/:routineId'>
                                 {user ?
                                     <RoadMap />

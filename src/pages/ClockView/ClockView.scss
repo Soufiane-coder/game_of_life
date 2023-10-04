@@ -11,7 +11,9 @@
   align-items: start;
   @include page-padding;
   transition: background-color 1s;
-
+  @media  (max-width: $table-view) {
+    padding: 0;
+  }
   .clock-b {
     display: flex;
     justify-content: center;

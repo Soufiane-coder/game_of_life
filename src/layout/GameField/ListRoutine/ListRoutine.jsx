@@ -8,7 +8,7 @@ import { selectFilteredOption } from "../../../redux/routines/routines.selector"
 import { Fade } from "react-reveal";
 
 
-const ListRoutine = ({ filterOption, selectedFilterOption }) => {
+const ListRoutine = ({ filterOption, selectedFilterOption , notificationSystem}) => {
     const filteredRoutines = filterOption(selectedFilterOption);
     const archivedRoutines = filteredRoutines.filter((routine) => routine.isArchived);
     const notArchivedRoutines = filteredRoutines.filter((routine) => !routine.isArchived);
@@ -22,7 +22,7 @@ const ListRoutine = ({ filterOption, selectedFilterOption }) => {
                     notArchivedRoutines.map(routine => {
                         return (
                             <Fade>
-                                <Routine className='routine' key={routine.routineId} routine={routine} />
+                                <Routine className='routine' key={routine.routineId} {...{routine, notificationSystem}} />
                             </Fade>
                         )
                     })
@@ -38,7 +38,7 @@ const ListRoutine = ({ filterOption, selectedFilterOption }) => {
                             <div className="list-routine">
                                 {showArchivedList ? archivedRoutines.map(routine => 
                                     <Fade>
-                                        <Routine className='routine' key={routine.routineId} routine={routine} />
+                                        <Routine className='routine' key={routine.routineId} {...{routine, notificationSystem}}  />
                                     </Fade>) : null}
                             </div>
                         </>

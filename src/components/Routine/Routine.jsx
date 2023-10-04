@@ -16,22 +16,21 @@ import { buySkip } from '../../redux/user/user.actions';
 import myServer from "../server/server";
 import { useState } from "react";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import { setNotificationPrompState } from "../../redux/notification-promp/notification-promp.action";
 import { ReactComponent as GoalIcon } from '../../assets/icons/goal.svg';
 import { useHistory } from "react-router-dom";
 import { displayCheckPopupState, displayMessagePopupState } from "../../redux/popup/popup.actions";
 import { ReactComponent as Cracks } from '../../assets/cracks.svg';
 import { setArchivedOptionInFirebase } from "../../../lib/firebase";
-
-
+import { deleteRoutineFromFirebase } from "../../../lib/firebase";
 
 const Routine = (
 	{ 
 		user, routine, removeRoutine, setArchivedOption,
-		skipRoutine, buySkip, setNotificationPrompState,
-		displayCheckPopupState, displayMessagePopupState
+		skipRoutine, buySkip,
+		displayCheckPopupState, displayMessagePopupState, notificationSystem
 	}) => {
 	const history = useHistory();
+
 
 	const [showOtherOptions, setShowOtherOptions] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
@@ -65,26 +64,37 @@ const Routine = (
 
 	}
 
-	const handleRemove = async (event) => {
-		// if (!window.confirm("Do realy want to remove this item")) return;
-		const { id } = event.target.closest('.routine');
-
+	const handleRemoveRoutine = async (routineId) => {
 		setDeleteLoading(true);
-		try {
-			await $.ajax({
-				url: `${myServer}/deleteRoutine.php`,
-				method: 'get',
-				data: {
-					id: id,
-				}
-			});
-			removeRoutine(id);
-		} catch (err) {
-			console.error(`Error cannot checked this routine`, err.message);
-			return;
-		} finally {
+		try{
+			await deleteRoutineFromFirebase(user.uid, routineId);
+			removeRoutine(routineId);
+		}
+		catch(err){
+			console.error(err)
+		}
+		finally{
 			setDeleteLoading(false)
 		}
+	}
+
+	const handleRemove = async (event) => {
+		event.preventDefault();
+		const { id } = event.target.closest('.routine');
+		const notification = notificationSystem.current;
+		notification.addNotification({
+			title: 'Do you really want to delete this item',
+			message: routine.title,
+			level: 'warning',
+			autoDismiss: 0,
+			children : (
+				<div style={{display: 'flex', justifyContent: 'space-between'}}>
+					<button style={{border: 'none'}}>cancel</button>
+					<button onClick={() => handleRemoveRoutine(id)} style={{backgroundColor: '#ebad1a',color: '#fff', border: 'none'}}>Delete this rouitne</button>
+				</div>
+			),
+			position: 'tc',
+		});
 	}
 
 	const handleMessage = (event) => {
@@ -99,6 +109,7 @@ const Routine = (
 	return (
 		
 			<div className='routine' id={routine.routineId}>
+				
 				{
 					routine.priority === 'important' && <div className="important"></div>
 				}
@@ -145,9 +156,7 @@ const Routine = (
 								}}>{routine.isArchived ? "Desarchive" : "Archive"}</li>
 							<li className="routine__other-options-item">Edit</li>
 							<li className="routine__other-options-item"
-							onClick={(event) => { 	
-								setNotificationPrompState({ display: true, callback: () => handleRemove(event) })
-							}}>Delete</li>
+							onClick={handleRemove}>Delete</li>
 						</ul>
 						< MoreOptionsIcon />
 					</button>
@@ -165,7 +174,6 @@ const mapDispatchToProps = (dispatch) => ({
 	removeRoutine: (routineId) => dispatch(removeRoutine(routineId)),
 	skipRoutine: (routineId) => dispatch(skipRoutine(routineId)),
 	buySkip: () => dispatch(buySkip()),
-	setNotificationPrompState: (stateShow) => dispatch(setNotificationPrompState(stateShow)),
 	displayCheckPopupState: (state) => dispatch(displayCheckPopupState(state)),
 	displayMessagePopupState: (state) => dispatch(displayMessagePopupState(state)),
 	setArchivedOption: (routineId, archivedId) => dispatch(setArchivedOption(routineId, archivedId)),

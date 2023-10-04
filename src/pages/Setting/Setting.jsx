@@ -6,6 +6,7 @@ import { Route , Link} from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import {selectCurrentUser } from '../../redux/user/user.selector';
+import LogoGOL from '../../assets/clipart/game_of_life_clipart.svg'
 
 const Setting = ({user, history, location: {pathname}}) => {
     useEffect(()=> {
@@ -16,7 +17,7 @@ const Setting = ({user, history, location: {pathname}}) => {
         return (
             <div className="settings">
                 <nav className="settings__nav-bar">
-                    <img src="" alt="" className="settings__logo-img" />
+                    <img src={LogoGOL} alt="" className="settings__logo-img" />
                     <Link to='/settings/profile'  
                         className={`settings__nav-bar-item ${pathname === '/settings/profile' ? "settings__nav-bar-item--selected" : ""}`} >Profile</Link>
                     <Link to='/settings/appearance'

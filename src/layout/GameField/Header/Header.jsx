@@ -6,7 +6,7 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../../redux/user/user.selector";
 import { selectCurrentRoutines } from '../../../redux/routines/routines.selector';
 import { useState } from "react";
-
+import PageHeader from '../../../components/PageHeader/page-header';
 import Filter from '../../../components/Filter/Filter';
 
 import { displayAddRoutinePopupState } from "../../../redux/popup/popup.actions";
@@ -53,13 +53,7 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption,
 
     return (
         <div className="game__field--header">
-
-            <div className="updating-informations">
-                <h1 className="notification-routine">Routines</h1>
-                <div className="prices-and-xps">
-                    <div className="xp">{user?.xp}XP</div>
-                </div>
-            </div>
+            <PageHeader title='Routines'/>
             <div className="filter-and-adding-button">
                 <div className="filter">
                     <input type="radio" name="filter" id="all" value="all"
@@ -87,7 +81,7 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption,
                 {/* <button onClick={() => displayAddRoutinePopupState(true)}>+ Add Routine</button> */}
                 <button class="adding-routine-button" onClick={() => displayAddRoutinePopupState(true)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none" class="svg-icon"><g stroke-width="1.5" stroke-linecap="round" stroke="#de8a2a"><circle r="7.5" cy="10" cx="10"></circle><path d="m9.99998 7.5v5"></path><path d="m7.5 9.99998h5"></path></g></svg>
-                    <span class="lable">Add</span>
+                    <span class="lable">Add routine</span>
                 </button>
 
                 {/* <button type="button" class="button" onClick={() => setPopup(true)}>

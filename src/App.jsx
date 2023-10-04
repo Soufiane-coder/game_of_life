@@ -12,7 +12,6 @@ import StatisticsPage from "./pages/Statistics/statistics.page";
 import PopupField from "./layout/popup-field/popup-field.layout";
 
 import NavigationBar from "./components/NavigationBar/NavigationBar";
-import NotificationPromp from "./components/NotficationPromp/NotificationPromp";
 import UserBar from "./components/UserBar/UserBar";
 
 import { connect } from "react-redux";
@@ -48,7 +47,6 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
             {
                 user ? <PopupField /> : ''
             }
-            <NotificationPromp />
             <NavigationBar />
 
             <Switch>

@@ -8,10 +8,7 @@
     font-weight: 600;
     color: $color-black-1;
     transition: color 1s;   
-
-
     .updating-informations {
-        padding: 2rem 0rem;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -59,6 +56,7 @@
         align-items: center;
         border-bottom: 1s solid black;
         .filter {
+          margin-left: 5rem;
             $width-of-item-filter: 20rem;
             position: relative;
             border-bottom: .5px solid rgba($color-black-2, .5);
@@ -150,7 +148,7 @@
             padding: 6px 12px;
             gap: 4px;
             height: 5rem;
-            width: 11rem;
+            width: fit-content;
             border: none;
             background: #1b1b1cd0;
             border-radius: 10rem;

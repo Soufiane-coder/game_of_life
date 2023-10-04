@@ -50,14 +50,6 @@
     transition: background-color 1s;
 }
 
-@mixin scale-routine{
-    :root{
-        --scale: 1;
-        @media (max-width: 562px) {
-          --scale: 1.2;
-      }
-      }
-}
 
 @mixin button-style($color-1, $background-color-1, $shadow-focus, $color-2, $color-3, $background-disabled){
 	&:focus{

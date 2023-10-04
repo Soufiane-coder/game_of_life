@@ -7,11 +7,33 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { setCurrentRoutines } from '../../redux/routines/routines.actions';
 import { selectCurrentRoutines } from '../../redux/routines/routines.selector';
+import NotificationSystem from 'react-notification-system';
+import { createRef } from "react";
+
 
 const GameField = ({ setCurrentRoutines, user, routines }) => {
     const [selectedFilterOption, setSelectedFilterOption] = useState("all");
     const [loadingRoutine, setLoadingRoutine] = useState(true);
+    const notificationSystem = createRef();
 
+    const style = {
+        NotificationItem: { // Override the notification item
+          DefaultStyle: { // Applied to every notification, regardless of the notification level
+            fontSize: '2rem',
+            width: '40rem',
+          },
+        },
+        Title: {
+            DefaultStyle: {
+                fontSize: '2rem',
+            }
+        },
+        MessageWrapper:{
+            DefaultStyle: {
+                margin: '5px',
+            }
+        }
+      }
     useEffect(() => {
         setLoadingRoutine(!routines)
     }, [routines])
@@ -23,9 +45,11 @@ const GameField = ({ setCurrentRoutines, user, routines }) => {
     }
     return (
         <div className='game__field'>
+            <NotificationSystem ref={notificationSystem} style={style} />
+            
             <main>
                 <Header {...{ selectedFilterOption, setSelectedFilterOption }} />
-                <ListRoutine {...{ selectedFilterOption }} />
+                <ListRoutine {...{ selectedFilterOption, notificationSystem }} />
             </main>
         </div >
     )

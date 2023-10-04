@@ -103,9 +103,9 @@ html{
   @media (max-width: $table-view) {
       font-size: 50%;
   }
-  @media (max-width: $mini-table-view) {
-      font-size: 45%;
-  }
+  // @media (max-width: $mini-table-view) {
+  //     font-size: 45%;
+  // }
 }
 
 #dark{

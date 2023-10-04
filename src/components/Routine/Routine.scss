@@ -1,21 +1,19 @@
 @import "../../style/mixins.scss";
 
 
-@include scale-routine;
-
 $width-routine-card: 40rem;
 
 
 .routine {
     margin-top: $emoji-height;
-    margin-bottom: calc(5rem * var(--scale));
-    width: calc($width-routine-card * var(--scale));
-    max-width: calc($width-routine-card * var(--scale));
-    height: calc(25rem * var(--scale));
-    border-radius: calc(2rem * var(--scale));
+    margin-bottom: 5rem;
+    width: $width-routine-card;
+    max-width: $width-routine-card;
+    height: 25rem;
+    border-radius: 2rem;
     box-shadow: 0px 11px 14px rgba(0, 0, 0, 0.262);
     position: relative;
-    padding: calc(1.5rem * var(--scale));
+    padding: 1.5rem;
     padding-top: 0;
     transition: all 1s;
     background-color: $color-white-2;
@@ -30,23 +28,23 @@ $width-routine-card: 40rem;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 
     .important {
-        top: calc(-2.2rem * var(--scale));
-        right: calc(1.8rem * var(--scale));
+        top: -2.2rem;
+        right: 1.8rem;
         transform: rotate(-45deg);
         clip-path: polygon(0 0, 100% 20%, 100% 80%, 0 100%);
         position: absolute;
-        width: calc(2rem * var(--scale));
-        height: calc(10rem * var(--scale));
+        width: 2rem;
+        height: 10rem;
         background-color: $color-quaternary-1;
     }
     .medium{
-        top: calc(-2.2rem * var(--scale));
-        right: calc(1.8rem * var(--scale));
+        top: -2.2rem;
+        right: 1.8rem;
         transform: rotate(-45deg);
         clip-path: polygon(0 0, 100% 20%, 100% 80%, 0 100%);
         position: absolute;
-        width: calc(2rem * var(--scale));
-        height: calc(10rem * var(--scale));
+        width: 2rem;
+        height: 10rem;
         background-color: $--orange;
     }
 
@@ -55,15 +53,15 @@ $width-routine-card: 40rem;
         justify-content: center;
         align-items: center;
         position: absolute;
-        width: calc(10rem * var(--scale));
-        height: calc(10rem * var(--scale));
-        font-size: calc(7rem * var(--scale));
+        width: 10rem;
+        height: 10rem;
+        font-size: 7rem;
         background-color: rgba(255, 252, 220, 0.702);
         overflow: hidden;
-        border-radius: calc(1.6rem * var(--scale));
-        top: calc(0px - $emoji-height * var(--scale));
+        border-radius: 1.6rem;
+        top: - $emoji-height;
         background-color: #1c7430;
-        left: calc($width-routine-card * var(--scale) / 2 - 10rem / 2);
+        left: calc($width-routine-card/ 2 - 10rem / 2);
         text-shadow: 1px 2px 2px $color-black-1;
     }
 
@@ -71,8 +69,8 @@ $width-routine-card: 40rem;
         display: block;
         align-items: start;
         justify-self: flex-start;
-        padding-top: calc($emoji-height * var(--scale));
-        font-size: calc(4rem * var(--scale));
+        padding-top: $emoji-height;
+        font-size: 4rem;
         height: fit-content;
         font-weight: 700;
         max-width: 100%;
@@ -82,8 +80,8 @@ $width-routine-card: 40rem;
     }
 
     .description {
-        padding-top: calc(1rem * var(--scale));
-        font-size: calc(2.5rem * var(--scale));
+        padding-top: 1rem;
+        font-size: 2.5rem;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -92,15 +90,15 @@ $width-routine-card: 40rem;
     .extra {
         display: flex;
         justify-content: space-between;
-        padding-top:calc( .25rem * var(--scale));
-        padding-bottom:calc( .25rem * var(--scale));
-        font-size: calc(2rem * var(--scale));
+        padding-top: .25rem;
+        padding-bottom: .25rem;
+        font-size: 2rem;
         border-bottom: 1px solid $color-black-2;
     }
 
 
     .buttons {
-        margin-top: calc(1rem * var(--scale));
+        margin-top: 1rem;
         display: flex;
         justify-content: space-between;
         padding-left: 5px;
@@ -117,16 +115,16 @@ $width-routine-card: 40rem;
             -ms-user-select: none;
             user-select: none;
             border: 1px solid transparent;
-            padding: calc(0.375rem * var(--scale)) calc(0.75rem * var(--scale));
-            font-size: calc(1rem * var(--scale));
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
             line-height: 1.5;
-            border-radius: calc(0.25rem * var(--scale));
+            border-radius: 0.25rem;
             transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             outline:none;
             cursor: pointer;
-            width: calc(5rem * var(--scale));
-            height: calc(5rem * var(--scale));
-            border-radius: calc(1rem * var(--scale));
+            width: 5rem;
+            height: 5rem;
+            border-radius: 1rem;
             svg {
                 fill: $color-white-1;
                 width: 100%;
@@ -153,7 +151,7 @@ $width-routine-card: 40rem;
     
         .btn-info:focus,
         .btn-info.focus {
-            box-shadow: 0 0 0 calc(0.2rem * var(--scale)) rgba(23, 162, 184, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
         }
     
         .btn-info.disabled,
@@ -174,7 +172,7 @@ $width-routine-card: 40rem;
         .btn-info:not(:disabled):not(.disabled):active:focus,
         .btn-info:not(:disabled):not(.disabled).active:focus,
         .show>.btn-info.dropdown-toggle:focus {
-            box-shadow: 0 0 0 calc(0.2rem * var(--scale)) rgba(23, 162, 184, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
         }
     
         .btn-success {
@@ -191,7 +189,7 @@ $width-routine-card: 40rem;
     
         .btn-success:focus,
         .btn-success.focus {
-            box-shadow: 0 0 0 calc(0.2rem * var(--scale)) rgba(40, 167, 69, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
         }
     
         .btn-success.disabled,
@@ -212,7 +210,7 @@ $width-routine-card: 40rem;
         .btn-success:not(:disabled):not(.disabled):active:focus,
         .btn-success:not(:disabled):not(.disabled).active:focus,
         .show>.btn-success.dropdown-toggle:focus {
-            box-shadow: 0 0 0 calc(0.2rem * var(--scale)) rgba(40, 167, 69, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
         }
     
         .btn-danger {
@@ -229,7 +227,7 @@ $width-routine-card: 40rem;
     
         .btn-danger:focus,
         .btn-danger.focus {
-            box-shadow: 0 0 0 calc(0.2rem * var(--scale)) rgba(220, 53, 69, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
         }
     
         .btn-danger.disabled,
@@ -250,7 +248,7 @@ $width-routine-card: 40rem;
         .btn-danger:not(:disabled):not(.disabled):active:focus,
         .btn-danger:not(:disabled):not(.disabled).active:focus,
         .show>.btn-danger.dropdown-toggle:focus {
-            box-shadow: 0 0 0 calc(0.2rem * var(--scale)) rgba(220, 53, 69, 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
         }
 
         .btn-secondary {
@@ -267,7 +265,7 @@ $width-routine-card: 40rem;
         
         .btn-secondary.focus,
         .btn-secondary:focus {
-            box-shadow: 0 0 0 calc(.2rem * var(--scale)) rgba(108, 117, 125, .5)
+            box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
         }
         
         .btn-secondary.disabled,
@@ -288,7 +286,7 @@ $width-routine-card: 40rem;
         .btn-secondary:not(:disabled):not(.disabled).active:focus,
         .btn-secondary:not(:disabled):not(.disabled):active:focus,
         .show>.btn-secondary.dropdown-toggle:focus {
-            box-shadow: 0 0 0 calc(.2rem * var(--scale)) rgba(108, 117, 125, .5)
+            box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
         }
 
         .btn-message {
@@ -305,7 +303,7 @@ $width-routine-card: 40rem;
         
         .btn-message.focus,
         .btn-message:focus {
-            box-shadow: 0 0 0 calc(.2rem * var(--scale)) rgba(#ec6f09, .5)
+            box-shadow: 0 0 0 .2rem rgba(#ec6f09, .5)
         }
         
         .btn-message.disabled,
@@ -326,7 +324,7 @@ $width-routine-card: 40rem;
         .btn-message:not(:disabled):not(.disabled).active:focus,
         .btn-message:not(:disabled):not(.disabled):active:focus,
         .show>.btn-message.dropdown-toggle:focus {
-            box-shadow: 0 0 0 calc(.2rem * var(--scale)) rgba(#de6706, .5)
+            box-shadow: 0 0 0 .2rem rgba(#de6706, .5)
         }
 
 
@@ -340,7 +338,7 @@ $width-routine-card: 40rem;
         background-color: transparent;
         border: none;
         padding: .1rem;
-        height: calc(5rem * var(--scale));
+        height: 5rem;
         fill: $color-black-1;
         cursor: pointer;
         transition: fill 1s;
@@ -363,7 +361,7 @@ $width-routine-card: 40rem;
 
     &__other-options-item{
         font-weight: 500;
-        font-size: calc(2.5rem * var(--scale));
+        font-size: 2.5rem;
         color: $color-black-1;
         border-bottom: .5px solid rgba($color-black-1, .1);
         align-items: start;

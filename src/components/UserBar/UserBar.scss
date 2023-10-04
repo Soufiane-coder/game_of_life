@@ -12,7 +12,7 @@
     color: $color-black-1;
     transition: all 1s;
     padding-right: $width-navigation + 2rem;
-    @media (max-width: $table-view) {
+    @media (max-width: $tablet-view) {
         padding-right: 1rem;
     }
     &__tree-lines{
@@ -78,7 +78,7 @@
         padding-left: 1rem;
         font-size: 2.5rem;
         max-width: 280px;
-        @media(max-width: $mini-table-view){
+        @media(max-width: $mini-tablet-view){
             max-width: 150px;
         }    
         overflow: hidden;

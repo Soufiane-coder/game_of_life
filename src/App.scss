@@ -97,10 +97,10 @@ p{
 
 html{
   font-size: 62.5%;
-  @media (max-width: 1280px) {
+  @media (max-width: $desktop-view) {
       font-size: 57%;
   }
-  @media (max-width: $table-view) {
+  @media (max-width: $tablet-view) {
       font-size: 50%;
   }
   // @media (max-width: $mini-table-view) {

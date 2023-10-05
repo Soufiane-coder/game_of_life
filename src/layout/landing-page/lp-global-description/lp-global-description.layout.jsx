@@ -35,10 +35,10 @@ const LPGlobalDescription = () => {
                 <LightSpeed left delay={100}>
                     <h1 className='lp-remember__title'>Remember</h1>
                 </LightSpeed>
-                <div className="lp-remeber__description">
-                    <TrainingUndraw />
+                <div className="lp-remember__wrapper">
+                    <TrainingUndraw className='lp-remember__undraw'/>
                     <Fade delay={200}>
-                        <p className='remember__section--description--motivation'>
+                        <p className='lp-remember__section-description'>
                             every completed <span className='color-yellow'>task</span> brings you one step closer to achieving your <span className='color-red'>goals</span>. Keep up the <span className='color-green'>good</span> work and stay <span className='color-blue'>motivated</span>!
                         </p>
                     </Fade>

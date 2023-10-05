@@ -4,7 +4,7 @@ import './SignIn.scss';
 import { setCurrentUser } from '../../../redux/user/user.actions';
 import { connect } from 'react-redux';
 import myServer from '../../../components/server/server';
-import { signUserInWithGoogle, auth, signUserInWithEmail, signUserOut, getUserData } from '../../../../lib/firebase';
+import { signUserInWithGoogle, auth, signUserInWithEmail, getUserData } from '../../../../lib/firebase';
 
 
 
@@ -19,7 +19,6 @@ const SignIn = ({ hidden, setCurrentUser }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { email, password } = formule;
-        signUserOut();
         try {
             const userImpl = await signUserInWithEmail(email, password);
             const userData = await getUserData(userImpl);
@@ -32,7 +31,6 @@ const SignIn = ({ hidden, setCurrentUser }) => {
 
     const handleSignInWithGoogle = async (event) => {
         event.preventDefault();
-        signUserOut();
         const userImp = await signUserInWithGoogle();
         const user = await getUserData(userImp);
         setCurrentUser(user);

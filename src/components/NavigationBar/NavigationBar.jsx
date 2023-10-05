@@ -11,10 +11,8 @@ import { withRouter } from 'react-router-dom';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { setCurrentUser } from '../../redux/user/user.actions';
-import { signUserOut } from '../../../lib/firebase';
 
-const NavigationBar = ({ history, user, setCurrentUser }) => {
+const NavigationBar = ({ history, user,}) => {
     const [isNavOn, setIsNavOn] = useState(false);
 
     const menuSignedIn = [{
@@ -42,11 +40,6 @@ const NavigationBar = ({ history, user, setCurrentUser }) => {
         icon: SettingPageIcon,
         url: '/settings',
         action: () => { }
-    }, {
-        label: 'log out',
-        icon: SignInPageIcon,
-        url: '/',
-        action: () => { signUserOut(); setCurrentUser("") }
     },
 
     ]
@@ -126,7 +119,7 @@ const mapStateToProps = createStructuredSelector({
     user: selectCurrentUser
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavigationBar));
+// const mapDispatchToProps = (dispatch) => ({
+//     setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+// });
+export default withRouter(connect(mapStateToProps,)(NavigationBar));

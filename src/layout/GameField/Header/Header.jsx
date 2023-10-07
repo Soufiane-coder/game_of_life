@@ -79,9 +79,9 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption,
                 </div>
                 <Filter />
                 {/* <button onClick={() => displayAddRoutinePopupState(true)}>+ Add Routine</button> */}
-                <button class="adding-routine-button" onClick={() => displayAddRoutinePopupState(true)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none" class="svg-icon"><g stroke-width="1.5" stroke-linecap="round" stroke="#de8a2a"><circle r="7.5" cy="10" cx="10"></circle><path d="m9.99998 7.5v5"></path><path d="m7.5 9.99998h5"></path></g></svg>
-                    <span class="lable">Add routine</span>
+                <button className="adding-routine-button" onClick={() => displayAddRoutinePopupState(true)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none" className="svg-icon"><g strokeWidth="1.5" strokeLinecap="round" stroke="#de8a2a"><circle r="7.5" cy="10" cx="10"></circle><path d="m9.99998 7.5v5"></path><path d="m7.5 9.99998h5"></path></g></svg>
+                    <span className="lable">Add routine</span>
                 </button>
 
                 {/* <button type="button" class="button" onClick={() => setPopup(true)}>

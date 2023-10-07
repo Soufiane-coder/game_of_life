@@ -10,9 +10,9 @@ export const setArchivedOption = (routineId, archivedOption) => ({
   payload: {routineId, archivedOption}
 })
 
-export const checkRoutine = (routineId) => ({
+export const checkRoutine = (routineId , message) => ({
   type: RoutinesActionTypes.CHECK_ROUTINE,
-  payload: routineId,
+  payload: {routineId,message},
 });
 
 export const removeRoutine = (routineId) => ({

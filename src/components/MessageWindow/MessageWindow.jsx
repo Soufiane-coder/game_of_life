@@ -25,8 +25,8 @@ const MessageWindow = ({ user, checkRoutine, routineId, hidePopup }) => {
     const handleCheckRoutine = async () => {
         setIsLoading(true);
         try {
-            await checkRoutineInFirebase(user.uid, routineId)
-            checkRoutine(routineId);
+            await checkRoutineInFirebase(user.uid, routineId, messageInput,)
+            checkRoutine(routineId, messageInput);
             hidePopup()
         } catch (err) {
             console.error(`Error cannot checked this routine`, err.message);
@@ -46,7 +46,7 @@ const MessageWindow = ({ user, checkRoutine, routineId, hidePopup }) => {
                     <p className="message-window__description">
                         Write a message for future you to motivate, noting the progress or planing the next step
                     </p>
-                    <textarea type="text" className='message-window__input-text' value={messageInput.message} onChange={handleChange} />
+                    <textarea type="text" className='message-window__input-text' value={messageInput} onChange={handleChange} />
                     <div className="message-window__buttons">
                         <button className="message-window__button message-window__button--filled" onClick={handleCheckRoutine}>
                             {
@@ -66,7 +66,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-    checkRoutine: routineId => dispatch(checkRoutine(routineId)),
+    checkRoutine: (routineId, message) => dispatch(checkRoutine(routineId, message)),
     hidePopup: () => dispatch(hidePopup())
 })
 

@@ -77,7 +77,7 @@ const PopupWindowRoutine = ({ user, addRoutine, routines, hidePopup }) => {
                 level: Number(addRoutineForm.level),
                 emoji: emoji,
                 bgEmojiColor: bgEmojiColorBtn,
-                lastVisit: new Timestamp(0, 0),
+                lastSubmit: new Timestamp(0, 0),
             }
             const routineId = await addRoutineToFirebase(user.uid, newRoutineObject);
 

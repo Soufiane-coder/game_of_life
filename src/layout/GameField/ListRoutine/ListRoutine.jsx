@@ -21,7 +21,7 @@ const ListRoutine = ({ filterOption, selectedFilterOption , notificationSystem})
                 {
                     notArchivedRoutines.map(routine => {
                         return (
-                            <Fade>
+                            <Fade key={routine.routineId}>
                                 <Routine className='routine' key={routine.routineId} {...{routine, notificationSystem}} />
                             </Fade>
                         )
@@ -37,8 +37,8 @@ const ListRoutine = ({ filterOption, selectedFilterOption , notificationSystem})
                                 onClick={() => setShowArchivedList(old=>!old)}>Archived</h2>
                             <div className="list-routine">
                                 {showArchivedList ? archivedRoutines.map(routine => 
-                                    <Fade>
-                                        <Routine className='routine' key={routine.routineId} {...{routine, notificationSystem}}  />
+                                    <Fade key={routine.routineId}>
+                                        <Routine className='routine'  {...{routine, notificationSystem}}  />
                                     </Fade>) : null}
                             </div>
                         </>

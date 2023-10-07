@@ -26,21 +26,26 @@ import { useEffect } from "react";
 import { getRoutines } from "../lib/firebase";
 import { setCurrentRoutines } from "./redux/routines/routines.actions";
 import { setCurrentUser } from "./redux/user/user.actions";
+import { initialProtocol } from "./utils";
 
 const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }) => {
     const [userImp, userLoading, userError] = useAuthState(auth);
 
     useEffect(() => {
-        if (user) {
-            getRoutines(user.uid).then(setCurrentRoutines);
-        }
+        (async () => {
+            if (user) {
+                let routines = await getRoutines(user.uid)
+                routines = await initialProtocol(user, routines);
+                setCurrentRoutines(routines);
+            }
+        })()
     }, [user]);
 
     useEffect(() => {
         if (userImp) {
             getUserData(userImp).then(setCurrentUser)
         }
-    }, [userImp])
+    }, [userImp,])
 
     return (
         <div id={displayMode}>

@@ -1,8 +1,9 @@
-export const checkRoutine = (routines, routineId) => {
+export const checkRoutine = (routines, {routineId, message}) => {
   return routines.map((routine) => {
     if (routine.routineId === routineId) {
       routine.isSubmitted = true;
       routine.combo = +routine.combo + 1;
+      routine.message = message;
     }
     return routine;
   });

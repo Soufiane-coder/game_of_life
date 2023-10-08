@@ -10,7 +10,7 @@ import popupReducer from "./popup/popup.reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "displayMode"],
+  whitelist: ["displayMode"],
 };
 
 const rootReducer = combineReducers({

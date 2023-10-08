@@ -11,6 +11,6 @@ export const addCoin = () => ({
 });
 
 export const buySkip = () => ({
-  type: UserActionTypes.BUY_SKIP,
+  type: UserActionTypes.ADD_SKIP,
   payload: null,
 });

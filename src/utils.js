@@ -1,4 +1,9 @@
-import { uncheckAllRoutinesBelongToUserInFirebase, updateTheDayOfLastVisitToTodayInFirebase } from "../lib/firebase"
+import { 
+    uncheckAllRoutinesBelongToUserInFirebase,
+    updateTheDayOfLastVisitToTodayInFirebase,
+    setComboToZeroInFirebase,
+    UpdateSkipAndLastSubmitInFirebase  } from "../lib/firebase"
+import { Timestamp } from "firebase/firestore";
 
 const formattingDate = (inputDateString) => {
     const date = new Date(inputDateString);
@@ -13,13 +18,51 @@ const formattingDate = (inputDateString) => {
 }
 
 export const initialProtocol = async (user, routines) => {
-    const {lastVisite: userSLastVisite} = user;
-    const lastVisite = formattingDate(userSLastVisite.toDate())
+    const {lastVisit: userSLastVisit} = user;
+    
+    // if users opject has been loaded from local storage then that function will
+    if(!userSLastVisit?.toDate) return;
+    // not be in the scope so we wait until we get the object from database
 
-    if(lastVisite !== formattingDate(new Date())){
+    const lastVisit = formattingDate(userSLastVisit.toDate())
+
+    if(lastVisit !== formattingDate(new Date())){
         await uncheckAllRoutinesBelongToUserInFirebase(user.uid, routines);
         await updateTheDayOfLastVisitToTodayInFirebase(user.uid)
         routines.map(routine => ({isSubmitted: false,...routine}))
     }
-    return routines
+
+    return await Promise.all(routines.map(async routine => {
+        const {routineId, combo, lastSubmit} = routine;
+        let {skip} = routine;
+        
+        if(combo === 0) return routine;
+
+        const currentDate = new Date();
+        const lastSubmitFormatted = new Date(lastSubmit.toDate()).toISOString().slice(0, 10);
+
+        if (lastSubmitFormatted === currentDate.toISOString().slice(0, 10)) return routine;
+
+        const yesterday = new Date();
+        yesterday.setDate(currentDate.getDate() - 1);
+        const yesterdayFormatted = yesterday.toISOString().slice(0, 10);
+
+        if (lastSubmitFormatted === yesterdayFormatted) return routine;
+
+        const dateDiff = Math.floor((currentDate - new Date(lastSubmitFormatted)) / (1000 * 60 * 60 * 24));
+
+
+        if(skip >= dateDiff- 1){ // it will not be -1 cause when diff is zero it means yesterday
+            skip -= dateDiff- 1; // -1 means untill yesterday
+
+            await UpdateSkipAndLastSubmitInFirebase(user.uid, routineId, skip, Timestamp.fromDate(yesterday))
+            routine.skip = skip;
+        }
+        else{
+            await setComboToZeroInFirebase(user.uid, routineId);
+            routine.combo = 0;
+        }
+        return routine;
+    }))
+
 }

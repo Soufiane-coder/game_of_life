@@ -22,7 +22,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, getUserData } from "../lib/firebase";
 import UserLoader from "./layout/user-loader/user-loader.layout";
 import { selectCurrentRoutines } from "./redux/routines/routines.selector";
-import { useEffect } from "react";
+import { useEffect , useState} from "react";
 import { getRoutines } from "../lib/firebase";
 import { setCurrentRoutines } from "./redux/routines/routines.actions";
 import { setCurrentUser } from "./redux/user/user.actions";
@@ -31,9 +31,16 @@ import { initialProtocol } from "./utils";
 const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }) => {
     const [userImp, userLoading, userError] = useAuthState(auth);
 
+    // Adding this state so we can fill the gap between userImp has been finished
+    //and getting the user's informations from firebase
+    const [userFromFirebaseLoading, setUserFromFirebaseLoading] = useState(true);
+
     useEffect(() => {
         (async () => {
-            if (user) {
+            if (user && !routines) {
+                // so we can make sure that our users firebase is the one that has been uploaded
+                if(!user.lastVisit?.toDate) return;
+                setUserFromFirebaseLoading(false);
                 let routines = await getRoutines(user.uid)
                 routines = await initialProtocol(user, routines);
                 setCurrentRoutines(routines);
@@ -42,9 +49,20 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
     }, [user]);
 
     useEffect(() => {
-        if (userImp) {
-            getUserData(userImp).then(setCurrentUser)
-        }
+        (async () => {
+            if (userImp) {
+                try{
+                    const user = await getUserData(userImp)
+                    setCurrentUser(user);
+                }catch(error){
+                    console.log('notification: error accured', error)
+                }
+            }
+            // this condition avoid the initialization of userImp state so when userLoading is true we wait until it is done
+            else if(!userLoading){ 
+                setUserFromFirebaseLoading(false);
+            }
+        })()
     }, [userImp,])
 
     return (
@@ -52,7 +70,11 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
             {
                 user ? <PopupField /> : ''
             }
-            <NavigationBar />
+
+            {
+                 userLoading || userFromFirebaseLoading ? null : <NavigationBar />
+            }
+            
 
             <Switch>
                 <Route exact={true} path="/signin">
@@ -66,7 +88,7 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
                     <LandingPage />
                 </Route>
                 {
-                    userLoading ?
+                    userLoading || userFromFirebaseLoading ?
                         <UserLoader /> :
                         <>
                             <UserBar user={user} />

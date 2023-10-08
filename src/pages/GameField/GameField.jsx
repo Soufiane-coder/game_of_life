@@ -9,12 +9,18 @@ import { setCurrentRoutines } from '../../redux/routines/routines.actions';
 import { selectCurrentRoutines } from '../../redux/routines/routines.selector';
 import NotificationSystem from 'react-notification-system';
 import { createRef } from "react";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 
-const GameField = ({ setCurrentRoutines, user, routines }) => {
+const GameField = ({ setCurrentRoutines, user, routines}) => {
     const [selectedFilterOption, setSelectedFilterOption] = useState("all");
     const [loadingRoutine, setLoadingRoutine] = useState(true);
     const notificationSystem = createRef();
+    const history = useHistory();
+    if(!user){
+        console.error("user is not logged in")
+        history.push('/signin')
+    }
 
     const style = {
         NotificationItem: { // Override the notification item

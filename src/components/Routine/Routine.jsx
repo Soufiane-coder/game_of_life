@@ -20,8 +20,7 @@ import { ReactComponent as GoalIcon } from '../../assets/icons/goal.svg';
 import { useHistory } from "react-router-dom";
 import { displayCheckPopupState, displayMessagePopupState } from "../../redux/popup/popup.actions";
 import { ReactComponent as Cracks } from '../../assets/cracks.svg';
-import { setArchivedOptionInFirebase } from "../../../lib/firebase";
-import { deleteRoutineFromFirebase } from "../../../lib/firebase";
+import { setArchivedOptionInFirebase, deleteRoutineFromFirebase , addSkipDayToFirebase ,buySkipFromFirebase} from "../../../lib/firebase";
 
 const Routine = (
 	{ 
@@ -43,25 +42,29 @@ const Routine = (
 
 	const handleSkip = async (event) => {
 		setSkipLoading(true);
-		const id = event.target.closest('.routine').id;
-		try {
-			await $.ajax({
-				url: `${myServer}/skipTaskDay.php`,
-				method: "get",
-				data: {
-					id: id,
-					userId: user.userId
-				}
-			});
-			skipRoutine(id);
-			buySkip();
-		} catch (err) {
-			console.error(`Error cannot send skip sign to the data base`, err.message);
-			return;
-		} finally {
+		const {id: routineId} = event.target.closest('.routine');
+		try{
+			if(user.coins >= 10) {
+				await buySkipFromFirebase(user.uid);
+				buySkip();
+	
+				await addSkipDayToFirebase (user.uid, routineId);
+				skipRoutine(routineId);	
+			}
+		}
+		catch(error){
+			setSkipLoading(false);
+			console.error(error);
+            notificationSystem.current.addNotification({
+                title: 'Error',
+                message: 'Error while skipping routine',
+                level: 'error',
+                position: 'tl',
+                autoDismiss: 5
+            });
+        }finally{
 			setSkipLoading(false);
 		}
-
 	}
 
 	const handleRemoveRoutine = async (routineId) => {
@@ -72,6 +75,13 @@ const Routine = (
 		}
 		catch(err){
 			console.error(err)
+			notificationSystem.current.addNotification({
+                title: 'Error',
+                message: 'Error while removing routine',
+                level: 'error',
+                position: 'tl',
+                autoDismiss: 5
+            });
 		}
 		finally{
 			setDeleteLoading(false)

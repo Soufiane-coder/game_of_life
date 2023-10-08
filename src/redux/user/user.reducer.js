@@ -14,13 +14,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.ADD_COIN:
       return {
         ...state,
-        currentUser: addCoinToUser(state.currentUser),
+        currentUser: addCoinToUser(state.user),
       };
-    case UserActionTypes.BUY_SKIP:
-      state.currentUser.coin = +state.currentUser.coin - 10;
+    case UserActionTypes.ADD_SKIP:
+      state.currentUser.coins = +state.currentUser.coins - 10;
       return {
         ...state,
-        currentUser: { ...state.currentUser },
+        currentUser: {...state.currentUser},
       };
     default:
       return state;

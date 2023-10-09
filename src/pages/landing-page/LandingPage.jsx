@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './LandingPage.scss'
 import LPHeader from '../../layout/landing-page/lp-header/lp-header.layout'
 import Quote from '../../layout/landing-page/Quote/Quote';
@@ -7,6 +7,7 @@ import Footer from '../../layout/landing-page/Footer/Footer';
 import ProgressionLineChart from '../../layout/landing-page/progression-line-chart/progression-line-chart.component';
 
 const LandingPage = () => {
+
     return (
         <div className="container">
             <LPHeader />

@@ -22,18 +22,21 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, getUserData } from "../lib/firebase";
 import UserLoader from "./layout/user-loader/user-loader.layout";
 import { selectCurrentRoutines } from "./redux/routines/routines.selector";
-import { useEffect , useState} from "react";
+import { createContext, createRef, useEffect , useState} from "react";
 import { getRoutines } from "../lib/firebase";
 import { setCurrentRoutines } from "./redux/routines/routines.actions";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { initialProtocol } from "./utils";
+import NotificationSystem from 'react-notification-system';
 
+export const MyContext = createContext();
 const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }) => {
     const [userImp, userLoading, userError] = useAuthState(auth);
 
     // Adding this state so we can fill the gap between userImp has been finished
     //and getting the user's informations from firebase
     const [userFromFirebaseLoading, setUserFromFirebaseLoading] = useState(true);
+    const notificationSystem = createRef()
 
     useEffect(() => {
         (async () => {
@@ -65,8 +68,28 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
         })()
     }, [userImp,])
 
+    
+    const style = {
+        NotificationItem: { // Override the notification item
+          DefaultStyle: { // Applied to every notification, regardless of the notification level
+            fontSize: '2rem',
+            width: '40rem',
+          },
+        },
+        Title: {
+            DefaultStyle: {
+                fontSize: '2rem',
+            }
+        },
+        MessageWrapper:{
+            DefaultStyle: {
+                margin: '5px',
+            }
+        }
+      }
+
     return (
-        <div id={displayMode}>
+        <MyContext.Provider id={displayMode} value={{notificationSystem}}>
             {
                 user ? <PopupField /> : ''
             }
@@ -75,7 +98,7 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
                  userLoading || userFromFirebaseLoading ? null : <NavigationBar />
             }
             
-
+            <NotificationSystem ref={notificationSystem} style={style} />
             <Switch>
                 <Route exact={true} path="/signin">
                     {!user ? (
@@ -125,7 +148,7 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
                     <div style={{ fontSize: "200px" }}>not found</div>
                 </Route>
             </Switch>
-        </div>
+        </MyContext.Provider>
     );
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import $ from 'jquery';
 import { ReactComponent as Done } from '../../assets/icons/done.svg';
 import { ReactComponent as Remove } from '../../assets/icons/remove.svg';
@@ -21,19 +21,20 @@ import { useHistory } from "react-router-dom";
 import { displayCheckPopupState, displayMessagePopupState } from "../../redux/popup/popup.actions";
 import { ReactComponent as Cracks } from '../../assets/cracks.svg';
 import { setArchivedOptionInFirebase, deleteRoutineFromFirebase , addSkipDayToFirebase ,buySkipFromFirebase} from "../../../lib/firebase";
+import { MyContext } from "../../App";
 
 const Routine = (
 	{ 
 		user, routine, removeRoutine, setArchivedOption,
 		skipRoutine, buySkip,
-		displayCheckPopupState, displayMessagePopupState, notificationSystem
+		displayCheckPopupState, displayMessagePopupState,
 	}) => {
 	const history = useHistory();
-
 
 	const [showOtherOptions, setShowOtherOptions] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
 	const [skipLoading, setSkipLoading] = useState(false);
+	const {notificationSystem} = useContext(MyContext);
 
 	const handleDone = async (event) => {
 		const id = event.target.closest('.routine').id;

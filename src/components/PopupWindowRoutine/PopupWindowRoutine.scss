@@ -23,7 +23,7 @@ $gap : .5rem;
 }
 
 .add-routine-window {
-    @include windows-properties;
+    // @include windows-properties;
     color: $color-black-1;
 
     &__popup {

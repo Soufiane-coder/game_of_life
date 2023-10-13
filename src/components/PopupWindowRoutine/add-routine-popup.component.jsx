@@ -5,7 +5,7 @@ import { ReactComponent as AddBoxIcon } from '../../assets/icons/add_box.svg';
 
 import { addRoutine } from "../../redux/routines/routines.actions";
 import { selectCurrentUser } from '../../redux/user/user.selector';
-import './PopupWindowRoutine.scss';
+import './add-routine-popup.style.scss';
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import Zoom from 'react-reveal/Zoom';
@@ -23,7 +23,7 @@ import { hidePopup } from "../../redux/popup/popup.actions";
 import { addRoutineToFirebase } from "../../../lib/firebase";
 import { Timestamp } from "firebase/firestore";
 
-const PopupWindowRoutine = ({ user, addRoutine, routines, hidePopup }) => {
+const AddRoutinePopup = ({ user, addRoutine, routines, hidePopup }) => {
     const [emoji, setEmoji] = useState("");
     const [showEmojiList, setShowEmojiList] = useState(false);
     const [showTimePiker, setShowTimePicker] = useState(false);
@@ -246,4 +246,4 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PopupWindowRoutine);
+export default connect(mapStateToProps, mapDispatchToProps)(AddRoutinePopup);

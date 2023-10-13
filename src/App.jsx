@@ -28,7 +28,7 @@ import { setCurrentRoutines } from "./redux/routines/routines.actions";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { initialProtocol } from "./utils";
 import NotificationSystem from 'react-notification-system';
-import { AddRoutinePopup } from "./components/add-routine-popup/add-routine-popup.component";
+import  AddRoutinePopup from "./components/PopupWindowRoutine/add-routine-popup.component";
 
 export const MyContext = createContext();
 const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }) => {
@@ -91,7 +91,7 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
 
     return (
         <MyContext.Provider id={displayMode} value={{notificationSystem}}>
-            <AddRoutinePopup/>
+           
             {
                 user ? <PopupField /> : ''
             }

@@ -4,7 +4,6 @@
 $width-of-popup: 70rem;
 $height-of-popup: 36rem;
 .message-window{
-    @include windows-properties;
     &__popup{
         @include popup-properties;
     }

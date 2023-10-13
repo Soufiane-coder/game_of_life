@@ -91,7 +91,6 @@ const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }
 
     return (
         <MyContext.Provider id={displayMode} value={{notificationSystem}}>
-            <AddRoutinePopup/>
             {
                 user ? <PopupField /> : ''
             }

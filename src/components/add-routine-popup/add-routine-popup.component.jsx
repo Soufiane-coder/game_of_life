@@ -113,7 +113,6 @@ const AddRoutinePopup = ({
 					user.uid,
 					newRoutineObject
 				);
-
 				addRoutine({ ...newRoutineObject, routineId });
 			}
 		} catch (err) {
@@ -161,7 +160,7 @@ const AddRoutinePopup = ({
 		<div className="add-routine-window">
 			{showEmojiList && (
 				<Picker
-					className="emoji-list"
+					className="add-routine-window__emoji-list"
 					data={data}
 					onEmojiSelect={handleEmoji}
 				/>

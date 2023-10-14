@@ -25,6 +25,9 @@ $gap : .5rem;
 .add-routine-window {
     color: $color-black-1;
 
+    &__emoji-list{
+        background-color: red
+    }
     &__popup {
         @include popup-properties;
         max-height: 90vh;
@@ -291,8 +294,8 @@ $gap : .5rem;
     &__clock {
         z-index: 100;
         position: fixed !important;
-        top: 50vh;
-        right: 50vw;
-        transform: translate(50%, -50%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }

@@ -36,3 +36,12 @@ export const skipRoutine = (routines, routineId) => {
     return routine;
   });
 };
+
+export const editRoutine = (routines, editedRoutine) => {
+  return routines.map((routine) => {
+    if (routine.routineId === editedRoutine.routineId) {
+      routine = {...editedRoutine}
+    }
+    return routine;
+  });
+}

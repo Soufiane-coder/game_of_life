@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
-import $ from 'jquery';
+import { useState} from 'react';
 import './SignIn.scss';
 import { setCurrentUser } from '../../../redux/user/user.actions';
 import { connect } from 'react-redux';
-import myServer from '../../../components/server/server';
 import { signUserInWithGoogle, signUserInWithEmail, getUserData } from '../../../../lib/firebase';
 
 

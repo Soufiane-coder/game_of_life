@@ -1,5 +1,5 @@
 import { RoutinesActionTypes } from "./routines.types";
-import { checkRoutine, removeRoutine, skipRoutine , changeArchivedOption} from "./routines.utils";
+import { checkRoutine, removeRoutine, skipRoutine , changeArchivedOption, editRoutine} from "./routines.utils";
 
 
 const INITIAL_STATE = {
@@ -41,6 +41,12 @@ const routinesReducer = (state = INITIAL_STATE, action) => {
         ...state,
         routines: skipRoutine(state.routines, action.payload),
       };
+    }
+    case RoutinesActionTypes.EDIT_ROUTINE: {
+      return {
+        ...state,
+        routines: editRoutine(state.routines, action.payload)
+      }
     }
     default:
       return state;

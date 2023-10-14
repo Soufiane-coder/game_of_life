@@ -1,13 +1,16 @@
 
+import './popup-field.style.scss';
+
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import './popup-field.style.scss';
 import { selectCurrentPopup } from '../../redux/popup/popup.selector';
-import { popupActionTypes } from '../../redux/popup/popup.types';
-import MessageWindow from '../../components/MessageWindow/MessageWindow';
-import PopupWindowRoutine from '../../components/PopupWindowRoutine/PopupWindowRoutine';
-import MessageContent from '../../components/MessageContent/MessageContent';
 import { hidePopup } from '../../redux/popup/popup.actions';
+import { popupActionTypes } from '../../redux/popup/popup.types';
+
+import CheckPopup from '../../components/check-popup/check-popup.component';
+import AddRoutinePopup from '../../components/add-routine-popup/add-routine-popup.component';
+import MessagePopup from '../../components/message-popup/message-popup.component';
+
 import ReactModal from 'react-modal';
 import { Zoom } from 'react-reveal';
 
@@ -24,15 +27,15 @@ const PopupField = ({ popup , hidePopup}) => {
         switch (popup.type) {
             case popupActionTypes.MESSAGE_POPUP:
                 return (
-                    <MessageContent routineId={popup.payload} />
+                    <MessagePopup routineId={popup.payload} />
                 )
             case popupActionTypes.ADD_ROUTINE_POPUP:
                 return (
-                    <PopupWindowRoutine />
+                    <AddRoutinePopup editThisRoutine={popup.payload}/>
                 )
             case popupActionTypes.CHECK_POPUP:
                 return (
-                    <MessageWindow routineId={popup.payload} />
+                    <CheckPopup routineId={popup.payload} />
                 )
             case popupActionTypes.HIDE_POPUP:
                 return null;

@@ -78,16 +78,11 @@ const Header = ({ user, routines, selectedFilterOption, setSelectedFilterOption,
                     <span className="selector"></span>
                 </div>
                 <Filter />
-                {/* <button onClick={() => displayAddRoutinePopupState(true)}>+ Add Routine</button> */}
-                <button className="adding-routine-button" onClick={() => displayAddRoutinePopupState(true)}>
+                {/* we put false so editThisRoutine will be false */}
+                <button className="adding-routine-button" onClick={() => displayAddRoutinePopupState(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20" fill="none" className="svg-icon"><g strokeWidth="1.5" strokeLinecap="round" stroke="#de8a2a"><circle r="7.5" cy="10" cx="10"></circle><path d="m9.99998 7.5v5"></path><path d="m7.5 9.99998h5"></path></g></svg>
                     <span className="lable">Add routine</span>
                 </button>
-
-                {/* <button type="button" class="button" onClick={() => setPopup(true)}>
-                    <span class="button__text">Add Item</span>
-                    <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
-                </button> */}
             </div>
         </div >
     )

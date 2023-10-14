@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { selectMessage } from '../../redux/routines/routines.selector';
 import { hidePopup } from '../../redux/popup/popup.actions';
 
-const MessageContent = ({ routineId, message, hidePopup }) => {
+const MessagePopup = ({ routineId, message, hidePopup }) => {
     return (
         <div className='message-content__window'>
             <Zoom duration={500}>
@@ -38,4 +38,4 @@ const mapDispatchToProps = (dispatch) => ({
     hidePopup: () => dispatch(hidePopup())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageContent);
+export default connect(mapStateToProps, mapDispatchToProps)(MessagePopup);

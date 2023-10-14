@@ -28,7 +28,6 @@ import { setCurrentRoutines } from "./redux/routines/routines.actions";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { initialProtocol } from "./utils";
 import NotificationSystem from 'react-notification-system';
-import { AddRoutinePopup } from "./components/add-routine-popup/add-routine-popup.component";
 
 export const MyContext = createContext();
 const App = ({ user, displayMode, routines, setCurrentRoutines, setCurrentUser }) => {
@@ -159,6 +158,7 @@ const mapStateToProps = createStructuredSelector({
     displayMode: selectCurrentDisplayMode,
     routines: selectCurrentRoutines
 });
+
 const mapDispatchToProps = dispatch => ({
     setCurrentRoutines: routines => dispatch(setCurrentRoutines(routines)),
     setCurrentUser: user => dispatch(setCurrentUser(user)),

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import $ from 'jquery';
 import { ReactComponent as Done } from '../../assets/icons/done.svg';
 import { ReactComponent as Remove } from '../../assets/icons/remove.svg';
 import { ReactComponent as Skip } from '../../assets/icons/skip.svg';
@@ -13,14 +12,17 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { removeRoutine, skipRoutine, setArchivedOption } from "../../redux/routines/routines.actions";
 import { buySkip } from '../../redux/user/user.actions';
-import myServer from "../server/server";
 import { useState } from "react";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { ReactComponent as GoalIcon } from '../../assets/icons/goal.svg';
 import { useHistory } from "react-router-dom";
-import { displayCheckPopupState, displayMessagePopupState } from "../../redux/popup/popup.actions";
+import { displayCheckPopupState, displayMessagePopupState, displayAddRoutinePopupState } from "../../redux/popup/popup.actions";
 import { ReactComponent as Cracks } from '../../assets/cracks.svg';
-import { setArchivedOptionInFirebase, deleteRoutineFromFirebase , addSkipDayToFirebase ,buySkipFromFirebase} from "../../../lib/firebase";
+import { 
+	setArchivedOptionInFirebase,
+	deleteRoutineFromFirebase ,
+	addSkipDayToFirebase ,
+	buySkipFromFirebase} from "../../../lib/firebase";
 import { MyContext } from "../../App";
 
 const Routine = (
@@ -28,6 +30,7 @@ const Routine = (
 		user, routine, removeRoutine, setArchivedOption,
 		skipRoutine, buySkip,
 		displayCheckPopupState, displayMessagePopupState,
+		displayAddRoutinePopupState
 	}) => {
 	const history = useHistory();
 
@@ -117,6 +120,10 @@ const Routine = (
 		const { id } = event.target.closest('.routine');
 		history.push(`/road-map/${id}`)
 	}
+	const handleEditRoutine = (event) => {
+		event.preventDefault();
+		displayAddRoutinePopupState(routine.routineId)
+	}
 	return (
 		
 			<div className='routine' id={routine.routineId}>
@@ -128,7 +135,7 @@ const Routine = (
 					routine.priority === 'medium' && <div className="medium"></div>
 				}
 				{/* {
-					<Cracks style={{ width: '100%', position: 'absolute', zIndex: '0', height: '100%', top: '0', left: '0' }} />
+					<Cracks style={{ width: '100%', position: 'absolute', zIndex: '-1', height: '100%', top: '0', left: '0' }} />
 				} */}
 
 				<div className="emoji" style={{ backgroundColor: routine.bgEmojiColor }}>{deleteLoading ? <LoadingSpinner /> : routine.emoji}</div>
@@ -165,7 +172,9 @@ const Routine = (
 									await setArchivedOptionInFirebase(user.uid, routine.routineId, !routine.isArchived)
 									setArchivedOption(routine.routineId, !routine.isArchived)
 								}}>{routine.isArchived ? "Desarchive" : "Archive"}</li>
-							<li className="routine__other-options-item">Edit</li>
+							<li className="routine__other-options-item"
+								onClick={handleEditRoutine}
+								>Edit</li>
 							<li className="routine__other-options-item"
 							onClick={handleRemove}>Delete</li>
 						</ul>
@@ -188,6 +197,7 @@ const mapDispatchToProps = (dispatch) => ({
 	displayCheckPopupState: (state) => dispatch(displayCheckPopupState(state)),
 	displayMessagePopupState: (state) => dispatch(displayMessagePopupState(state)),
 	setArchivedOption: (routineId, archivedId) => dispatch(setArchivedOption(routineId, archivedId)),
+	displayAddRoutinePopupState: (state) => dispatch(displayAddRoutinePopupState(state)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routine);

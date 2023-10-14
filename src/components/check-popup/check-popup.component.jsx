@@ -1,8 +1,7 @@
-import './MessageWindow.scss';
+import './check-popup.style.scss';
 import { ReactComponent as MessageIcon } from '../../assets/icons/message.svg';
 import { useState } from 'react';
-import myServer from "../server/server";
-import $ from 'jquery';
+
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
@@ -12,7 +11,7 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { hidePopup } from '../../redux/popup/popup.actions';
 import { checkRoutineInFirebase } from '../../../lib/firebase';
 
-const MessageWindow = ({ user, checkRoutine, routineId, hidePopup }) => {
+const CheckPopup = ({ user, checkRoutine, routineId, hidePopup }) => {
     const [messageInput, setMessageInput] = useState('');
 
     const [isLoading, setIsLoading] = useState(false);
@@ -70,4 +69,4 @@ const mapDispatchToProps = dispatch => ({
     hidePopup: () => dispatch(hidePopup())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageWindow);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckPopup);
